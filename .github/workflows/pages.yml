@@ -1,0 +1,86 @@
+name: Publish Palimpsest
+
+# The site is a static evidence bundle: web/index.html reads web/data.json and
+# needs no server. Regenerating data.json requires the local archive database,
+# so it is produced on the collection machine and committed; this workflow only
+# publishes what was committed.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish rather than cancelling it midway.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # No third-party dependencies, so this is the whole test suite.
+      - name: Run test suite
+        run: |
+          python tests/test_core.py
+          python tests/test_store.py
+
+      # Refuse to publish a bundle that contradicts itself.
+      - name: Check the published bundle is internally consistent
+        run: |
+          python - <<'PY'
+          import json, sys
+          sys.path.insert(0, ".")
+          from palimpsest.core import leaf_hash, merkle_root, verify_proof
+
+          bundle = json.load(open("web/data.json", encoding="utf-8"))
+          problems = []
+
+          for p in bundle.get("integrity", {}).get("worked_proofs", []):
+              if p["merkle_root"] != p["recomputed_root"]:
+                  problems.append(f"root mismatch in {p['source_key']}")
+              leaf = leaf_hash(p["record_uid"], p["content_hash"])
+              if not verify_proof(leaf, p["proof"], p["merkle_root"]):
+                  problems.append(f"inclusion proof fails for {p['record_uid']}")
+
+          census = bundle.get("census") or {}
+          ch = census.get("characterised") or 0
+          if ch and census.get("share_uninterpretable") is None:
+              problems.append("census characterised but reports no share")
+
+          if problems:
+              print("BUNDLE FAILED VERIFICATION:")
+              for x in problems:
+                  print("  -", x)
+              raise SystemExit(1)
+          print(f"bundle ok: {len(bundle.get('findings', []))} findings, "
+                f"{ch} datasets characterised")
+          PY
+
+  deploy:
+    needs: verify
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+      - id: deployment
+        uses: actions/deploy-pages@v4
