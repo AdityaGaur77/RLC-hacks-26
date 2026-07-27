@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Runtime state, not evidence.
+archive/collector.log
+archive/watchdog.log
+archive/collector.pid
+
+# The archive database is published as a release asset rather than tracked in
+# git history: it is large, binary, and rewritten continuously. The exported
+# evidence bundle (web/data.json) is the reviewable artefact and IS tracked.
+archive/*.db
+archive/*.db-wal
+archive/*.db-shm
+
+# Editor/tooling config with machine-specific absolute paths.
+.claude/

@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Palimpsest — a tamper-evident archive of the public record</title>
+<meta name="description" content="Government publishes as though the web were permanent. It is not. Palimpsest watches, hashes, and remembers.">
+<style>
+/* ------------------------------------------------------------------
+   A palimpsest is vellum scraped clean and written over, where the
+   erased text bleeds back through. The interface is built on that:
+   a record's prior value sits *underneath* its current one, offset
+   and faintly rotated, as though imperfectly removed.
+   ------------------------------------------------------------------ */
+:root {
+  --vellum:      #f2ede1;
+  --vellum-deep: #e8e0cd;
+  --ink:         #1c1814;
+  --ink-soft:    #4a4239;
+  --ink-faint:   #7d7365;
+  --undertext:   #a33a1e;
+  --rule:        #d3c9b2;
+  --seal:        #2f5d50;
+  --alarm:       #8c2b12;
+  --paper:       #fbf8f0;
+  --shadow:      rgba(40,30,15,.10);
+  --serif: "Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --mono: ui-monospace,"SF Mono",SFMono-Regular,"Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --vellum:      #14120f;
+    --vellum-deep: #1d1a15;
+    --ink:         #ece4d4;
+    --ink-soft:    #b8ae9c;
+    --ink-faint:   #857b6b;
+    --undertext:   #d98b5f;
+    --rule:        #332e26;
+    --seal:        #7fb3a1;
+    --alarm:       #e8825f;
+    --paper:       #1a1713;
+    --shadow:      rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"] {
+  --vellum:#14120f; --vellum-deep:#1d1a15; --ink:#ece4d4; --ink-soft:#b8ae9c;
+  --ink-faint:#857b6b; --undertext:#d98b5f; --rule:#332e26; --seal:#7fb3a1;
+  --alarm:#e8825f; --paper:#1a1713; --shadow:rgba(0,0,0,.4);
+}
+:root[data-theme="light"] {
+  --vellum:#f2ede1; --vellum-deep:#e8e0cd; --ink:#1c1814; --ink-soft:#4a4239;
+  --ink-faint:#7d7365; --undertext:#a33a1e; --rule:#d3c9b2; --seal:#2f5d50;
+  --alarm:#8c2b12; --paper:#fbf8f0; --shadow:rgba(40,30,15,.10);
+}
+
+* { box-sizing: border-box; }
+/* Hashes, record identifiers and permit numbers are long unbroken tokens. Let
+   them wrap anywhere rather than force the page sideways; wide content that
+   genuinely cannot wrap (tables, proofs) gets its own scroll container. */
+body, .body-copy, .detail, .provenance, .finding-title { overflow-wrap: anywhere; }
+img, svg, table { max-width: 100%; }
+body {
+  margin: 0;
+  background: var(--vellum);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+/* The faint tooth of a prepared skin. */
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  opacity: .5;
+  background:
+    radial-gradient(circle at 18% 12%, var(--vellum-deep) 0, transparent 42%),
+    radial-gradient(circle at 82% 74%, var(--vellum-deep) 0, transparent 46%);
+}
+.wrap { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+/* ---------------- masthead ---------------- */
+header.masthead { padding: 84px 0 40px; border-bottom: 1px solid var(--rule); }
+.wordmark {
+  font-size: clamp(44px, 9vw, 88px);
+  line-height: .92; letter-spacing: -.028em; font-weight: 600; margin: 0;
+  position: relative; display: inline-block;
+}
+/* The wordmark is itself overwritten text. */
+.wordmark .under {
+  position: absolute; left: 0; top: 0; color: var(--undertext);
+  opacity: .3; transform: translate(-5px, -7px) rotate(-.9deg);
+  filter: blur(.4px); pointer-events: none; user-select: none;
+}
+.thesis {
+  font-size: clamp(19px, 2.5vw, 25px); line-height: 1.45; max-width: 40ch;
+  margin: 30px 0 0; color: var(--ink-soft);
+}
+.thesis b { color: var(--ink); font-weight: 600; }
+.subhead { margin-top: 22px; max-width: 62ch; color: var(--ink-faint); font-size: 16px; }
+
+/* ---------------- standing ---------------- */
+.standing {
+  display: grid; gap: 1px; background: var(--rule);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  border: 1px solid var(--rule); margin: 44px 0;
+}
+.stat { background: var(--paper); padding: 20px 18px; }
+.stat .n {
+  font-family: var(--mono); font-size: 27px; font-weight: 500;
+  letter-spacing: -.02em; display: block; line-height: 1.15;
+}
+.stat .k {
+  font-size: 12px; text-transform: uppercase; letter-spacing: .09em;
+  color: var(--ink-faint); margin-top: 7px; display: block;
+}
+.stat.sealed .n { color: var(--seal); }
+
+/* ---------------- sections ---------------- */
+section { padding: 54px 0; border-bottom: 1px solid var(--rule); }
+h2 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: .17em;
+  color: var(--ink-faint); font-weight: 600; margin: 0 0 8px;
+}
+.lede { font-size: clamp(21px, 3vw, 29px); line-height: 1.3; margin: 0 0 20px; max-width: 26ch; letter-spacing: -.015em; }
+.body-copy { max-width: 66ch; color: var(--ink-soft); }
+.body-copy p { margin: 0 0 15px; }
+.body-copy b { color: var(--ink); font-weight: 600; }
+
+/* ---------------- census ---------------- */
+.census-bar { display: flex; height: 46px; border: 1px solid var(--rule); margin: 26px 0 12px; overflow: hidden; }
+.census-seg { display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; color: var(--paper); min-width: 0; }
+.seg-republish   { background: var(--alarm); }
+.seg-bulk_touch  { background: var(--undertext); }
+.seg-incremental { background: var(--seal); }
+.seg-static      { background: var(--ink-faint); }
+.seg-unknown     { background: var(--rule); color: var(--ink-faint); }
+.census-key { display: flex; flex-wrap: wrap; gap: 18px; font-size: 13px; color: var(--ink-faint); margin-bottom: 26px; }
+.census-key span::before { content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 7px; vertical-align: baseline; }
+.k-republish::before { background: var(--alarm); }
+.k-bulk_touch::before { background: var(--undertext); }
+.k-incremental::before { background: var(--seal); }
+.k-static::before { background: var(--ink-faint); }
+.k-unknown::before { background: var(--rule); }
+
+/* ---------------- the ledger ---------------- */
+.finding {
+  border: 1px solid var(--rule); background: var(--paper);
+  margin-bottom: 18px; box-shadow: 0 1px 2px var(--shadow);
+}
+.finding-head {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline;
+  padding: 16px 20px; border-bottom: 1px solid var(--rule);
+}
+.kind {
+  font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+  letter-spacing: .08em; padding: 3px 8px; border: 1px solid currentColor;
+}
+.kind-deletion, .kind-frozen_past_shift { color: var(--alarm); }
+.kind-semantic_revision { color: var(--undertext); }
+.kind-coordinated_revision, .kind-tally_shift { color: var(--ink-faint); }
+.kind-schema_drift { color: var(--alarm); }
+.kind-retroactive_append { color: var(--seal); }
+.finding-title { font-weight: 600; flex: 1 1 340px; min-width: 0; }
+.finding-city { color: var(--ink-faint); font-size: 14px; }
+.sig { font-family: var(--mono); font-size: 13px; color: var(--ink-faint); }
+.finding-body { padding: 18px 20px; }
+.detail { color: var(--ink-soft); margin: 0 0 14px; font-size: 15.5px; }
+
+/* ---- the hero: overwritten values ---- */
+.deltas { border-top: 1px solid var(--rule); margin-top: 14px; padding-top: 14px; }
+.delta { margin-bottom: 20px; }
+.delta:last-child { margin-bottom: 0; }
+.delta-field {
+  font-family: var(--mono); font-size: 11.5px; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--ink-faint); margin-bottom: 9px;
+}
+.overwrite { position: relative; padding: 4px 0 6px; line-height: 1.5; }
+.overwrite .under {
+  position: absolute; left: 0; right: 0; top: 4px;
+  color: var(--undertext); opacity: .52;
+  transform: translate(-3px, -4px) rotate(-.5deg);
+  filter: blur(.35px); pointer-events: none; user-select: none;
+  white-space: pre-wrap; word-break: break-word;
+}
+.overwrite .over {
+  position: relative; color: var(--ink); font-weight: 500;
+  white-space: pre-wrap; word-break: break-word;
+}
+.reading {
+  display: flex; gap: 10px; font-size: 12.5px; color: var(--ink-faint);
+  font-family: var(--mono); margin-top: 8px;
+}
+.reading i { font-style: normal; color: var(--undertext); }
+
+.provenance {
+  display: flex; flex-wrap: wrap; gap: 14px 22px; margin-top: 16px;
+  padding-top: 13px; border-top: 1px solid var(--rule);
+  font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint);
+}
+.provenance a { color: var(--seal); }
+.hash { word-break: break-all; }
+
+/* ---------------- verification ---------------- */
+.proof { border: 1px solid var(--rule); background: var(--paper); padding: 20px; margin-top: 18px; }
+.proof pre {
+  font-family: var(--mono); font-size: 12px; overflow-x: auto; background: var(--vellum-deep);
+  padding: 14px; margin: 12px 0 0; border: 1px solid var(--rule); line-height: 1.55;
+}
+.seal-line { display: flex; align-items: center; gap: 10px; color: var(--seal); font-family: var(--mono); font-size: 13px; }
+
+/* ---------------- sources ---------------- */
+.table-scroll { overflow-x: auto; border: 1px solid var(--rule); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; background: var(--paper); }
+th, td { text-align: left; padding: 9px 13px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+th { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-faint); font-weight: 600; position: sticky; top: 0; background: var(--vellum-deep); }
+td.wrap-cell { white-space: normal; min-width: 240px; }
+.pill { font-family: var(--mono); font-size: 11px; padding: 2px 7px; border: 1px solid var(--rule); }
+.pill.republish { color: var(--alarm); } .pill.bulk_touch { color: var(--undertext); }
+.pill.incremental { color: var(--seal); } .pill.static, .pill.unknown { color: var(--ink-faint); }
+
+.empty { border: 1px dashed var(--rule); padding: 30px; color: var(--ink-faint); text-align: center; }
+footer { padding: 44px 0 72px; color: var(--ink-faint); font-size: 14px; }
+footer a { color: var(--seal); }
+.controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
+button.filter {
+  font-family: var(--mono); font-size: 12px; padding: 6px 12px; cursor: pointer;
+  background: var(--paper); color: var(--ink-soft); border: 1px solid var(--rule);
+}
+button.filter[aria-pressed="true"] { background: var(--ink); color: var(--vellum); border-color: var(--ink); }
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  header.masthead { padding: 52px 0 30px; }
+  section { padding: 40px 0; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1 class="wordmark"><span class="under" aria-hidden="true">Palimpsest</span>Palimpsest</h1>
+    <p class="thesis">Government publishes as though the web were permanent. <b>It is not.</b></p>
+    <p class="subhead">
+      Datasets are republished with the past rewritten. Records vanish. Values are
+      corrected without a diff, a version history, or a notice. There is no changelog
+      for the public record — which is why retroactive edits are not merely unnoticed,
+      they are structurally invisible. This is an archive that watches, hashes, and
+      remembers, and can prove its own memory has not been altered.
+    </p>
+  </header>
+
+  <div class="standing" id="standing"></div>
+
+  <section id="census-section">
+    <h2>Finding one</h2>
+    <p class="lede" id="census-lede">How portals publish decides what can be known about them.</p>
+    <div class="body-copy">
+      <p>
+        Before any change can be interpreted, one question has to be answered for each
+        dataset: <b>does this publisher edit rows, or rebuild the table?</b> Get it wrong
+        and the conclusion inverts.
+      </p>
+      <p id="census-example"></p>
+    </div>
+    <div class="census-bar" id="census-bar"></div>
+    <div class="census-key" id="census-key"></div>
+    <div class="body-copy"><p id="census-conclusion"></p></div>
+  </section>
+
+  <section id="ledger-section">
+    <h2>The ledger</h2>
+    <p class="lede">What actually moved.</p>
+    <div class="body-copy">
+      <p>
+        Every entry below is a change to a <b>published fact</b> — the hash of a record's
+        semantic fields moved between two observations. Platform identifiers, derived
+        spatial joins and last-written timestamps are excluded from that hash, so a
+        publisher rerunning its pipeline does not appear here.
+      </p>
+    </div>
+    <div class="controls" id="filters"></div>
+    <div id="ledger"></div>
+  </section>
+
+  <section id="admit-section">
+    <h2>Finding two</h2>
+    <p class="lede" id="admit-lede">What publishers admit.</p>
+    <div class="body-copy">
+      <p>
+        The ledger above can only hold changes this archive watched happen, so it fills
+        over days. But where a publisher's timestamps are not saturated, evidence is
+        available immediately — <b>from the portal itself</b>. When a record describing a
+        closed period carries a recent write timestamp, the publisher is asserting that
+        it touched that record.
+      </p>
+      <p>
+        This is deliberately weaker evidence, and the distinction is load-bearing: the
+        publisher's timestamp shows <b>that</b> a record was rewritten. Only an
+        independent prior observation can show <b>what it previously said</b>. These are
+        therefore reported as assertions, and never counted as observed revisions.
+      </p>
+    </div>
+    <div id="admit"></div>
+  </section>
+
+  <section id="verify-section">
+    <h2>Verification</h2>
+    <p class="lede">Evidence, not assertion.</p>
+    <div class="body-copy">
+      <p>
+        Each observation commits to a Merkle root over every record it saw, and each
+        root is chained to the one before it. Altering any past observation changes
+        every hash that follows, so the archive can demonstrate that its own account
+        of the past is intact — the property the portals themselves lack.
+      </p>
+    </div>
+    <div id="verify"></div>
+  </section>
+
+  <section id="sources-section">
+    <h2>Under observation</h2>
+    <p class="lede">The watchlist.</p>
+    <div id="sources"></div>
+  </section>
+
+  <footer>
+    <p id="footer-meta"></p>
+    <p>
+      Built from public endpoints only, read at a fixed low rate with an identifying
+      user agent. Palimpsest never authenticates, never writes, and never submits a
+      form. Everything it holds was published to anyone who asked.
+    </p>
+  </footer>
+</div>
+
+<script>
+const N = n => (n === null || n === undefined) ? "—" : n.toLocaleString();
+const el = (t, c, txt) => { const e = document.createElement(t); if (c) e.className = c; if (txt !== undefined) e.textContent = txt; return e; };
+const short = h => h ? h.slice(0, 12) : "—";
+const fmtDate = s => { if (!s) return "—"; const d = new Date(s); return isNaN(d) ? s : d.toISOString().slice(0,16).replace("T"," ") + "Z"; };
+
+function render(D) {
+  const o = D.overview, ig = D.integrity, cs = D.census, ch = D.churn;
+
+  /* ---- standing ---- */
+  const stats = [
+    [N(o.sources_watched), "datasets watched"],
+    [N(o.city_count), "jurisdictions"],
+    [N(o.sweeps), "sweeps"],
+    [N(o.observations), "record observations"],
+    [N(ch.material_changes), "material changes"],
+    [ig.all_ok ? "intact" : "BROKEN", "chain integrity", ig.all_ok],
+  ];
+  const sEl = document.getElementById("standing");
+  stats.forEach(([n, k, sealed]) => {
+    const d = el("div", "stat" + (sealed ? " sealed" : ""));
+    d.append(el("span", "n", n), el("span", "k", k));
+    sEl.append(d);
+  });
+
+  /* ---- census ---- */
+  const total = cs.total || 0;
+  const order = ["republish", "bulk_touch", "incremental", "static", "unknown"];
+  const bar = document.getElementById("census-bar");
+  const key = document.getElementById("census-key");
+  order.forEach(k => {
+    const v = cs.by_class[k] || 0;
+    if (!v) return;
+    const pct = (v / total) * 100;
+    const seg = el("div", "census-seg seg-" + k, pct > 7 ? String(v) : "");
+    seg.style.flex = `0 0 ${pct}%`;
+    seg.title = `${k}: ${v} of ${total}`;
+    bar.append(seg);
+    key.append(el("span", "k-" + k, `${k.replace("_"," ")} — ${v}`));
+  });
+
+  document.getElementById("census-example").innerHTML =
+    "Chicago's crime dataset reports that <b>98%</b> of its records describing events " +
+    "before 2024 were modified in the last thirty days — spread evenly across every " +
+    "year back to 2001. Read literally, a city rewrote eight million crime records. " +
+    "Read correctly, the publisher drops and reloads the table, so every row gets a " +
+    "fresh identifier and timestamp while <b>not one published fact changes</b>. " +
+    "Records describing April 2001 carry a creation timestamp of yesterday.";
+
+  // Nothing may be claimed about publishers that have not been probed yet.
+  const chz = cs.characterised || 0;
+  if (chz) {
+    const pct = Math.round((cs.share_uninterpretable || 0) * 100);
+    document.getElementById("census-conclusion").innerHTML =
+      `Of the <b>${chz}</b> datasets characterised, <b>${cs.timestamps_uninterpretable} ` +
+      `(${pct}%)</b> rewrite so much of their own history on every run that their ` +
+      `modification timestamps are saturated and cannot evidence an edit. The remaining ` +
+      `datasets are not necessarily quiet — a publisher that touches nothing has the ` +
+      `cleanest timestamps of all, because an edit would have nowhere to hide. ` +
+      `Saturation is what destroys the signal, not activity. Where it is destroyed, the ` +
+      `only way to detect a revision is to have independently recorded what the record ` +
+      `said beforehand — which is what this archive exists to do.`;
+    document.getElementById("census-lede").textContent =
+      `${pct}% of datasets cannot evidence their own edits.`;
+  } else {
+    document.getElementById("census-conclusion").innerHTML =
+      `<b>Characterisation pending.</b> ${N(total)} datasets are registered but none ` +
+      `have been probed yet, so no claim is made here. An unprobed source is not ` +
+      `evidence of anything.`;
+    document.getElementById("census-lede").textContent =
+      "How portals publish decides what can be known about them.";
+  }
+
+  /* ---- ledger ---- */
+  const ledger = document.getElementById("ledger");
+  const filters = document.getElementById("filters");
+  const kinds = [...new Set(D.findings.map(f => f.kind))];
+  let active = null;
+
+  function draw() {
+    ledger.textContent = "";
+    const rows = D.findings.filter(f => !active || f.kind === active);
+    if (!rows.length) {
+      const e = el("div", "empty");
+      e.innerHTML = o.sweeps < 2
+        ? "<b>Collection in progress.</b><br>A change can only be detected between two " +
+          "observations. The first sweep establishes the baseline; findings appear once " +
+          "a second sweep has something to compare it against."
+        : "No changes of this kind recorded yet.";
+      ledger.append(e);
+      return;
+    }
+    rows.slice(0, 120).forEach(f => ledger.append(findingCard(f)));
+  }
+
+  if (kinds.length > 1) {
+    const mk = (label, k) => {
+      const b = el("button", "filter", label);
+      b.setAttribute("aria-pressed", String(active === k));
+      b.onclick = () => { active = k; filters.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); draw(); };
+      return b;
+    };
+    filters.append(mk("all", null));
+    kinds.forEach(k => filters.append(mk(k.replace(/_/g," "), k)));
+  }
+  draw();
+
+  function findingCard(f) {
+    const card = el("div", "finding");
+    const head = el("div", "finding-head");
+    head.append(el("span", "kind kind-" + f.kind, f.kind.replace(/_/g, " ")));
+    head.append(el("span", "finding-title", f.title || f.source_key));
+    head.append(el("span", "finding-city", f.city || ""));
+    head.append(el("span", "sig", "significance " + (f.significance ?? 0).toFixed(2)));
+    card.append(head);
+
+    const body = el("div", "finding-body");
+    body.append(el("p", "detail", f.detail || ""));
+
+    if (f.field_deltas && Object.keys(f.field_deltas).length) {
+      const d = el("div", "deltas");
+      Object.entries(f.field_deltas).slice(0, 14).forEach(([field, pair]) => {
+        const before = pair[0] === null || pair[0] === undefined ? "∅" : String(pair[0]);
+        const after  = pair[1] === null || pair[1] === undefined ? "∅" : String(pair[1]);
+        const w = el("div", "delta");
+        w.append(el("div", "delta-field", field));
+        const ow = el("div", "overwrite");
+        // The prior value literally underlies the current one.
+        const u = el("span", "under", before); u.setAttribute("aria-hidden", "true");
+        ow.append(u, el("span", "over", after));
+        w.append(ow);
+        const r = el("div", "reading");
+        const i = el("i", null, "was: " + before);
+        r.append(i, el("span", null, "now: " + after));
+        w.append(r);
+        d.append(w);
+      });
+      body.append(d);
+    }
+
+    const p = el("div", "provenance");
+    p.append(el("span", null, `observed ${fmtDate(f.observed_before)} → ${fmtDate(f.observed_after)}`));
+    if (f.row_uid) p.append(el("span", "hash", "record " + f.row_uid));
+    if (f.before_hash) p.append(el("span", "hash", "was " + short(f.before_hash)));
+    if (f.after_hash) p.append(el("span", "hash", "now " + short(f.after_hash)));
+    if (f.pipeline_class) p.append(el("span", null, "pipeline: " + f.pipeline_class));
+    if (f.portal_url) { const a = el("a", null, "source"); a.href = f.portal_url; a.target = "_blank"; a.rel = "noopener"; p.append(a); }
+    body.append(p);
+    card.append(body);
+    return card;
+  }
+
+  /* ---- what publishers admit ---- */
+  const pa = D.publisher_assertions;
+  const admit = document.getElementById("admit");
+  if (!pa || !pa.sources || !pa.sources.length) {
+    admit.append(el("div", "empty", "No publisher-asserted retroactive writes recorded."));
+  } else {
+    document.getElementById("admit-lede").textContent =
+      `${N(pa.total_records_asserted_modified)} closed-period records, rewritten.`;
+
+    const summary = el("div", "body-copy");
+    summary.innerHTML =
+      `<p>Across <b>${pa.sources_with_activity} of ${pa.sources_probed}</b> datasets whose ` +
+      `timestamps carry signal, publishers report rewriting <b>` +
+      `${N(pa.total_records_asserted_modified)}</b> records describing periods that had ` +
+      `already closed — within the last ${pa.lookback_days} days alone.</p>`;
+    admit.append(summary);
+
+    // How far back the rewriting reaches is the part that is hard to explain away.
+    if (pa.deepest_reach && pa.deepest_reach.length) {
+      const box = el("div", "proof");
+      box.append(el("div", "delta-field", "deepest reach into the closed record"));
+      const scroll = el("div", "table-scroll");
+      const t = el("table");
+      t.innerHTML = "<thead><tr><th>oldest event rewritten</th><th>dataset</th>" +
+        "<th>jurisdiction</th><th>records</th></tr></thead>";
+      const tb = el("tbody");
+      pa.deepest_reach.forEach(r => {
+        const tr = el("tr");
+        tr.append(el("td", null, String(r.oldest_event_touched).slice(0, 10)));
+        const td = el("td", "wrap-cell");
+        const a = el("a", null, r.title);
+        a.href = r.portal_url; a.target = "_blank"; a.rel = "noopener";
+        td.append(a); tr.append(td);
+        tr.append(el("td", null, r.city));
+        tr.append(el("td", null, N(r.asserted_modified)));
+        tb.append(tr);
+      });
+      t.append(tb); scroll.append(t); box.append(scroll);
+      admit.append(box);
+    }
+
+    pa.sources.slice(0, 12).forEach(s => {
+      const card = el("div", "finding");
+      const head = el("div", "finding-head");
+      head.append(el("span", "kind kind-retroactive_append", "publisher assertion"));
+      head.append(el("span", "finding-title", s.title));
+      head.append(el("span", "finding-city", s.city));
+      if (s.near_saturated) {
+        const w = el("span", "kind kind-deletion", "near-saturated");
+        w.title = "This publisher rewrites a large share of its closed past, so this " +
+                  "count is an upper bound on editing rather than a measure of it.";
+        head.append(w);
+      }
+      card.append(head);
+      const body = el("div", "finding-body");
+      body.append(el("p", "detail",
+        `${N(s.asserted_modified)} of ${N(s.closed_period_records)} records describing ` +
+        `closed periods were rewritten in ${s.lookback_days} days ` +
+        `(${(s.share * 100).toFixed(3)}%).`));
+      if (s.oldest_event_touched) {
+        const w = el("div", "delta");
+        w.append(el("div", "delta-field", "oldest event rewritten"));
+        const ow = el("div", "overwrite");
+        ow.append(el("span", "over", String(s.oldest_event_touched).slice(0, 10)));
+        w.append(ow);
+        body.append(w);
+      }
+      const p = el("div", "provenance");
+      p.append(el("span", null, "pipeline: " + s.pipeline_class));
+      p.append(el("span", null, "evidence: publisher assertion, not observed diff"));
+      const a = el("a", null, "source"); a.href = s.portal_url;
+      a.target = "_blank"; a.rel = "noopener"; p.append(a);
+      body.append(p);
+      card.append(body);
+      admit.append(card);
+    });
+  }
+
+  /* ---- verification ---- */
+  const v = document.getElementById("verify");
+  const line = el("div", "seal-line");
+  line.textContent = ig.all_ok
+    ? `✦ ${ig.chains_ok} of ${ig.chains_verified} hash chains recomputed and verified`
+    : `✕ ${ig.chains_broken.length} chain(s) failed verification`;
+  v.append(line);
+
+  (ig.worked_proofs || []).slice(0, 2).forEach(pr => {
+    const box = el("div", "proof");
+    box.append(el("div", "delta-field", `inclusion proof — ${pr.source_key}`));
+    const body = el("div", "body-copy");
+    body.innerHTML = `<p>Record <code>${pr.record_uid}</code> was one of ${N(pr.leaf_count)} ` +
+      `observed at ${fmtDate(pr.captured_at)}. The ${pr.proof.length} sibling hashes below ` +
+      `fold that record's leaf into the published root — proving it was committed to at ` +
+      `that moment, without needing the other ${N(pr.leaf_count - 1)} records.</p>`;
+    box.append(body);
+    const pre = el("pre");
+    pre.textContent = JSON.stringify({
+      record_uid: pr.record_uid, content_hash: pr.content_hash,
+      leaf_index: pr.leaf_index, leaf_count: pr.leaf_count,
+      merkle_root: pr.merkle_root,
+      root_recomputed_from_stored_records: pr.recomputed_root,
+      roots_match: pr.merkle_root === pr.recomputed_root,
+      proof: pr.proof
+    }, null, 1);
+    box.append(pre);
+    v.append(box);
+  });
+
+  /* ---- sources ---- */
+  const s = document.getElementById("sources");
+  if (!D.sources.length) { s.append(el("div", "empty", "No sources registered.")); }
+  else {
+    const scroll = el("div", "table-scroll");
+    const t = el("table");
+    t.innerHTML = "<thead><tr><th>dataset</th><th>jurisdiction</th><th>pipeline</th>" +
+      "<th>identity</th><th>window</th><th>sweeps</th><th>states</th><th>last seen</th></tr></thead>";
+    const tb = el("tbody");
+    D.sources.forEach(src => {
+      const tr = el("tr");
+      const td0 = el("td", "wrap-cell");
+      const a = el("a", null, src.title || src.fourfour);
+      a.href = src.portal_url; a.target = "_blank"; a.rel = "noopener";
+      td0.append(a);
+      tr.append(td0);
+      tr.append(el("td", null, src.city || "—"));
+      const tdp = el("td"); tdp.append(el("span", "pill " + (src.pipeline_class || "unknown"), src.pipeline_class || "unknown")); tr.append(tdp);
+
+      // Say plainly which sources cannot evidence an in-place edit.
+      const tdi = el("td");
+      if (src.can_attribute_revision === false) {
+        const p = el("span", "pill republish", "content only");
+        p.title = `Natural key collides on ${N(src.key_collisions)} records, so this ` +
+                  `source falls back to content identity: a revision here is ` +
+                  `indistinguishable from a deletion plus an insertion.`;
+        tdi.append(p);
+      } else {
+        tdi.append(el("span", "pill incremental", (src.business_key || []).join(", ") || "—"));
+      }
+      tr.append(tdi);
+
+      tr.append(el("td", null, (src.stratum_start || "").slice(0,10)));
+      tr.append(el("td", null, N(src.snapshots)));
+      tr.append(el("td", null, N(src.distinct_states)));
+      tr.append(el("td", null, fmtDate(src.last_seen)));
+      tb.append(tr);
+    });
+    t.append(tb); scroll.append(t); s.append(scroll);
+  }
+
+  document.getElementById("footer-meta").textContent =
+    `Archive generated ${fmtDate(o.generated_at)} · observations from ` +
+    `${fmtDate(o.first_observation)} to ${fmtDate(o.last_observation)} · ` +
+    `${N(o.distinct_record_states)} distinct record states held in ` +
+    `${(o.archive_bytes/1e6).toFixed(1)} MB.`;
+}
+
+fetch("data.json")
+  .then(r => { if (!r.ok) throw new Error("data.json " + r.status); return r.json(); })
+  .then(render)
+  .catch(e => {
+    document.getElementById("ledger").innerHTML =
+      `<div class="empty"><b>Could not load the archive.</b><br>${e.message}</div>`;
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,4584 @@
+[
+  {
+    "source_key": "data.cityofchicago.org/ijzp-q8t2",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "ijzp-q8t2",
+    "title": "Crimes - 2001 to Present",
+    "city": "Chicago, IL",
+    "category": "Public Safety",
+    "date_field": "date",
+    "business_key": [
+      "case_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-05T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "primary_type",
+      "district",
+      "location_description"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=2000",
+    "added_at": "2026-07-27T07:38:35+00:00",
+    "_weight": 100,
+    "_stratum_rows": 2000
+  },
+  {
+    "source_key": "data.cityofchicago.org/85ca-t3if",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "85ca-t3if",
+    "title": "Traffic Crashes - Crashes",
+    "city": "Chicago, IL",
+    "category": "Transportation",
+    "date_field": "crash_date",
+    "business_key": [
+      "crash_record_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-09T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "crash_type",
+      "report_type",
+      "first_crash_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=2469",
+    "added_at": "2026-07-27T07:38:42+00:00",
+    "_weight": 100,
+    "_stratum_rows": 2469
+  },
+  {
+    "source_key": "data.cityofchicago.org/dpt3-jri9",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "dpt3-jri9",
+    "title": "Arrests",
+    "city": "Chicago, IL",
+    "category": "Public Safety",
+    "date_field": "arrest_date",
+    "business_key": [
+      "cb_no"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "charge_1_type",
+      "charge_2_type",
+      "charge_3_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=4015",
+    "added_at": "2026-07-27T07:38:51+00:00",
+    "_weight": 100,
+    "_stratum_rows": 4015
+  },
+  {
+    "source_key": "data.cityofchicago.org/68nd-jvt3",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "68nd-jvt3",
+    "title": "Traffic Crashes - Vehicles",
+    "city": "Chicago, IL",
+    "category": "Transportation",
+    "date_field": "crash_date",
+    "business_key": [
+      "crash_unit_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-05T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "unit_type",
+      "vehicle_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=2132",
+    "added_at": "2026-07-27T07:39:10+00:00",
+    "_weight": 100,
+    "_stratum_rows": 2132
+  },
+  {
+    "source_key": "data.cityofchicago.org/gumc-mgzr",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "gumc-mgzr",
+    "title": "Violence Reduction - Victims of Homicides and Non-Fatal Shootings",
+    "city": "Chicago, IL",
+    "category": "Public Safety",
+    "date_field": "date",
+    "business_key": [
+      "unique_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "state_senate_district",
+      "state_house_district",
+      "location_description"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=204",
+    "added_at": "2026-07-27T07:39:13+00:00",
+    "_weight": 100,
+    "_stratum_rows": 204
+  },
+  {
+    "source_key": "data.cityofchicago.org/u6pd-qa9d",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "u6pd-qa9d",
+    "title": "Traffic Crashes - People",
+    "city": "Chicago, IL",
+    "category": "Transportation",
+    "date_field": "crash_date",
+    "business_key": [
+      "person_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-05T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "person_type",
+      "bac_result",
+      "injury_classification"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=2250",
+    "added_at": "2026-07-27T07:39:20+00:00",
+    "_weight": 100,
+    "_stratum_rows": 2250
+  },
+  {
+    "source_key": "data.cityofchicago.org/mft5-nfa8",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "mft5-nfa8",
+    "title": "COPA Cases - Summary",
+    "city": "Chicago, IL",
+    "category": "Public Safety",
+    "date_field": "complaint_date",
+    "business_key": [
+      "log_no"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "case_type",
+      "current_status",
+      "current_category"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=614",
+    "added_at": "2026-07-27T07:39:22+00:00",
+    "_weight": 100,
+    "_stratum_rows": 614
+  },
+  {
+    "source_key": "data.cityofnewyork.us/h9gi-nx95",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "h9gi-nx95",
+    "title": "Motor Vehicle Collisions - Crashes",
+    "city": "New York, NY",
+    "category": "Public Safety",
+    "date_field": "crash_date",
+    "business_key": [
+      "collision_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-11T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "vehicle_type_code_4",
+      "borough",
+      "vehicle_type_code_3"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=2229",
+    "added_at": "2026-07-27T07:46:26+00:00",
+    "_weight": 100,
+    "_stratum_rows": 2229
+  },
+  {
+    "source_key": "data.cityofnewyork.us/5ucz-vwe8",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "5ucz-vwe8",
+    "title": "Shootings (2006-Present)",
+    "city": "New York, NY",
+    "category": "Public Safety",
+    "date_field": "occur_date",
+    "business_key": [
+      "incident_key"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=75",
+    "added_at": "2026-07-27T07:46:36+00:00",
+    "_weight": 100,
+    "_stratum_rows": 75
+  },
+  {
+    "source_key": "data.cityofnewyork.us/bqiq-cu78",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "bqiq-cu78",
+    "title": "NYPD Hate Crimes",
+    "city": "New York, NY",
+    "category": "Public Safety",
+    "date_field": "record_create_date",
+    "business_key": [
+      "full_complaint_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "patrol_borough_name"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=55",
+    "added_at": "2026-07-27T07:46:38+00:00",
+    "_weight": 100,
+    "_stratum_rows": 55
+  },
+  {
+    "source_key": "data.cityofnewyork.us/bm4k-52h4",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "bm4k-52h4",
+    "title": "Motor Vehicle Collisions - Vehicles",
+    "city": "New York, NY",
+    "category": "Public Safety",
+    "date_field": "crash_date",
+    "business_key": [
+      "unique_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-06T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "driver_license_status",
+      "vehicle_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=2101",
+    "added_at": "2026-07-27T07:46:43+00:00",
+    "_weight": 100,
+    "_stratum_rows": 2101
+  },
+  {
+    "source_key": "data.cityofnewyork.us/f55k-p6yu",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "f55k-p6yu",
+    "title": "Motor Vehicle Collisions - Person",
+    "city": "New York, NY",
+    "category": "Public Safety",
+    "date_field": "crash_date",
+    "business_key": [
+      "unique_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-04T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "person_type",
+      "emotional_status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=1748",
+    "added_at": "2026-07-27T07:46:56+00:00",
+    "_weight": 100,
+    "_stratum_rows": 1748
+  },
+  {
+    "source_key": "data.sfgov.org/gnap-fj3t",
+    "domain": "data.sfgov.org",
+    "fourfour": "gnap-fj3t",
+    "title": "Law Enforcement Dispatched Calls for Service: Real-Time",
+    "city": "San Francisco, CA",
+    "category": "Public Safety",
+    "date_field": "received_datetime",
+    "business_key": [
+      "cad_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-09-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "agency",
+      "police_district",
+      "disposition"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T07:53:40+00:00",
+    "_weight": 100,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.sfgov.org/wg3w-h783",
+    "domain": "data.sfgov.org",
+    "fourfour": "wg3w-h783",
+    "title": "Police Department Incident Reports: 2018 to Present",
+    "city": "San Francisco, CA",
+    "category": "Public Safety",
+    "date_field": "incident_datetime",
+    "business_key": [
+      "row_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-11T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "report_type_code",
+      "report_type_description",
+      "police_district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=2201",
+    "added_at": "2026-07-27T07:53:45+00:00",
+    "_weight": 100,
+    "_stratum_rows": 2201
+  },
+  {
+    "source_key": "data.sfgov.org/ubvf-ztfx",
+    "domain": "data.sfgov.org",
+    "fourfour": "ubvf-ztfx",
+    "title": "Traffic Crashes Resulting in Injury",
+    "city": "San Francisco, CA",
+    "category": "Public Safety",
+    "date_field": "collision_datetime",
+    "business_key": [
+      "case_id_pkey"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "party1_type",
+      "party2_type",
+      "dph_col_grp_description"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=234",
+    "added_at": "2026-07-27T07:53:49+00:00",
+    "_weight": 100,
+    "_stratum_rows": 234
+  },
+  {
+    "source_key": "data.sfgov.org/ab4h-6ztd",
+    "domain": "data.sfgov.org",
+    "fourfour": "ab4h-6ztd",
+    "title": "SFMTA - Parking Citations & Fines",
+    "city": "San Francisco, CA",
+    "category": "Transportation",
+    "date_field": "citation_issued_datetime",
+    "business_key": [
+      "citation_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "supervisor_districts",
+      "analysis_neighborhood"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=4758",
+    "added_at": "2026-07-27T07:53:56+00:00",
+    "_weight": 100,
+    "_stratum_rows": 4758
+  },
+  {
+    "source_key": "data.sfgov.org/2zdj-bwza",
+    "domain": "data.sfgov.org",
+    "fourfour": "2zdj-bwza",
+    "title": "Law Enforcement Dispatched Calls for Service: Closed",
+    "city": "San Francisco, CA",
+    "category": "Public Safety",
+    "date_field": "received_datetime",
+    "business_key": [
+      "cad_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "agency",
+      "police_district",
+      "supervisor_district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=1595",
+    "added_at": "2026-07-27T07:54:01+00:00",
+    "_weight": 100,
+    "_stratum_rows": 1595
+  },
+  {
+    "source_key": "data.sfgov.org/ynfy-z5kt",
+    "domain": "data.sfgov.org",
+    "fourfour": "ynfy-z5kt",
+    "title": "District Attorney Case Resolutions",
+    "city": "San Francisco, CA",
+    "category": "Public Safety",
+    "date_field": "arrest_date",
+    "business_key": [
+      "court_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "crime_type",
+      "case_status",
+      "disposition_code"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=259",
+    "added_at": "2026-07-27T07:54:11+00:00",
+    "_weight": 100,
+    "_stratum_rows": 259
+  },
+  {
+    "source_key": "data.sfgov.org/czsm-3ei3",
+    "domain": "data.sfgov.org",
+    "fourfour": "czsm-3ei3",
+    "title": "District Attorney Actions Taken on Arrests Presented",
+    "city": "San Francisco, CA",
+    "category": "Public Safety",
+    "date_field": "arrest_date",
+    "business_key": [
+      "court_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "arresting_agency"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=857",
+    "added_at": "2026-07-27T07:54:16+00:00",
+    "_weight": 100,
+    "_stratum_rows": 857
+  },
+  {
+    "source_key": "data.sfgov.org/8gtc-pjc6",
+    "domain": "data.sfgov.org",
+    "fourfour": "8gtc-pjc6",
+    "title": "Traffic Crashes Resulting in Injury: Parties Involved",
+    "city": "San Francisco, CA",
+    "category": "Public Safety",
+    "date_field": "collision_datetime",
+    "business_key": [
+      "unique_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "party_type",
+      "dph_col_grp_description",
+      "type_of_collision"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=496",
+    "added_at": "2026-07-27T07:54:19+00:00",
+    "_weight": 100,
+    "_stratum_rows": 496
+  },
+  {
+    "source_key": "data.sfgov.org/ugv9-ywu3",
+    "domain": "data.sfgov.org",
+    "fourfour": "ugv9-ywu3",
+    "title": "Requests for Information Regarding Protected Status Related to Owner Move-In Evictions",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "file_date",
+    "business_key": [
+      "estoppel_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "neighborhood"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=10",
+    "added_at": "2026-07-27T07:54:24+00:00",
+    "_weight": 100,
+    "_stratum_rows": 10
+  },
+  {
+    "source_key": "data.sfgov.org/nwes-mmgh",
+    "domain": "data.sfgov.org",
+    "fourfour": "nwes-mmgh",
+    "title": "Traffic Crashes Resulting in Injury: Victims Involved",
+    "city": "San Francisco, CA",
+    "category": "Public Safety",
+    "date_field": "collision_datetime",
+    "business_key": [
+      "unique_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "party_type",
+      "dph_col_grp_description",
+      "type_of_collision"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=294",
+    "added_at": "2026-07-27T07:54:33+00:00",
+    "_weight": 100,
+    "_stratum_rows": 294
+  },
+  {
+    "source_key": "data.sfgov.org/dau3-4s8f",
+    "domain": "data.sfgov.org",
+    "fourfour": "dau3-4s8f",
+    "title": "Traffic Crashes Resulting in Fatality",
+    "city": "San Francisco, CA",
+    "category": "Public Safety",
+    "date_field": "collision_date",
+    "business_key": [
+      "unique_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "police_district",
+      "supervisor_district",
+      "collision_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T07:54:36+00:00",
+    "_weight": 100,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.lacity.org/amvf-fr72",
+    "domain": "data.lacity.org",
+    "fourfour": "amvf-fr72",
+    "title": "Arrest Data from 2020 to 4/30/2025",
+    "city": "Los Angeles, CA",
+    "category": "Public Safety",
+    "date_field": "arst_date",
+    "business_key": [
+      "rpt_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "report_type",
+      "grp_description"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T07:58:47+00:00",
+    "_weight": 100,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.lacity.org/bwdf-y5fe",
+    "domain": "data.lacity.org",
+    "fourfour": "bwdf-y5fe",
+    "title": "LAPD RIPA (AB 953) STOP Person Detail from 7/1/2018 to Present",
+    "city": "Los Angeles, CA",
+    "category": "Public Safety",
+    "date_field": "stop_date",
+    "business_key": [
+      "person_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-05T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "result_of_stop_citation_for",
+      "result_of_stop_contacted",
+      "result_of_stop_custodial"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=2707",
+    "added_at": "2026-07-27T07:58:53+00:00",
+    "_weight": 100,
+    "_stratum_rows": 2707
+  },
+  {
+    "source_key": "data.lacity.org/5gp9-8nrb",
+    "domain": "data.lacity.org",
+    "fourfour": "5gp9-8nrb",
+    "title": "LAPD RIPA (AB 953) STOP Incident Details from 7/1/2018 to Present",
+    "city": "Los Angeles, CA",
+    "category": "Public Safety",
+    "date_field": "stop_date",
+    "business_key": [
+      "stop_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-06T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "officer_assignment_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=3141",
+    "added_at": "2026-07-27T07:58:57+00:00",
+    "_weight": 100,
+    "_stratum_rows": 3141
+  },
+  {
+    "source_key": "data.seattle.gov/tazs-3rd5",
+    "domain": "data.seattle.gov",
+    "fourfour": "tazs-3rd5",
+    "title": "SPD Crime Data: 2008-Present",
+    "city": "Seattle, WA",
+    "category": "Public Safety",
+    "date_field": "offense_date",
+    "business_key": [
+      "offense_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-13T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "offense_category",
+      "nibrs_crime_against_category",
+      "offense_sub_category"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=2332",
+    "added_at": "2026-07-27T08:03:22+00:00",
+    "_weight": 100,
+    "_stratum_rows": 2332
+  },
+  {
+    "source_key": "data.seattle.gov/28ny-9ts8",
+    "domain": "data.seattle.gov",
+    "fourfour": "28ny-9ts8",
+    "title": "Terry Stops",
+    "city": "Seattle, WA",
+    "category": "Public Safety",
+    "date_field": "occurred_date",
+    "business_key": [
+      "terry_stop_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "call_type",
+      "weapon_type",
+      "final_call_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=305",
+    "added_at": "2026-07-27T08:03:28+00:00",
+    "_weight": 100,
+    "_stratum_rows": 305
+  },
+  {
+    "source_key": "data.seattle.gov/i2q9-thny",
+    "domain": "data.seattle.gov",
+    "fourfour": "i2q9-thny",
+    "title": "Crisis Data",
+    "city": "Seattle, WA",
+    "category": "Public Safety",
+    "date_field": "occured_date_time",
+    "business_key": [
+      "template_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "call_type",
+      "disposition",
+      "final_call_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=640",
+    "added_at": "2026-07-27T08:03:38+00:00",
+    "_weight": 100,
+    "_stratum_rows": 640
+  },
+  {
+    "source_key": "data.austintexas.gov/fdj4-gpfu",
+    "domain": "data.austintexas.gov",
+    "fourfour": "fdj4-gpfu",
+    "title": "Crime Reports",
+    "city": "Austin, TX",
+    "category": "Public Safety",
+    "date_field": "occ_date",
+    "business_key": [
+      "incident_report_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-12T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "clearance_status",
+      "category_description",
+      "district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=2509",
+    "added_at": "2026-07-27T08:05:01+00:00",
+    "_weight": 100,
+    "_stratum_rows": 2509
+  },
+  {
+    "source_key": "data.austintexas.gov/y2wy-tgr5",
+    "domain": "data.austintexas.gov",
+    "fourfour": "y2wy-tgr5",
+    "title": "Austin Crash Report Data - Crash Level Records",
+    "city": "Austin, TX",
+    "category": "Transportation and Mobility",
+    "date_field": "crash_timestamp_ct",
+    "business_key": [
+      "cris_crash_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=917",
+    "added_at": "2026-07-27T08:05:04+00:00",
+    "_weight": 100,
+    "_stratum_rows": 917
+  },
+  {
+    "source_key": "data.austintexas.gov/9tem-ywan",
+    "domain": "data.austintexas.gov",
+    "fourfour": "9tem-ywan",
+    "title": "APD Arrests",
+    "city": "Austin, TX",
+    "category": "Public Safety",
+    "date_field": "occurred_date",
+    "business_key": [
+      "case_report_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "arrest_type_description"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=1964",
+    "added_at": "2026-07-27T08:05:11+00:00",
+    "_weight": 100,
+    "_stratum_rows": 1964
+  },
+  {
+    "source_key": "data.austintexas.gov/22de-7rzg",
+    "domain": "data.austintexas.gov",
+    "fourfour": "22de-7rzg",
+    "title": "APD Computer Aided Dispatch Incidents",
+    "city": "Austin, TX",
+    "category": "Public Safety",
+    "date_field": "response_datetime",
+    "business_key": [
+      "incident_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-04T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "incident_type",
+      "call_disposition_description",
+      "council_district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=2170",
+    "added_at": "2026-07-27T08:05:14+00:00",
+    "_weight": 100,
+    "_stratum_rows": 2170
+  },
+  {
+    "source_key": "data.austintexas.gov/xecs-rpy9",
+    "domain": "data.austintexas.gov",
+    "fourfour": "xecs-rpy9",
+    "title": "Austin Crash Report Data - Crash Victim Demographic Records",
+    "city": "Austin, TX",
+    "category": "Transportation and Mobility",
+    "date_field": "crash_timestamp_ct",
+    "business_key": [
+      "unit_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=36",
+    "added_at": "2026-07-27T08:05:22+00:00",
+    "_weight": 100,
+    "_stratum_rows": 36
+  },
+  {
+    "source_key": "data.austintexas.gov/vey3-7n3x",
+    "domain": "data.austintexas.gov",
+    "fourfour": "vey3-7n3x",
+    "title": "Roadway Markings Jobs",
+    "city": "Austin, TX",
+    "category": "Transportation and Mobility",
+    "date_field": "created_date",
+    "business_key": [
+      "atd_sam_job_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "job_status",
+      "work_order_status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=220",
+    "added_at": "2026-07-27T08:05:24+00:00",
+    "_weight": 100,
+    "_stratum_rows": 220
+  },
+  {
+    "source_key": "data.austintexas.gov/ju8h-gg4u",
+    "domain": "data.austintexas.gov",
+    "fourfour": "ju8h-gg4u",
+    "title": "APD Sworn Retirements and Separations",
+    "city": "Austin, TX",
+    "category": "Public Safety",
+    "date_field": "date",
+    "business_key": [
+      "employee_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=10",
+    "added_at": "2026-07-27T08:05:30+00:00",
+    "_weight": 100,
+    "_stratum_rows": 10
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/bhju-22kf",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "bhju-22kf",
+    "title": "Crash Reporting - Incidents Data",
+    "city": "Montgomery County, MD",
+    "category": "Public Safety",
+    "date_field": "crash_date_time",
+    "business_key": [
+      "report_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "acrs_report_type",
+      "agency_name",
+      "intersection_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=875",
+    "added_at": "2026-07-27T08:12:39+00:00",
+    "_weight": 100,
+    "_stratum_rows": 875
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/mmzv-x632",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "mmzv-x632",
+    "title": "Crash Reporting - Drivers Data",
+    "city": "Montgomery County, MD",
+    "category": "Public Safety",
+    "date_field": "crash_date_time",
+    "business_key": [
+      "person_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "acrs_report_type",
+      "agency_name",
+      "route_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=1534",
+    "added_at": "2026-07-27T08:12:42+00:00",
+    "_weight": 100,
+    "_stratum_rows": 1534
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/n7fk-dce5",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "n7fk-dce5",
+    "title": "Crash Reporting - Non-Motorists Data",
+    "city": "Montgomery County, MD",
+    "category": "Public Safety",
+    "date_field": "crash_date_time",
+    "business_key": [
+      "person_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "acrs_report_type",
+      "agency_name",
+      "pedestrian_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=48",
+    "added_at": "2026-07-27T08:12:44+00:00",
+    "_weight": 100,
+    "_stratum_rows": 48
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/q9df-sa9r",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "q9df-sa9r",
+    "title": "Agricultural Producer  Certificates",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issued_date",
+    "business_key": [
+      "license_no"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-09-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T08:12:54+00:00",
+    "_weight": 100,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/r7cy-t8ms",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "r7cy-t8ms",
+    "title": "Police Service Calls for Mental Health",
+    "city": "Montgomery County, MD",
+    "category": "Public Safety",
+    "date_field": "incident_started_date_time",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=130",
+    "added_at": "2026-07-27T08:12:57+00:00",
+    "_weight": 100,
+    "_stratum_rows": 130
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/hdw5-8g8d",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "hdw5-8g8d",
+    "title": "Regular Route Vendor's License",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issueddate",
+    "business_key": [
+      "licenseno"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=4",
+    "added_at": "2026-07-27T08:12:59+00:00",
+    "_weight": 100,
+    "_stratum_rows": 4
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/cw86-y2m7",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "cw86-y2m7",
+    "title": "Police Field Interviews",
+    "city": "Montgomery County, MD",
+    "category": "Public Safety",
+    "date_field": "incident_date",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T08:13:02+00:00",
+    "_weight": 100,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/bpgk-qt2q",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "bpgk-qt2q",
+    "title": "Police Stay-Away Trespass Orders",
+    "city": "Montgomery County, MD",
+    "category": "Public Safety",
+    "date_field": "entry_date",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=55",
+    "added_at": "2026-07-27T08:13:04+00:00",
+    "_weight": 100,
+    "_stratum_rows": 55
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/9e9i-8tfp",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "9e9i-8tfp",
+    "title": "POL- Use of Force Overview",
+    "city": "Montgomery County, MD",
+    "category": "Public Safety",
+    "date_field": "incident_date",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=345",
+    "added_at": "2026-07-27T08:13:06+00:00",
+    "_weight": 100,
+    "_stratum_rows": 345
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/5d73-8hsh",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "5d73-8hsh",
+    "title": "Police Service Calls Deemed Unfounded",
+    "city": "Montgomery County, MD",
+    "category": "Public Safety",
+    "date_field": "incidentstarteddatetime",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=354",
+    "added_at": "2026-07-27T08:13:10+00:00",
+    "_weight": 100,
+    "_stratum_rows": 354
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/vh39-6s5t",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "vh39-6s5t",
+    "title": "Police Service Calls for Substance Abuse",
+    "city": "Montgomery County, MD",
+    "category": "Public Safety",
+    "date_field": "incidentstarteddatetime",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=9",
+    "added_at": "2026-07-27T08:13:12+00:00",
+    "_weight": 100,
+    "_stratum_rows": 9
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/8vrz-nrur",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "8vrz-nrur",
+    "title": "Police Service Calls for the Homeless",
+    "city": "Montgomery County, MD",
+    "category": "Public Safety",
+    "date_field": "incident_started_date_time",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=100; stratum_rows_at_discovery=102",
+    "added_at": "2026-07-27T08:13:16+00:00",
+    "_weight": 100,
+    "_stratum_rows": 102
+  },
+  {
+    "source_key": "data.cityofchicago.org/fypr-ksnz",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "fypr-ksnz",
+    "title": "CDPH Environmental Complaints",
+    "city": "Chicago, IL",
+    "category": "Environment & Sustainable Development",
+    "date_field": "complaint_date",
+    "business_key": [
+      "complaint_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "complaint_type",
+      "street_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=299",
+    "added_at": "2026-07-27T07:41:33+00:00",
+    "_weight": 80,
+    "_stratum_rows": 299
+  },
+  {
+    "source_key": "data.cityofnewyork.us/nre2-6m2s",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "nre2-6m2s",
+    "title": "DCWP Consumer Complaints",
+    "city": "New York, NY",
+    "category": "Business",
+    "date_field": "intake_date",
+    "business_key": [
+      "record_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "address_type",
+      "unit_type",
+      "borough"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=2759",
+    "added_at": "2026-07-27T07:47:50+00:00",
+    "_weight": 80,
+    "_stratum_rows": 2759
+  },
+  {
+    "source_key": "data.cityofnewyork.us/ygpa-z7cr",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "ygpa-z7cr",
+    "title": "Housing Maintenance Code Complaints and Problems",
+    "city": "New York, NY",
+    "category": "Housing & Development",
+    "date_field": "received_date",
+    "business_key": [
+      "problem_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "type",
+      "unit_type",
+      "borough"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=1971",
+    "added_at": "2026-07-27T07:47:53+00:00",
+    "_weight": 80,
+    "_stratum_rows": 1971
+  },
+  {
+    "source_key": "data.sfgov.org/vw6y-z8j6",
+    "domain": "data.sfgov.org",
+    "fourfour": "vw6y-z8j6",
+    "title": "311 Cases",
+    "city": "San Francisco, CA",
+    "category": "City Infrastructure",
+    "date_field": "requested_datetime",
+    "business_key": [
+      "service_request_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status_description",
+      "police_district",
+      "analysis_neighborhood"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=2919",
+    "added_at": "2026-07-27T07:54:42+00:00",
+    "_weight": 80,
+    "_stratum_rows": 2919
+  },
+  {
+    "source_key": "data.sfgov.org/gm2e-bten",
+    "domain": "data.sfgov.org",
+    "fourfour": "gm2e-bten",
+    "title": "Department of Building Inspection Complaints (All Divisions)",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "director_hearing_date",
+    "business_key": [
+      "complaint_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "nov_type",
+      "supervisor_district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=118",
+    "added_at": "2026-07-27T07:54:47+00:00",
+    "_weight": 80,
+    "_stratum_rows": 118
+  },
+  {
+    "source_key": "data.sfgov.org/2wsq-7wmv",
+    "domain": "data.sfgov.org",
+    "fourfour": "2wsq-7wmv",
+    "title": "Fire Safety Complaints",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "received_date",
+    "business_key": [
+      "complaint_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "disposition",
+      "supervisor_district",
+      "complaint_item_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=436",
+    "added_at": "2026-07-27T07:54:52+00:00",
+    "_weight": 80,
+    "_stratum_rows": 436
+  },
+  {
+    "source_key": "data.lacity.org/3f9m-afei",
+    "domain": "data.lacity.org",
+    "fourfour": "3f9m-afei",
+    "title": "Building and Safety Certificate of Occupancy",
+    "city": "Los Angeles, CA",
+    "category": "City Infrastructure & Service Requests",
+    "date_field": "issue_date",
+    "business_key": [
+      "cofo_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "latest_status",
+      "permit_category",
+      "permit_sub_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=537",
+    "added_at": "2026-07-27T07:59:09+00:00",
+    "_weight": 80,
+    "_stratum_rows": 537
+  },
+  {
+    "source_key": "data.lacity.org/pi9x-tg5x",
+    "domain": "data.lacity.org",
+    "fourfour": "pi9x-tg5x",
+    "title": "Building and Safety - Building Permits Issued from 2020 to Present (N)",
+    "city": "Los Angeles, CA",
+    "category": "City Infrastructure & Service Requests",
+    "date_field": "issue_date",
+    "business_key": [
+      "permit_nbr"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "type_lat_lon",
+      "permit_sub_type",
+      "status_desc"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=5720",
+    "added_at": "2026-07-27T07:59:12+00:00",
+    "_weight": 80,
+    "_stratum_rows": 5720
+  },
+  {
+    "source_key": "data.lacity.org/8spw-3fhx",
+    "domain": "data.lacity.org",
+    "fourfour": "8spw-3fhx",
+    "title": "Building and Safety Temporary Special Event (TSE) Permits",
+    "city": "Los Angeles, CA",
+    "category": "City Infrastructure & Service Requests",
+    "date_field": "event_start_date",
+    "business_key": [
+      "permitno"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "per_sub_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=44",
+    "added_at": "2026-07-27T07:59:20+00:00",
+    "_weight": 80,
+    "_stratum_rows": 44
+  },
+  {
+    "source_key": "data.lacity.org/gwh9-jnip",
+    "domain": "data.lacity.org",
+    "fourfour": "gwh9-jnip",
+    "title": "Building and Safety - Building Permits Submitted from 2020 to Present (N)",
+    "city": "Los Angeles, CA",
+    "category": "City Infrastructure & Service Requests",
+    "date_field": "issue_date",
+    "business_key": [
+      "permit_nbr"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "type_lat_lon",
+      "permit_sub_type",
+      "permit_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=3460",
+    "added_at": "2026-07-27T07:59:24+00:00",
+    "_weight": 80,
+    "_stratum_rows": 3460
+  },
+  {
+    "source_key": "data.lacity.org/ysqd-apz7",
+    "domain": "data.lacity.org",
+    "fourfour": "ysqd-apz7",
+    "title": "Building and Safety - Electrical Permits Issued from 2020 to Present (N)",
+    "city": "Los Angeles, CA",
+    "category": "City Infrastructure & Service Requests",
+    "date_field": "issue_date",
+    "business_key": [
+      "permit_nbr"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "type_lat_lon",
+      "status_desc",
+      "permit_sub_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=4862",
+    "added_at": "2026-07-27T07:59:57+00:00",
+    "_weight": 80,
+    "_stratum_rows": 4862
+  },
+  {
+    "source_key": "data.lacity.org/67is-svtd",
+    "domain": "data.lacity.org",
+    "fourfour": "67is-svtd",
+    "title": "Building and Safety - Mechanical Permits Issued from 2020 to Present (N)",
+    "city": "Los Angeles, CA",
+    "category": "City Infrastructure & Service Requests",
+    "date_field": "issue_date",
+    "business_key": [
+      "permit_nbr"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "type_lat_lon",
+      "permit_sub_type",
+      "status_desc"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=3979",
+    "added_at": "2026-07-27T08:00:17+00:00",
+    "_weight": 80,
+    "_stratum_rows": 3979
+  },
+  {
+    "source_key": "data.lacity.org/9k3p-zrda",
+    "domain": "data.lacity.org",
+    "fourfour": "9k3p-zrda",
+    "title": "Building and Safety - Electrical Permits Submitted from 2020 to Present (N)",
+    "city": "Los Angeles, CA",
+    "category": "City Infrastructure & Service Requests",
+    "date_field": "issue_date",
+    "business_key": [
+      "permit_nbr"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "type_lat_lon",
+      "permit_sub_type",
+      "status_desc"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=760",
+    "added_at": "2026-07-27T08:00:28+00:00",
+    "_weight": 80,
+    "_stratum_rows": 760
+  },
+  {
+    "source_key": "data.lacity.org/n3xg-rixm",
+    "domain": "data.lacity.org",
+    "fourfour": "n3xg-rixm",
+    "title": "Building and Safety - Building Permits Submitted Between 2010 and 2019 (N)",
+    "city": "Los Angeles, CA",
+    "category": "City Infrastructure & Service Requests",
+    "date_field": "issue_date",
+    "business_key": [
+      "permit_nbr"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "type_lat_lon",
+      "permit_sub_type",
+      "permit_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=17",
+    "added_at": "2026-07-27T08:00:33+00:00",
+    "_weight": 80,
+    "_stratum_rows": 17
+  },
+  {
+    "source_key": "data.lacity.org/9aw9-mn4p",
+    "domain": "data.lacity.org",
+    "fourfour": "9aw9-mn4p",
+    "title": "LA City Events (2022-2025)",
+    "city": "Los Angeles, CA",
+    "category": "City Infrastructure & Service Requests",
+    "date_field": "event_date",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "eventtype",
+      "eventtypes"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=52",
+    "added_at": "2026-07-27T08:00:36+00:00",
+    "_weight": 80,
+    "_stratum_rows": 52
+  },
+  {
+    "source_key": "data.lacity.org/9rag-xmmd",
+    "domain": "data.lacity.org",
+    "fourfour": "9rag-xmmd",
+    "title": "Building and Safety - Mechanical Permits Submitted from 2020 to Present (N)",
+    "city": "Los Angeles, CA",
+    "category": "City Infrastructure & Service Requests",
+    "date_field": "issue_date",
+    "business_key": [
+      "permit_nbr"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "type_lat_lon",
+      "permit_sub_type",
+      "permit_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=634",
+    "added_at": "2026-07-27T08:01:10+00:00",
+    "_weight": 80,
+    "_stratum_rows": 634
+  },
+  {
+    "source_key": "data.lacity.org/bjvp-eqku",
+    "domain": "data.lacity.org",
+    "fourfour": "bjvp-eqku",
+    "title": "Building and Safety - Mechanical Permits Submitted Between 2010 and 2019 (N)",
+    "city": "Los Angeles, CA",
+    "category": "City Infrastructure & Service Requests",
+    "date_field": "issue_date",
+    "business_key": [
+      "permit_nbr"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "type_lat_lon",
+      "permit_sub_type",
+      "permit_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T08:01:23+00:00",
+    "_weight": 80,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.seattle.gov/5ngg-rpne",
+    "domain": "data.seattle.gov",
+    "fourfour": "5ngg-rpne",
+    "title": "Customer Service Requests",
+    "city": "Seattle, WA",
+    "category": "City Administration",
+    "date_field": "createddate",
+    "business_key": [
+      "servicerequestnumber"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-04T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "departmentname",
+      "servicerequeststatusname",
+      "councildistrict"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=2395",
+    "added_at": "2026-07-27T08:03:51+00:00",
+    "_weight": 80,
+    "_stratum_rows": 2395
+  },
+  {
+    "source_key": "data.seattle.gov/pafy-bfmu",
+    "domain": "data.seattle.gov",
+    "fourfour": "pafy-bfmu",
+    "title": "OPA Complaint Tracker",
+    "city": "Seattle, WA",
+    "category": "Public Safety",
+    "date_field": "due_date",
+    "business_key": [
+      "opa_case_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status_description"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=31",
+    "added_at": "2026-07-27T08:03:54+00:00",
+    "_weight": 80,
+    "_stratum_rows": 31
+  },
+  {
+    "source_key": "data.seattle.gov/k7ra-jqqe",
+    "domain": "data.seattle.gov",
+    "fourfour": "k7ra-jqqe",
+    "title": "Unauthorized Encampment Reports",
+    "city": "Seattle, WA",
+    "category": "City Administration",
+    "date_field": "createddate",
+    "business_key": [
+      "servicerequestnumber"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-13T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "servicerequeststatusname",
+      "councildistrict"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=2613",
+    "added_at": "2026-07-27T08:03:59+00:00",
+    "_weight": 80,
+    "_stratum_rows": 2613
+  },
+  {
+    "source_key": "data.seattle.gov/74ix-6xdj",
+    "domain": "data.seattle.gov",
+    "fourfour": "74ix-6xdj",
+    "title": "72hr Parking Ordinance Violations",
+    "city": "Seattle, WA",
+    "category": "City Administration",
+    "date_field": "createddate",
+    "business_key": [
+      "servicerequestnumber"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "servicerequeststatusname",
+      "councildistrict"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=5984",
+    "added_at": "2026-07-27T08:04:03+00:00",
+    "_weight": 80,
+    "_stratum_rows": 5984
+  },
+  {
+    "source_key": "data.seattle.gov/bpvk-ju3y",
+    "domain": "data.seattle.gov",
+    "fourfour": "bpvk-ju3y",
+    "title": "Illegal Dumping Reports",
+    "city": "Seattle, WA",
+    "category": "City Administration",
+    "date_field": "createddate",
+    "business_key": [
+      "servicerequestnumber"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "servicerequeststatusname",
+      "councildistrict",
+      "descriptionoftheillegaldumping"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=2659",
+    "added_at": "2026-07-27T08:04:07+00:00",
+    "_weight": 80,
+    "_stratum_rows": 2659
+  },
+  {
+    "source_key": "data.seattle.gov/jucr-xeky",
+    "domain": "data.seattle.gov",
+    "fourfour": "jucr-xeky",
+    "title": "Graffiti Reports",
+    "city": "Seattle, WA",
+    "category": "City Administration",
+    "date_field": "createddate",
+    "business_key": [
+      "servicerequestnumber"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "servicerequeststatusname",
+      "councildistrict"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=3157",
+    "added_at": "2026-07-27T08:04:10+00:00",
+    "_weight": 80,
+    "_stratum_rows": 3157
+  },
+  {
+    "source_key": "data.austintexas.gov/6wtj-zbtb",
+    "domain": "data.austintexas.gov",
+    "fourfour": "6wtj-zbtb",
+    "title": "Austin Code Complaint Cases",
+    "city": "Austin, TX",
+    "category": "Public Safety",
+    "date_field": "opened_date",
+    "business_key": [
+      "case_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "description"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=2683",
+    "added_at": "2026-07-27T08:05:43+00:00",
+    "_weight": 80,
+    "_stratum_rows": 2683
+  },
+  {
+    "source_key": "data.austintexas.gov/v7vh-gbi6",
+    "domain": "data.austintexas.gov",
+    "fourfour": "v7vh-gbi6",
+    "title": "Mobility Management Center Issues",
+    "city": "Austin, TX",
+    "category": "Transportation and Mobility",
+    "date_field": "created_date",
+    "business_key": [
+      "tmc_issue_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "issue_status_desc",
+      "issue_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=1349",
+    "added_at": "2026-07-27T08:05:47+00:00",
+    "_weight": 80,
+    "_stratum_rows": 1349
+  },
+  {
+    "source_key": "data.austintexas.gov/p7pt-re4k",
+    "domain": "data.austintexas.gov",
+    "fourfour": "p7pt-re4k",
+    "title": "Mobility Management Center Activities",
+    "city": "Austin, TX",
+    "category": "Transportation and Mobility",
+    "date_field": "tmc_activity_datetime",
+    "business_key": [
+      "atd_activity_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=4916",
+    "added_at": "2026-07-27T08:05:49+00:00",
+    "_weight": 80,
+    "_stratum_rows": 4916
+  },
+  {
+    "source_key": "data.austintexas.gov/38mr-dwji",
+    "domain": "data.austintexas.gov",
+    "fourfour": "38mr-dwji",
+    "title": "311 Service Requests - Austin Transportation and Public Works",
+    "city": "Austin, TX",
+    "category": "Transportation and Mobility",
+    "date_field": "created_date",
+    "business_key": [
+      "service_request_sr_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-12T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "sr_status",
+      "group_description",
+      "sr_description"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=2507",
+    "added_at": "2026-07-27T08:05:53+00:00",
+    "_weight": 80,
+    "_stratum_rows": 2507
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/pv7j-pdxw",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "pv7j-pdxw",
+    "title": "Noise Complaints",
+    "city": "Montgomery County, MD",
+    "category": "Environment",
+    "date_field": "open_date",
+    "business_key": [
+      "case_no"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "sub_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=57",
+    "added_at": "2026-07-27T08:13:26+00:00",
+    "_weight": 80,
+    "_stratum_rows": 57
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/5diu-yj9e",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "5diu-yj9e",
+    "title": "Agency Service Requests",
+    "city": "Montgomery County, MD",
+    "category": "Community/Recreation",
+    "date_field": "request_date",
+    "business_key": [
+      "service_request_no"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "description",
+      "request_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=80; stratum_rows_at_discovery=609",
+    "added_at": "2026-07-27T08:13:29+00:00",
+    "_weight": 80,
+    "_stratum_rows": 609
+  },
+  {
+    "source_key": "data.cityofchicago.org/ydr8-5enu",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "ydr8-5enu",
+    "title": "Building Permits",
+    "city": "Chicago, IL",
+    "category": "Buildings",
+    "date_field": "application_start_date",
+    "business_key": [
+      "permit_"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "contact_10_type",
+      "contact_9_type",
+      "contact_8_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=3119",
+    "added_at": "2026-07-27T07:41:47+00:00",
+    "_weight": 75,
+    "_stratum_rows": 3119
+  },
+  {
+    "source_key": "data.cityofchicago.org/4ijn-s7e5",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "4ijn-s7e5",
+    "title": "Food Inspections",
+    "city": "Chicago, IL",
+    "category": "Health & Human Services",
+    "date_field": "inspection_date",
+    "business_key": [
+      "inspection_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "results",
+      "inspection_type",
+      "facility_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1649",
+    "added_at": "2026-07-27T07:41:50+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1649
+  },
+  {
+    "source_key": "data.cityofchicago.org/22u3-xenr",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "22u3-xenr",
+    "title": "Building Violations",
+    "city": "Chicago, IL",
+    "category": "Buildings",
+    "date_field": "violation_date",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "violation_status",
+      "inspection_category",
+      "inspection_status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=4363",
+    "added_at": "2026-07-27T07:41:57+00:00",
+    "_weight": 75,
+    "_stratum_rows": 4363
+  },
+  {
+    "source_key": "data.cityofchicago.org/7bzs-jsyj",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "7bzs-jsyj",
+    "title": "House Share Prohibited Buildings List",
+    "city": "Chicago, IL",
+    "category": "Buildings",
+    "date_field": "vote_date",
+    "business_key": [
+      "application_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-09-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "street_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2",
+    "added_at": "2026-07-27T07:42:06+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2
+  },
+  {
+    "source_key": "data.cityofchicago.org/6br9-quuz",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "6br9-quuz",
+    "title": "Ordinance Violations",
+    "city": "Chicago, IL",
+    "category": "Administration & Finance",
+    "date_field": "violation_date",
+    "business_key": [
+      "nov_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "case_disposition",
+      "street_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2080",
+    "added_at": "2026-07-27T07:42:16+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2080
+  },
+  {
+    "source_key": "data.cityofchicago.org/5k2z-suxx",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "5k2z-suxx",
+    "title": "Relocated Vehicles",
+    "city": "Chicago, IL",
+    "category": "Transportation",
+    "date_field": "relocated_date",
+    "business_key": [
+      "service_request_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2026-06-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1402",
+    "added_at": "2026-07-27T07:42:33+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1402
+  },
+  {
+    "source_key": "data.cityofchicago.org/pubx-yq2d",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "pubx-yq2d",
+    "title": "Transportation Department Permits",
+    "city": "Chicago, IL",
+    "category": "Transportation",
+    "date_field": "applicationstartdate",
+    "business_key": [
+      "uniquekey"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-08T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "applicationstatus",
+      "lastinspectionresult",
+      "lastinspectiontype"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2838",
+    "added_at": "2026-07-27T07:42:45+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2838
+  },
+  {
+    "source_key": "data.cityofchicago.org/i9rk-duva",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "i9rk-duva",
+    "title": "CDPH Environmental Inspections",
+    "city": "Chicago, IL",
+    "category": "Environment & Sustainable Development",
+    "date_field": "inspection_date",
+    "business_key": [
+      "inspection_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "result",
+      "street_type",
+      "inspection_category"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=533",
+    "added_at": "2026-07-27T07:42:51+00:00",
+    "_weight": 75,
+    "_stratum_rows": 533
+  },
+  {
+    "source_key": "data.cityofchicago.org/crg5-4zyp",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "crg5-4zyp",
+    "title": "Building Code Scofflaw List",
+    "city": "Chicago, IL",
+    "category": "Buildings",
+    "date_field": "building_list_date",
+    "business_key": [
+      "record_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-09-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "ward"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=62",
+    "added_at": "2026-07-27T07:42:55+00:00",
+    "_weight": 75,
+    "_stratum_rows": 62
+  },
+  {
+    "source_key": "data.cityofchicago.org/ir7v-8mc8",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "ir7v-8mc8",
+    "title": "CDPH Environmental Permits",
+    "city": "Chicago, IL",
+    "category": "Environment & Sustainable Development",
+    "date_field": "issue_date",
+    "business_key": [
+      "application_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "application_subtype",
+      "application_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=115",
+    "added_at": "2026-07-27T07:43:02+00:00",
+    "_weight": 75,
+    "_stratum_rows": 115
+  },
+  {
+    "source_key": "data.cityofchicago.org/yhcw-iu53",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "yhcw-iu53",
+    "title": "Foreclosed Rental Property",
+    "city": "Chicago, IL",
+    "category": "Community & Economic Development",
+    "date_field": "submission_date",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=13",
+    "added_at": "2026-07-27T07:43:07+00:00",
+    "_weight": 75,
+    "_stratum_rows": 13
+  },
+  {
+    "source_key": "data.cityofchicago.org/qfyy-956j",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "qfyy-956j",
+    "title": "Active Shared Housing Registrations",
+    "city": "Chicago, IL",
+    "category": "Community & Economic Development",
+    "date_field": "current_status_date",
+    "business_key": [
+      "registration_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "ward"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=60",
+    "added_at": "2026-07-27T07:43:15+00:00",
+    "_weight": 75,
+    "_stratum_rows": 60
+  },
+  {
+    "source_key": "data.cityofchicago.org/nxj5-ix6z",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "nxj5-ix6z",
+    "title": "Sidewalk Cafe Permits",
+    "city": "Chicago, IL",
+    "category": "Community & Economic Development",
+    "date_field": "issued_date",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "street_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=58",
+    "added_at": "2026-07-27T07:43:27+00:00",
+    "_weight": 75,
+    "_stratum_rows": 58
+  },
+  {
+    "source_key": "data.cityofchicago.org/xbwc-ntpx",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "xbwc-ntpx",
+    "title": "Additional Dwelling Unit Preapproval Applications - Historical",
+    "city": "Chicago, IL",
+    "category": "Buildings",
+    "date_field": "submission_date",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "adu_type",
+      "status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=19",
+    "added_at": "2026-07-27T07:43:30+00:00",
+    "_weight": 75,
+    "_stratum_rows": 19
+  },
+  {
+    "source_key": "data.cityofnewyork.us/jz4z-kudi",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "jz4z-kudi",
+    "title": "OATH Hearings Division Case Status",
+    "city": "New York, NY",
+    "category": "City Government",
+    "date_field": "violation_date",
+    "business_key": [
+      "ticket_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "respondent_address_borough",
+      "violation_location_borough",
+      "issuing_agency"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=3823",
+    "added_at": "2026-07-27T07:48:32+00:00",
+    "_weight": 75,
+    "_stratum_rows": 3823
+  },
+  {
+    "source_key": "data.cityofnewyork.us/rbx6-tga4",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "rbx6-tga4",
+    "title": "DOB NOW: Build \u2013 Approved Permits",
+    "city": "New York, NY",
+    "category": "Housing & Development",
+    "date_field": "issued_date",
+    "business_key": [
+      "tracking_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-07T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "permit_status",
+      "borough",
+      "permittee_s_license_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=3189",
+    "added_at": "2026-07-27T07:48:36+00:00",
+    "_weight": 75,
+    "_stratum_rows": 3189
+  },
+  {
+    "source_key": "data.cityofnewyork.us/w9ak-ipjd",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "w9ak-ipjd",
+    "title": "DOB NOW: Build \u2013 Job Application Filings",
+    "city": "New York, NY",
+    "category": "Housing & Development",
+    "date_field": "filing_date",
+    "business_key": [
+      "job_filing_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-07T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "earth_work_work_type_",
+      "filing_review_type",
+      "foundation_work_type_"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2977",
+    "added_at": "2026-07-27T07:48:45+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2977
+  },
+  {
+    "source_key": "data.cityofnewyork.us/pvqr-7yc4",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "pvqr-7yc4",
+    "title": "Parking Violations Issued - Fiscal Year 2026",
+    "city": "New York, NY",
+    "category": "City Government",
+    "date_field": "issue_date",
+    "business_key": [
+      "summons_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "plate_type",
+      "issuing_agency",
+      "vehicle_body_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=529",
+    "added_at": "2026-07-27T07:48:49+00:00",
+    "_weight": 75,
+    "_stratum_rows": 529
+  },
+  {
+    "source_key": "data.cityofnewyork.us/p937-wjvj",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "p937-wjvj",
+    "title": "Rodent Inspection",
+    "city": "New York, NY",
+    "category": "Health",
+    "date_field": "inspection_date",
+    "business_key": [
+      "job_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-05T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "inspection_type",
+      "borough",
+      "council_district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2550",
+    "added_at": "2026-07-27T07:49:06+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2550
+  },
+  {
+    "source_key": "data.cityofnewyork.us/tqtj-sjs8",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "tqtj-sjs8",
+    "title": "Street Construction Permits (2022 - Present)",
+    "city": "New York, NY",
+    "category": "Transportation",
+    "date_field": "createdon",
+    "business_key": [
+      "permitnumber"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "permitstatusid",
+      "permitstatusshortdesc",
+      "applicationtypeshortdesc"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2617",
+    "added_at": "2026-07-27T07:49:22+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2617
+  },
+  {
+    "source_key": "data.cityofnewyork.us/5zhs-2jue",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "5zhs-2jue",
+    "title": "BUILDING",
+    "city": "New York, NY",
+    "category": "City Government",
+    "date_field": "last_edited_date",
+    "business_key": [
+      "doitt_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=164",
+    "added_at": "2026-07-27T07:49:38+00:00",
+    "_weight": 75,
+    "_stratum_rows": 164
+  },
+  {
+    "source_key": "data.cityofnewyork.us/hq68-rnsi",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "hq68-rnsi",
+    "title": "Affordable Housing Production by Project",
+    "city": "New York, NY",
+    "category": "Housing & Development",
+    "date_field": "project_start_date",
+    "business_key": [
+      "project_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "extended_affordability_status",
+      "prevailing_wage_status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=92",
+    "added_at": "2026-07-27T07:49:52+00:00",
+    "_weight": 75,
+    "_stratum_rows": 92
+  },
+  {
+    "source_key": "data.cityofnewyork.us/cspg-yi7g",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "cspg-yi7g",
+    "title": "Construction Demolition Registrants",
+    "city": "New York, NY",
+    "category": "City Government",
+    "date_field": "created",
+    "business_key": [
+      "bic_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-05T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "council_district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=3114",
+    "added_at": "2026-07-27T07:49:55+00:00",
+    "_weight": 75,
+    "_stratum_rows": 3114
+  },
+  {
+    "source_key": "data.cityofnewyork.us/xubg-57si",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "xubg-57si",
+    "title": "DOB NOW: Safety \u2013 Facades Compliance Filings",
+    "city": "New York, NY",
+    "category": "Housing & Development",
+    "date_field": "filing_date",
+    "business_key": [
+      "tr6_no"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "current_status",
+      "filing_status",
+      "filing_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=274",
+    "added_at": "2026-07-27T07:50:00+00:00",
+    "_weight": 75,
+    "_stratum_rows": 274
+  },
+  {
+    "source_key": "data.cityofnewyork.us/f4rp-2kvy",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "f4rp-2kvy",
+    "title": "Clean Air Tracking System (CATS) Permits",
+    "city": "New York, NY",
+    "category": "Environment",
+    "date_field": "issuedate",
+    "business_key": [
+      "applicationid"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "requesttype",
+      "borough"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1477",
+    "added_at": "2026-07-27T07:50:05+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1477
+  },
+  {
+    "source_key": "data.cityofnewyork.us/jt7v-77mi",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "jt7v-77mi",
+    "title": "Parking Violations Issued - Fiscal Year 2014",
+    "city": "New York, NY",
+    "category": "City Government",
+    "date_field": "issue_date",
+    "business_key": [
+      "summons_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-12-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "issuing_agency",
+      "plate_type",
+      "vehicle_body_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=3",
+    "added_at": "2026-07-27T07:50:09+00:00",
+    "_weight": 75,
+    "_stratum_rows": 3
+  },
+  {
+    "source_key": "data.cityofnewyork.us/dm9a-ab7w",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "dm9a-ab7w",
+    "title": "DOB NOW: Electrical Permit Applications",
+    "city": "New York, NY",
+    "category": "City Government",
+    "date_field": "filing_date",
+    "business_key": [
+      "job_filing_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-13T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "borough",
+      "filing_type",
+      "job_status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2471",
+    "added_at": "2026-07-27T07:50:15+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2471
+  },
+  {
+    "source_key": "data.cityofnewyork.us/kiv2-tbus",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "kiv2-tbus",
+    "title": "Parking Violations Issued - Fiscal Year 2016",
+    "city": "New York, NY",
+    "category": "City Government",
+    "date_field": "issue_date",
+    "business_key": [
+      "summons_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "plate_type",
+      "issuing_agency",
+      "vehicle_body_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T07:50:19+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.cityofnewyork.us/tb8q-a3ar",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "tb8q-a3ar",
+    "title": "Order to Repair/Vacate Orders",
+    "city": "New York, NY",
+    "category": "Housing & Development",
+    "date_field": "vacate_effective_date",
+    "business_key": [
+      "vacate_order_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "vacate_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=44",
+    "added_at": "2026-07-27T07:50:23+00:00",
+    "_weight": 75,
+    "_stratum_rows": 44
+  },
+  {
+    "source_key": "data.cityofnewyork.us/2bnn-yakx",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "2bnn-yakx",
+    "title": "Parking Violations Issued - Fiscal Year 2017",
+    "city": "New York, NY",
+    "category": "City Government",
+    "date_field": "issue_date",
+    "business_key": [
+      "summons_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "issuing_agency",
+      "plate_type",
+      "vehicle_body_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2",
+    "added_at": "2026-07-27T07:50:30+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2
+  },
+  {
+    "source_key": "data.cityofnewyork.us/sp7n-275u",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "sp7n-275u",
+    "title": "Medallion Taxi Initial Inspection Schedule",
+    "city": "New York, NY",
+    "category": "Transportation",
+    "date_field": "_2nd_inspection_scheduled_date",
+    "business_key": [
+      "medallion_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2026-06-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1039",
+    "added_at": "2026-07-27T07:50:39+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1039
+  },
+  {
+    "source_key": "data.cityofnewyork.us/pkdm-hqz6",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "pkdm-hqz6",
+    "title": "DOB NOW: Certificate of Occupancy",
+    "city": "New York, NY",
+    "category": "Housing & Development",
+    "date_field": "submitted_date",
+    "business_key": [
+      "application_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "c_of_o_filing_type",
+      "borough",
+      "job_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1434",
+    "added_at": "2026-07-27T07:50:53+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1434
+  },
+  {
+    "source_key": "data.cityofnewyork.us/jzhd-m6uv",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "jzhd-m6uv",
+    "title": "DCWP Inspections",
+    "city": "New York, NY",
+    "category": "Business",
+    "date_field": "date_of_occurrence",
+    "business_key": [
+      "inspection_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-12T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "address_type",
+      "borough",
+      "business_category"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2770",
+    "added_at": "2026-07-27T07:51:03+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2770
+  },
+  {
+    "source_key": "data.cityofnewyork.us/kfp4-dz4h",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "kfp4-dz4h",
+    "title": "DOB NOW: Build Elevator Permit Applications",
+    "city": "New York, NY",
+    "category": "Housing & Development",
+    "date_field": "filing_date",
+    "business_key": [
+      "job_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "building_type",
+      "review_type_ppn",
+      "filing_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=370",
+    "added_at": "2026-07-27T07:51:30+00:00",
+    "_weight": 75,
+    "_stratum_rows": 370
+  },
+  {
+    "source_key": "data.cityofnewyork.us/faiq-9dfq",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "faiq-9dfq",
+    "title": "Parking Violations Issued - Fiscal Year 2019",
+    "city": "New York, NY",
+    "category": "City Government",
+    "date_field": "issue_date",
+    "business_key": [
+      "summons_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2026-06-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "plate_type",
+      "issuing_agency",
+      "vehicle_body_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=3",
+    "added_at": "2026-07-27T07:51:47+00:00",
+    "_weight": 75,
+    "_stratum_rows": 3
+  },
+  {
+    "source_key": "data.sfgov.org/5cei-gny5",
+    "domain": "data.sfgov.org",
+    "fourfour": "5cei-gny5",
+    "title": "Eviction Notices",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "file_date",
+    "business_key": [
+      "eviction_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "neighborhood"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=112",
+    "added_at": "2026-07-27T07:55:03+00:00",
+    "_weight": 75,
+    "_stratum_rows": 112
+  },
+  {
+    "source_key": "data.sfgov.org/wv5m-vpq2",
+    "domain": "data.sfgov.org",
+    "fourfour": "wv5m-vpq2",
+    "title": "Assessor Historical Secured Property Tax Rolls",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "current_sales_date",
+    "business_key": [
+      "row_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "assessor_neighborhood_district",
+      "status_code",
+      "supervisor_district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T07:55:08+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.sfgov.org/wmam-7g8d",
+    "domain": "data.sfgov.org",
+    "fourfour": "wmam-7g8d",
+    "title": "Buyout Agreements",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "pre_buyout_disclosure_declaration_date",
+    "business_key": [
+      "case_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "supervisor_district",
+      "analysis_neighborhood"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=68",
+    "added_at": "2026-07-27T07:55:10+00:00",
+    "_weight": 75,
+    "_stratum_rows": 68
+  },
+  {
+    "source_key": "data.sfgov.org/aaxw-2cb8",
+    "domain": "data.sfgov.org",
+    "fourfour": "aaxw-2cb8",
+    "title": "Mayor's Office of Housing and Community Development Affordable Housing Pipeline",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "ssp_rad_acquisition_date",
+    "business_key": [
+      "project_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-09-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "project_type",
+      "project_status",
+      "construction_status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T07:55:21+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.sfgov.org/a6aw-rudh",
+    "domain": "data.sfgov.org",
+    "fourfour": "a6aw-rudh",
+    "title": "Plumbing Permits",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "application_date",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "supervisor_district",
+      "neighborhoods_analysis_boundaries"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1417",
+    "added_at": "2026-07-27T07:55:24+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1417
+  },
+  {
+    "source_key": "data.sfgov.org/wb4c-6hwj",
+    "domain": "data.sfgov.org",
+    "fourfour": "wb4c-6hwj",
+    "title": "Fire Inspections",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "inspection_start_date",
+    "business_key": [
+      "inspection_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "inspection_status",
+      "supervisor_district",
+      "bfp_district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2720",
+    "added_at": "2026-07-27T07:55:39+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2720
+  },
+  {
+    "source_key": "data.sfgov.org/4zuq-2cbe",
+    "domain": "data.sfgov.org",
+    "fourfour": "4zuq-2cbe",
+    "title": "Fire Violations",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "violation_date",
+    "business_key": [
+      "violation_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "supervisor_district",
+      "bfp_district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=314",
+    "added_at": "2026-07-27T07:55:42+00:00",
+    "_weight": 75,
+    "_stratum_rows": 314
+  },
+  {
+    "source_key": "data.sfgov.org/6jgi-cpb4",
+    "domain": "data.sfgov.org",
+    "fourfour": "6jgi-cpb4",
+    "title": "San Francisco Development Pipeline",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "current_status_date",
+    "business_key": [
+      "case_no"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "current_status",
+      "zoning_district",
+      "planning_district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=53",
+    "added_at": "2026-07-27T07:55:45+00:00",
+    "_weight": 75,
+    "_stratum_rows": 53
+  },
+  {
+    "source_key": "data.sfgov.org/893e-xam6",
+    "domain": "data.sfgov.org",
+    "fourfour": "893e-xam6",
+    "title": "Fire Permits",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "permit_date_approved",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "permit_status",
+      "unit_type",
+      "supervisor_district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=443",
+    "added_at": "2026-07-27T07:55:47+00:00",
+    "_weight": 75,
+    "_stratum_rows": 443
+  },
+  {
+    "source_key": "data.sfgov.org/ftty-kx6y",
+    "domain": "data.sfgov.org",
+    "fourfour": "ftty-kx6y",
+    "title": "Electrical Permits",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "application_creation_date",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "supervisor_district",
+      "neighborhoods_analysis_boundaries"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1603",
+    "added_at": "2026-07-27T07:55:54+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1603
+  },
+  {
+    "source_key": "data.sfgov.org/3pee-9qhc",
+    "domain": "data.sfgov.org",
+    "fourfour": "3pee-9qhc",
+    "title": "Building Permits Contacts",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "from_date",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=5418",
+    "added_at": "2026-07-27T07:56:05+00:00",
+    "_weight": 75,
+    "_stratum_rows": 5418
+  },
+  {
+    "source_key": "data.sfgov.org/qvu5-m3a2",
+    "domain": "data.sfgov.org",
+    "fourfour": "qvu5-m3a2",
+    "title": "Planning Department Records - Projects",
+    "city": "San Francisco, CA",
+    "category": "Economy and Community",
+    "date_field": "open_date",
+    "business_key": [
+      "record_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "environmental_document_type",
+      "record_status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=110",
+    "added_at": "2026-07-27T07:56:17+00:00",
+    "_weight": 75,
+    "_stratum_rows": 110
+  },
+  {
+    "source_key": "data.sfgov.org/5dp4-gtxk",
+    "domain": "data.sfgov.org",
+    "fourfour": "5dp4-gtxk",
+    "title": "Boiler Permits",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "application_date",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "supervisor_district",
+      "neighborhoods_analysis_boundaries"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=900",
+    "added_at": "2026-07-27T07:56:21+00:00",
+    "_weight": 75,
+    "_stratum_rows": 900
+  },
+  {
+    "source_key": "data.sfgov.org/x2zf-uu4r",
+    "domain": "data.sfgov.org",
+    "fourfour": "x2zf-uu4r",
+    "title": "SFO Permitted Ground Transport Companies",
+    "city": "San Francisco, CA",
+    "category": "Transportation",
+    "date_field": "permit_start_date",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "billing_type",
+      "status",
+      "permit_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=20",
+    "added_at": "2026-07-27T07:56:36+00:00",
+    "_weight": 75,
+    "_stratum_rows": 20
+  },
+  {
+    "source_key": "data.sfgov.org/xtj2-daw9",
+    "domain": "data.sfgov.org",
+    "fourfour": "xtj2-daw9",
+    "title": "Wireless Service Facility Permits",
+    "city": "San Francisco, CA",
+    "category": "City Infrastructure",
+    "date_field": "permit_approval_date",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-09-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "permit_status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T07:56:40+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.sfgov.org/y673-d69b",
+    "domain": "data.sfgov.org",
+    "fourfour": "y673-d69b",
+    "title": "Planning Department Records - Non-Projects",
+    "city": "San Francisco, CA",
+    "category": "Economy and Community",
+    "date_field": "open_date",
+    "business_key": [
+      "record_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "record_status",
+      "record_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=960",
+    "added_at": "2026-07-27T07:56:58+00:00",
+    "_weight": 75,
+    "_stratum_rows": 960
+  },
+  {
+    "source_key": "data.sfgov.org/43dv-5hf4",
+    "domain": "data.sfgov.org",
+    "fourfour": "43dv-5hf4",
+    "title": "Street Space Permit Report for SFMTA",
+    "city": "San Francisco, CA",
+    "category": "City Infrastructure",
+    "date_field": "permit_appr_date",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=62",
+    "added_at": "2026-07-27T07:57:03+00:00",
+    "_weight": 75,
+    "_stratum_rows": 62
+  },
+  {
+    "source_key": "data.sfgov.org/tyz3-vt28",
+    "domain": "data.sfgov.org",
+    "fourfour": "tyz3-vt28",
+    "title": "PermitSF Permitting Data",
+    "city": "San Francisco, CA",
+    "category": "Housing and Buildings",
+    "date_field": "submitted_date",
+    "business_key": [
+      "recordid"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2026-06-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "recordtype",
+      "status_detail"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2046",
+    "added_at": "2026-07-27T07:57:10+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2046
+  },
+  {
+    "source_key": "data.seattle.gov/76t5-zqzr",
+    "domain": "data.seattle.gov",
+    "fourfour": "76t5-zqzr",
+    "title": "Building Permits",
+    "city": "Seattle, WA",
+    "category": "Built Environment",
+    "date_field": "issueddate",
+    "business_key": [
+      "permitnum"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "permittypemapped",
+      "housingcategory",
+      "statuscurrent"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=649",
+    "added_at": "2026-07-27T08:04:14+00:00",
+    "_weight": 75,
+    "_stratum_rows": 649
+  },
+  {
+    "source_key": "data.seattle.gov/crg2-ssqd",
+    "domain": "data.seattle.gov",
+    "fourfour": "crg2-ssqd",
+    "title": "Permit Review Time Data",
+    "city": "Seattle, WA",
+    "category": "Transportation",
+    "date_field": "issueddate",
+    "business_key": [
+      "permitreviewtimeid"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-13T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "permittype",
+      "permittypedesc",
+      "currenttaskstatus"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2768",
+    "added_at": "2026-07-27T08:04:36+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2768
+  },
+  {
+    "source_key": "data.austintexas.gov/3syk-w9eu",
+    "domain": "data.austintexas.gov",
+    "fourfour": "3syk-w9eu",
+    "title": "Issued Construction Permits",
+    "city": "Austin, TX",
+    "category": "Building and Development",
+    "date_field": "issue_date",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status_current",
+      "permit_type_desc",
+      "permittype"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=5433",
+    "added_at": "2026-07-27T08:05:56+00:00",
+    "_weight": 75,
+    "_stratum_rows": 5433
+  },
+  {
+    "source_key": "data.austintexas.gov/gsvs-ypi7",
+    "domain": "data.austintexas.gov",
+    "fourfour": "gsvs-ypi7",
+    "title": "Austin Animal Center Outcomes",
+    "city": "Austin, TX",
+    "category": "Health and Community Services",
+    "date_field": "intake_date",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "type",
+      "outcome_status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1428",
+    "added_at": "2026-07-27T08:06:06+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1428
+  },
+  {
+    "source_key": "data.austintexas.gov/pyqf-r2dc",
+    "domain": "data.austintexas.gov",
+    "fourfour": "pyqf-r2dc",
+    "title": "Austin Animal Center Intakes",
+    "city": "Austin, TX",
+    "category": "Health and Community Services",
+    "date_field": "source_date",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1407",
+    "added_at": "2026-07-27T08:06:12+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1407
+  },
+  {
+    "source_key": "data.austintexas.gov/quv8-5ckq",
+    "domain": "data.austintexas.gov",
+    "fourfour": "quv8-5ckq",
+    "title": "Issued Building Permits",
+    "city": "Austin, TX",
+    "category": "Building and Development",
+    "date_field": "application_date",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "unit_type",
+      "status",
+      "council_district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=936",
+    "added_at": "2026-07-27T08:06:24+00:00",
+    "_weight": 75,
+    "_stratum_rows": 936
+  },
+  {
+    "source_key": "data.austintexas.gov/n8ck-xkda",
+    "domain": "data.austintexas.gov",
+    "fourfour": "n8ck-xkda",
+    "title": "Plan Review Cases",
+    "city": "Austin, TX",
+    "category": "Building and Development",
+    "date_field": "issued_date",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status_current",
+      "sub_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=874",
+    "added_at": "2026-07-27T08:06:33+00:00",
+    "_weight": 75,
+    "_stratum_rows": 874
+  },
+  {
+    "source_key": "data.austintexas.gov/ac2h-ha3r",
+    "domain": "data.austintexas.gov",
+    "fourfour": "ac2h-ha3r",
+    "title": "Issued Tree Permits",
+    "city": "Austin, TX",
+    "category": "Building and Development",
+    "date_field": "issued_date",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "application_type",
+      "permit_status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=400",
+    "added_at": "2026-07-27T08:06:36+00:00",
+    "_weight": 75,
+    "_stratum_rows": 400
+  },
+  {
+    "source_key": "data.austintexas.gov/qyfh-gwei",
+    "domain": "data.austintexas.gov",
+    "fourfour": "qyfh-gwei",
+    "title": "Roadway Work Zones",
+    "city": "Austin, TX",
+    "category": "Transportation and Mobility",
+    "date_field": "start_date",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "work_zone_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2",
+    "added_at": "2026-07-27T08:06:38+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2
+  },
+  {
+    "source_key": "data.austintexas.gov/cdze-ufp8",
+    "domain": "data.austintexas.gov",
+    "fourfour": "cdze-ufp8",
+    "title": "Repeat Offender Violation Cases With Notice of Violation Link",
+    "city": "Austin, TX",
+    "category": "Public Safety",
+    "date_field": "violation_case_date",
+    "business_key": [
+      "violation_case_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=43",
+    "added_at": "2026-07-27T08:06:45+00:00",
+    "_weight": 75,
+    "_stratum_rows": 43
+  },
+  {
+    "source_key": "data.austintexas.gov/rwvf-3qkm",
+    "domain": "data.austintexas.gov",
+    "fourfour": "rwvf-3qkm",
+    "title": "Zoning (Small Map Scale)",
+    "city": "Austin, TX",
+    "category": "Locations and Maps",
+    "date_field": "created_date",
+    "business_key": [
+      "zoning_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=19",
+    "added_at": "2026-07-27T08:06:48+00:00",
+    "_weight": 75,
+    "_stratum_rows": 19
+  },
+  {
+    "source_key": "data.austintexas.gov/xt8n-xrjg",
+    "domain": "data.austintexas.gov",
+    "fourfour": "xt8n-xrjg",
+    "title": "Zoning Ordinance",
+    "city": "Austin, TX",
+    "category": "Locations and Maps",
+    "date_field": "created_date",
+    "business_key": [
+      "zoning_ordinance_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=48",
+    "added_at": "2026-07-27T08:06:52+00:00",
+    "_weight": 75,
+    "_stratum_rows": 48
+  },
+  {
+    "source_key": "data.austintexas.gov/2u4n-hmgw",
+    "domain": "data.austintexas.gov",
+    "fourfour": "2u4n-hmgw",
+    "title": "PLANNINGCADASTRE_site_plan_case",
+    "city": "Austin, TX",
+    "category": "Locations and Maps",
+    "date_field": "application_start_date",
+    "business_key": [
+      "case_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "sub_type",
+      "unit_type",
+      "site_plan_case_status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=45",
+    "added_at": "2026-07-27T08:07:12+00:00",
+    "_weight": 75,
+    "_stratum_rows": 45
+  },
+  {
+    "source_key": "data.austintexas.gov/5dcx-zjsm",
+    "domain": "data.austintexas.gov",
+    "fourfour": "5dcx-zjsm",
+    "title": "Spring",
+    "city": "Austin, TX",
+    "category": "Environment",
+    "date_field": "plan_set_date",
+    "business_key": [
+      "brg_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2026-06-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "feature_type",
+      "feature_status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2",
+    "added_at": "2026-07-27T08:07:17+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2
+  },
+  {
+    "source_key": "data.austintexas.gov/erdi-rz7j",
+    "domain": "data.austintexas.gov",
+    "fourfour": "erdi-rz7j",
+    "title": "Biological Resource Buffer",
+    "city": "Austin, TX",
+    "category": "Environment",
+    "date_field": "created_date",
+    "business_key": [
+      "brg_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-09-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "feature_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=3",
+    "added_at": "2026-07-27T08:07:21+00:00",
+    "_weight": 75,
+    "_stratum_rows": 3
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/m88u-pqki",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "m88u-pqki",
+    "title": "Residential Permit",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issueddate",
+    "business_key": [
+      "permitno"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "worktype"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=508",
+    "added_at": "2026-07-27T08:13:49+00:00",
+    "_weight": 75,
+    "_stratum_rows": 508
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/i26v-w6bd",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "i26v-w6bd",
+    "title": "Commercial Permits",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issueddate",
+    "business_key": [
+      "permitno"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "worktype"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=136",
+    "added_at": "2026-07-27T08:13:52+00:00",
+    "_weight": 75,
+    "_stratum_rows": 136
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/2b9e-mbxk",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "2b9e-mbxk",
+    "title": "Public Right Of Way Permits",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issueddate",
+    "business_key": [
+      "permitno"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "worktype"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=231",
+    "added_at": "2026-07-27T08:13:56+00:00",
+    "_weight": 75,
+    "_stratum_rows": 231
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/qxie-8qnp",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "qxie-8qnp",
+    "title": "Electrical Building Permits",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issueddate",
+    "business_key": [
+      "permitno"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "worktype",
+      "status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1149",
+    "added_at": "2026-07-27T08:14:00+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1149
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/djk9-h36c",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "djk9-h36c",
+    "title": "DPS - Antenna/Wireless Permits",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issue_date",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "permit_status",
+      "attachment_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=11",
+    "added_at": "2026-07-27T08:14:03+00:00",
+    "_weight": 75,
+    "_stratum_rows": 11
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/b6ht-fw3x",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "b6ht-fw3x",
+    "title": "Demolition Permits",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issueddate",
+    "business_key": [
+      "permitno"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=19",
+    "added_at": "2026-07-27T08:14:06+00:00",
+    "_weight": 75,
+    "_stratum_rows": 19
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/ih88-a6aa",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "ih88-a6aa",
+    "title": "Mechanical Permits",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issueddate",
+    "business_key": [
+      "permitno"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "worktype",
+      "status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=868",
+    "added_at": "2026-07-27T08:14:09+00:00",
+    "_weight": 75,
+    "_stratum_rows": 868
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/c7hs-c9qq",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "c7hs-c9qq",
+    "title": "New Home Builders",
+    "city": "Montgomery County, MD",
+    "category": "Consumer/Housing",
+    "date_field": "issueddate",
+    "business_key": [
+      "licenseno"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=8",
+    "added_at": "2026-07-27T08:14:12+00:00",
+    "_weight": 75,
+    "_stratum_rows": 8
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/ktqv-9vft",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "ktqv-9vft",
+    "title": "Construction Activities of open (Issued, not final) Public Right-of-Way Permits",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issueddate",
+    "business_key": [
+      "permitno"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "worktype"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=131",
+    "added_at": "2026-07-27T08:14:16+00:00",
+    "_weight": 75,
+    "_stratum_rows": 131
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/qdey-wt67",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "qdey-wt67",
+    "title": "OCA Code Enforcement",
+    "city": "Montgomery County, MD",
+    "category": "Law/Judicial",
+    "date_field": "openeddate",
+    "business_key": [
+      "citation_no"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "department",
+      "qcedispositionc"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=137",
+    "added_at": "2026-07-27T08:14:20+00:00",
+    "_weight": 75,
+    "_stratum_rows": 137
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/7ate-xrxm",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "7ate-xrxm",
+    "title": "Construction Activities of Commercial Permits",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issueddate",
+    "business_key": [
+      "permitno"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "worktype"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=29",
+    "added_at": "2026-07-27T08:14:23+00:00",
+    "_weight": 75,
+    "_stratum_rows": 29
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/wevq-nzst",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "wevq-nzst",
+    "title": "Site Specific Vendor's License",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issueddate",
+    "business_key": [
+      "licenseno"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T08:14:58+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/2fhm-xt6p",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "2fhm-xt6p",
+    "title": "Use and Occupancy Certificates",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issued_date",
+    "business_key": [
+      "permit_no"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "work_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=52",
+    "added_at": "2026-07-27T08:15:01+00:00",
+    "_weight": 75,
+    "_stratum_rows": 52
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/piic-h4rw",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "piic-h4rw",
+    "title": "Sign Permits",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issued_date",
+    "business_key": [
+      "permit_no"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "work_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=47",
+    "added_at": "2026-07-27T08:15:24+00:00",
+    "_weight": 75,
+    "_stratum_rows": 47
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/ba7y-a7iy",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "ba7y-a7iy",
+    "title": "Development Standard Variance",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issued_date",
+    "business_key": [
+      "application_no"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "zoning_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T08:15:26+00:00",
+    "_weight": 75,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/dngn-wp3e",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "dngn-wp3e",
+    "title": "Motor Vehicle Repair and Towing",
+    "city": "Montgomery County, MD",
+    "category": "Consumer/Housing",
+    "date_field": "issue_date",
+    "business_key": [
+      "registration_no"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "registration_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=10",
+    "added_at": "2026-07-27T08:15:32+00:00",
+    "_weight": 75,
+    "_stratum_rows": 10
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/9quz-avmj",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "9quz-avmj",
+    "title": "Fence Permits",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issue_date",
+    "business_key": [
+      "permit_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=166",
+    "added_at": "2026-07-27T08:15:34+00:00",
+    "_weight": 75,
+    "_stratum_rows": 166
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/vddw-tec2",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "vddw-tec2",
+    "title": "County Well Permits",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issued_date",
+    "business_key": [
+      "permit_no"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status",
+      "work_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=13",
+    "added_at": "2026-07-27T08:15:38+00:00",
+    "_weight": 75,
+    "_stratum_rows": 13
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/c8y6-egwk",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "c8y6-egwk",
+    "title": "Stormwater Management Concept Information",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "process_date",
+    "business_key": [
+      "application_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=6",
+    "added_at": "2026-07-27T08:15:49+00:00",
+    "_weight": 75,
+    "_stratum_rows": 6
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/99mh-igdc",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "99mh-igdc",
+    "title": "Door-To-Door Vendor's License",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issueddate",
+    "business_key": [
+      "licenseno"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=2",
+    "added_at": "2026-07-27T08:15:59+00:00",
+    "_weight": 75,
+    "_stratum_rows": 2
+  },
+  {
+    "source_key": "data.montgomerycountymd.gov/a7xm-vjfv",
+    "domain": "data.montgomerycountymd.gov",
+    "fourfour": "a7xm-vjfv",
+    "title": "DPS - Fire Code Compliance Permit",
+    "city": "Montgomery County, MD",
+    "category": "Licenses/Permits",
+    "date_field": "issue_date",
+    "business_key": [
+      "license_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=75; stratum_rows_at_discovery=63",
+    "added_at": "2026-07-27T08:16:02+00:00",
+    "_weight": 75,
+    "_stratum_rows": 63
+  },
+  {
+    "source_key": "data.cityofchicago.org/aksk-kvfp",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "aksk-kvfp",
+    "title": "City-Owned Land Inventory",
+    "city": "Chicago, IL",
+    "category": "Community & Economic Development",
+    "date_field": "application_opens",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2026-06-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "property_status",
+      "sale_offering_status",
+      "sales_status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=670",
+    "added_at": "2026-07-27T07:43:48+00:00",
+    "_weight": 70,
+    "_stratum_rows": 670
+  },
+  {
+    "source_key": "data.cityofchicago.org/f7f2-ggz5",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "f7f2-ggz5",
+    "title": "Alternative Fuel Locations",
+    "city": "Chicago, IL",
+    "category": "Environment & Sustainable Development",
+    "date_field": "expected_date",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-12-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "federal_agency_name",
+      "geocode_status",
+      "ng_fill_type_code"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=2",
+    "added_at": "2026-07-27T07:44:35+00:00",
+    "_weight": 70,
+    "_stratum_rows": 2
+  },
+  {
+    "source_key": "data.cityofnewyork.us/76xm-jjuj",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "76xm-jjuj",
+    "title": "EMS Incident Dispatch Data",
+    "city": "New York, NY",
+    "category": "Public Safety",
+    "date_field": "incident_datetime",
+    "business_key": [
+      "incident_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-06-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "borough",
+      "incident_disposition_code",
+      "initial_call_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=4780",
+    "added_at": "2026-07-27T07:52:18+00:00",
+    "_weight": 70,
+    "_stratum_rows": 4780
+  },
+  {
+    "source_key": "data.cityofnewyork.us/bkwf-xfky",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "bkwf-xfky",
+    "title": "Drinking Water Quality Distribution Monitoring Data",
+    "city": "New York, NY",
+    "category": "Environment",
+    "date_field": "sample_date",
+    "business_key": [
+      "sample_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=1083",
+    "added_at": "2026-07-27T07:52:35+00:00",
+    "_weight": 70,
+    "_stratum_rows": 1083
+  },
+  {
+    "source_key": "data.cityofnewyork.us/da9u-wz3r",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "da9u-wz3r",
+    "title": "Metal Content of Consumer Products Tested by the NYC Health Department",
+    "city": "New York, NY",
+    "category": "Health",
+    "date_field": "collection_date",
+    "business_key": [
+      "row_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "investigation_type",
+      "product_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=172",
+    "added_at": "2026-07-27T07:52:54+00:00",
+    "_weight": 70,
+    "_stratum_rows": 172
+  },
+  {
+    "source_key": "data.cityofnewyork.us/8yac-vygm",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "8yac-vygm",
+    "title": "Routes",
+    "city": "New York, NY",
+    "category": "Transportation",
+    "date_field": "route_start_date",
+    "business_key": [
+      "route_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "service_type",
+      "vehicle_typedescription"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=6",
+    "added_at": "2026-07-27T07:53:00+00:00",
+    "_weight": 70,
+    "_stratum_rows": 6
+  },
+  {
+    "source_key": "data.sfgov.org/eshn-8t3a",
+    "domain": "data.sfgov.org",
+    "fourfour": "eshn-8t3a",
+    "title": "Open Bid Opportunities",
+    "city": "San Francisco, CA",
+    "category": "City Management and Ethics",
+    "date_field": "open_date",
+    "business_key": [
+      "event_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-09-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "category",
+      "status",
+      "type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=2",
+    "added_at": "2026-07-27T07:58:18+00:00",
+    "_weight": 70,
+    "_stratum_rows": 2
+  },
+  {
+    "source_key": "data.sfgov.org/yre9-mzkb",
+    "domain": "data.sfgov.org",
+    "fourfour": "yre9-mzkb",
+    "title": "Ethics Commission Enforcement Penalties Issued",
+    "city": "San Francisco, CA",
+    "category": "City Management and Ethics",
+    "date_field": "date",
+    "business_key": [
+      "case_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-09-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "disposition",
+      "case_category"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T07:58:26+00:00",
+    "_weight": 70,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.sfgov.org/9ggq-m8hp",
+    "domain": "data.sfgov.org",
+    "fourfour": "9ggq-m8hp",
+    "title": "Campaign Finance - Summary Totals",
+    "city": "San Francisco, CA",
+    "category": "City Management and Ethics",
+    "date_field": "filing_date",
+    "business_key": [
+      "filing_id_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "filing_type",
+      "filer_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=31",
+    "added_at": "2026-07-27T07:58:34+00:00",
+    "_weight": 70,
+    "_stratum_rows": 31
+  },
+  {
+    "source_key": "data.austintexas.gov/5tye-7ray",
+    "domain": "data.austintexas.gov",
+    "fourfour": "5tye-7ray",
+    "title": "Water Quality Sampling Data",
+    "city": "Austin, TX",
+    "category": "Environment",
+    "date_field": "sample_date",
+    "business_key": [
+      "ref_no"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "site_type",
+      "param_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=2850",
+    "added_at": "2026-07-27T08:07:46+00:00",
+    "_weight": 70,
+    "_stratum_rows": 2850
+  },
+  {
+    "source_key": "data.austintexas.gov/3kfv-biw6",
+    "domain": "data.austintexas.gov",
+    "fourfour": "3kfv-biw6",
+    "title": "Campaign Finance - Contributions",
+    "city": "Austin, TX",
+    "category": "City Government",
+    "date_field": "contribution_date",
+    "business_key": [
+      "transaction_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "donor_type",
+      "contribution_type",
+      "in_kind_description"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=2530",
+    "added_at": "2026-07-27T08:08:08+00:00",
+    "_weight": 70,
+    "_stratum_rows": 2530
+  },
+  {
+    "source_key": "data.austintexas.gov/96z6-upac",
+    "domain": "data.austintexas.gov",
+    "fourfour": "96z6-upac",
+    "title": "Lobbyists - Master List of Lobbyists (Oracle View)",
+    "city": "Austin, TX",
+    "category": "City Government",
+    "date_field": "registration_date",
+    "business_key": [
+      "registrant_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=5",
+    "added_at": "2026-07-27T08:08:27+00:00",
+    "_weight": 70,
+    "_stratum_rows": 5
+  },
+  {
+    "source_key": "data.austintexas.gov/gd3e-xut2",
+    "domain": "data.austintexas.gov",
+    "fourfour": "gd3e-xut2",
+    "title": "Campaign Finance - Expenditures",
+    "city": "Austin, TX",
+    "category": "City Government",
+    "date_field": "payment_date",
+    "business_key": [
+      "transaction_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "payee_type",
+      "expenditure_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=89",
+    "added_at": "2026-07-27T08:08:41+00:00",
+    "_weight": 70,
+    "_stratum_rows": 89
+  },
+  {
+    "source_key": "data.austintexas.gov/teb3-cwz9",
+    "domain": "data.austintexas.gov",
+    "fourfour": "teb3-cwz9",
+    "title": "Campaign Finance - Loans",
+    "city": "Austin, TX",
+    "category": "City Government",
+    "date_field": "loan_date",
+    "business_key": [
+      "transaction_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "lender_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=2",
+    "added_at": "2026-07-27T08:08:54+00:00",
+    "_weight": 70,
+    "_stratum_rows": 2
+  },
+  {
+    "source_key": "data.austintexas.gov/58ix-34ma",
+    "domain": "data.austintexas.gov",
+    "fourfour": "58ix-34ma",
+    "title": "Lobbyist - Registrants",
+    "city": "Austin, TX",
+    "category": "City Government",
+    "date_field": "registration_date",
+    "business_key": [
+      "registrant_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=5",
+    "added_at": "2026-07-27T08:09:06+00:00",
+    "_weight": 70,
+    "_stratum_rows": 5
+  },
+  {
+    "source_key": "data.austintexas.gov/xhtw-mkpj",
+    "domain": "data.austintexas.gov",
+    "fourfour": "xhtw-mkpj",
+    "title": "Campaign Finance - Credits",
+    "city": "Austin, TX",
+    "category": "City Government",
+    "date_field": "credit_date",
+    "business_key": [
+      "transaction_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "payer_type",
+      "in_kind_description"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=70; stratum_rows_at_discovery=7",
+    "added_at": "2026-07-27T08:09:11+00:00",
+    "_weight": 70,
+    "_stratum_rows": 7
+  },
+  {
+    "source_key": "data.cityofchicago.org/4i42-qv3h",
+    "domain": "data.cityofchicago.org",
+    "fourfour": "4i42-qv3h",
+    "title": "Speed Camera Locations",
+    "city": "Chicago, IL",
+    "category": "Transportation",
+    "date_field": "go_live_date",
+    "business_key": [
+      "location_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=60; stratum_rows_at_discovery=11",
+    "added_at": "2026-07-27T07:45:50+00:00",
+    "_weight": 60,
+    "_stratum_rows": 11
+  },
+  {
+    "source_key": "data.cityofnewyork.us/dg92-zbpx",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "dg92-zbpx",
+    "title": "City Record Online",
+    "city": "New York, NY",
+    "category": "City Government",
+    "date_field": "start_date",
+    "business_key": [
+      "request_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "type_of_notice_description",
+      "agency_name"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=60; stratum_rows_at_discovery=5380",
+    "added_at": "2026-07-27T07:53:09+00:00",
+    "_weight": 60,
+    "_stratum_rows": 5380
+  },
+  {
+    "source_key": "data.cityofnewyork.us/tbgj-tdd6",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "tbgj-tdd6",
+    "title": "Mobile Telecommunications Franchise Pole Reservation Locations",
+    "city": "New York, NY",
+    "category": "City Government",
+    "date_field": "reservation_date",
+    "business_key": [
+      "id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "pole_type",
+      "status",
+      "borough"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=60; stratum_rows_at_discovery=29",
+    "added_at": "2026-07-27T07:53:27+00:00",
+    "_weight": 60,
+    "_stratum_rows": 29
+  },
+  {
+    "source_key": "data.lacity.org/wjz9-h9np",
+    "domain": "data.lacity.org",
+    "fourfour": "wjz9-h9np",
+    "title": "ARCHIVED: Parking Citations",
+    "city": "Los Angeles, CA",
+    "category": "Transportation",
+    "date_field": "issue_date",
+    "business_key": [
+      "ticket_number"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2026-06-02T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "violation_description"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=60; stratum_rows_at_discovery=2",
+    "added_at": "2026-07-27T08:02:42+00:00",
+    "_weight": 60,
+    "_stratum_rows": 2
+  },
+  {
+    "source_key": "data.seattle.gov/xucb-vzhc",
+    "domain": "data.seattle.gov",
+    "fourfour": "xucb-vzhc",
+    "title": "Traffic Counts by Study",
+    "city": "Seattle, WA",
+    "category": "Transportation",
+    "date_field": "start_date",
+    "business_key": [
+      "study_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=60; stratum_rows_at_discovery=120",
+    "added_at": "2026-07-27T08:04:51+00:00",
+    "_weight": 60,
+    "_stratum_rows": 120
+  },
+  {
+    "source_key": "data.austintexas.gov/dx9v-zd7x",
+    "domain": "data.austintexas.gov",
+    "fourfour": "dx9v-zd7x",
+    "title": "Real-Time Traffic Incident Reports",
+    "city": "Austin, TX",
+    "category": "Transportation and Mobility",
+    "date_field": "published_date",
+    "business_key": [
+      "traffic_report_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=60; stratum_rows_at_discovery=3771",
+    "added_at": "2026-07-27T08:09:35+00:00",
+    "_weight": 60,
+    "_stratum_rows": 3771
+  },
+  {
+    "source_key": "data.austintexas.gov/b4k4-adkb",
+    "domain": "data.austintexas.gov",
+    "fourfour": "b4k4-adkb",
+    "title": "Traffic Cameras",
+    "city": "Austin, TX",
+    "category": "Transportation and Mobility",
+    "date_field": "turn_on_date",
+    "business_key": [
+      "camera_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "location_type",
+      "camera_status",
+      "council_district"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=60; stratum_rows_at_discovery=2",
+    "added_at": "2026-07-27T08:09:38+00:00",
+    "_weight": 60,
+    "_stratum_rows": 2
+  },
+  {
+    "source_key": "data.austintexas.gov/p53x-x73x",
+    "domain": "data.austintexas.gov",
+    "fourfour": "p53x-x73x",
+    "title": "Traffic Signals and Pedestrian Signals",
+    "city": "Austin, TX",
+    "category": "Transportation and Mobility",
+    "date_field": "turn_on_date",
+    "business_key": [
+      "signal_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "intersection_backplate_status",
+      "signal_status",
+      "detection_status"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=60; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T08:09:48+00:00",
+    "_weight": 60,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.austintexas.gov/5zpr-dehc",
+    "domain": "data.austintexas.gov",
+    "fourfour": "5zpr-dehc",
+    "title": "Traffic Signals Status",
+    "city": "Austin, TX",
+    "category": "Transportation and Mobility",
+    "date_field": "operation_state_datetime",
+    "business_key": [
+      "signal_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=60; stratum_rows_at_discovery=1",
+    "added_at": "2026-07-27T08:09:51+00:00",
+    "_weight": 60,
+    "_stratum_rows": 1
+  },
+  {
+    "source_key": "data.cityofnewyork.us/ez4e-fazm",
+    "domain": "data.cityofnewyork.us",
+    "fourfour": "ez4e-fazm",
+    "title": "Bus Breakdown and Delays",
+    "city": "New York, NY",
+    "category": "Transportation",
+    "date_field": "occurred_on",
+    "business_key": [
+      "busbreakdown_id"
+    ],
+    "stratum_start": "2025-06-02T00:00:00",
+    "stratum_end": "2025-07-03T00:00:00",
+    "extra_volatile": [],
+    "agg_dimensions": [
+      "run_type"
+    ],
+    "pipeline_class": "unknown",
+    "notes": "civic_weight=50; stratum_rows_at_discovery=5874",
+    "added_at": "2026-07-27T07:53:31+00:00",
+    "_weight": 50,
+    "_stratum_rows": 5874
+  }
+]
