@@ -43,8 +43,13 @@ if ($running) { exit 0 }
 $python = (Get-Command python -ErrorAction SilentlyContinue).Source
 if (-not $python) { Write-Log "ERROR python not found on PATH"; exit 1 }
 
+# A sweep costs ~15 minutes and ~660 requests across seven portals, so a
+# two-hour cycle sits near 50 requests per portal per hour -- comfortably inside
+# an unauthenticated budget. The tighter interval is not about volume: it is what
+# lets the archive catch a value that changes and changes back between sweeps,
+# which a slower cadence would silently miss.
 $p = Start-Process -FilePath $python `
-    -ArgumentList "-m","palimpsest.collect","--interval","3",
+    -ArgumentList "-m","palimpsest.collect","--interval","2",
                   "--db","archive\palimpsest.db","--log","archive\collector.log" `
     -WorkingDirectory $Root -WindowStyle Hidden -PassThru
 

@@ -22,7 +22,7 @@ Write-Output "`n==> exporting the evidence bundle"
 python -m palimpsest.report --db archive\palimpsest.db --out web\data.json
 
 Write-Output "`n==> archive summary"
-python -c "import json;d=json.load(open('web/data.json',encoding='utf-8'));o=d['overview'];c=d['churn'];print(f\"  datasets   : {o['sources_watched']} across {o['city_count']} cities\");print(f\"  sweeps     : {o['sweeps']}\");print(f\"  observations: {o['observations']:,}\");print(f\"  findings   : {c['material_changes']:,} material, {c['discarded_as_mechanism']:,} discarded as mechanism\")"
+python scripts\summary.py web\data.json
 
 $changed = git status --porcelain web/data.json
 if (-not $changed) {
