@@ -35,6 +35,37 @@ from .store import Archive
 
 log = logging.getLogger("palimpsest.confirm")
 
+# Verdicts live in their own table rather than only as edits to `changes`.
+# Re-running the analysis rebuilds `changes` from scratch, which silently threw
+# away an hour of confirmation the first time. A verdict is an observation about
+# the world, not a classification, so it outlives any particular analysis pass.
+SCHEMA = """
+CREATE TABLE IF NOT EXISTS deletion_confirmations (
+    source_key  TEXT NOT NULL,
+    row_uid     TEXT NOT NULL,
+    verdict     TEXT NOT NULL,
+    found_as    TEXT,
+    reason      TEXT,
+    checked_at  TEXT NOT NULL,
+    PRIMARY KEY (source_key, row_uid)
+) WITHOUT ROWID;
+"""
+
+
+def load_verdicts(archive: Archive, source_key: str) -> dict[str, dict[str, Any]]:
+    """Stored verdicts for one source, so the diff can apply them directly."""
+    try:
+        return {
+            r["row_uid"]: dict(r)
+            for r in archive.conn.execute(
+                "SELECT row_uid, verdict, found_as, reason FROM deletion_confirmations "
+                "WHERE source_key=?",
+                (source_key,),
+            )
+        }
+    except Exception:
+        return {}
+
 # Values arrive wrapped in the residue of whatever produced them.
 _WRAPPERS = "\"' \t\r\n"
 
@@ -101,13 +132,25 @@ def confirm_deletion(
 
 
 def run(archive: Archive, client: SocrataClient, limit: int | None = None) -> dict[str, Any]:
+    archive.conn.executescript(SCHEMA)
+    archive.conn.commit()
+
     sources = {s["source_key"]: s for s in archive.sources()}
     rows = archive.conn.execute(
-        "SELECT change_id, source_key, row_uid FROM changes WHERE kind='deletion' "
-        "ORDER BY source_key, row_uid"
+        "SELECT c.change_id, c.source_key, c.row_uid FROM changes c "
+        "LEFT JOIN deletion_confirmations d "
+        "  ON d.source_key = c.source_key AND d.row_uid = c.row_uid "
+        "WHERE c.kind='deletion' AND d.verdict IS NULL "
+        "ORDER BY c.source_key, c.row_uid"
     ).fetchall()
     if limit:
         rows = rows[:limit]
+
+    already = archive.conn.execute(
+        "SELECT COUNT(1) n FROM deletion_confirmations"
+    ).fetchone()["n"]
+    if already:
+        log.info("%d deletions already confirmed in a previous run; skipping those", already)
 
     log.info("confirming %d claimed deletions against their sources", len(rows))
     tally: dict[str, int] = {}
@@ -120,6 +163,12 @@ def run(archive: Archive, client: SocrataClient, limit: int | None = None) -> di
         res = confirm_deletion(client, src, r["row_uid"])
         v = res["verdict"]
         tally[v] = tally.get(v, 0) + 1
+
+        archive.conn.execute(
+            "INSERT OR REPLACE INTO deletion_confirmations VALUES (?,?,?,?,?,?)",
+            (r["source_key"], r["row_uid"], v, res.get("found_as"),
+             res.get("reason"), now),
+        )
 
         if v == "confirmed_absent":
             archive.conn.execute(

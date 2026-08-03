@@ -117,9 +117,9 @@ for the proofs, a static HTML page for the evidence bundle. ~2,900 lines.
 
 ## Challenges we ran into
 
-Twelve distinct mechanisms masquerade as editing. Each was found by investigating a result
-that looked like a scandal, and — this is the part that mattered — **each defeated the
-controls built for the previous ones.**
+Thirteen distinct mechanisms masquerade as editing. Each was found by investigating a
+result that looked like a scandal, and — this is the part that mattered — **each defeated
+the controls built for the previous ones.**
 
 1. **Provenance churn.** The table is reloaded; every row is "modified". *Control:* hash
    declared semantic fields only, and characterise the publisher before interpreting it.
@@ -222,7 +222,15 @@ controls built for the previous ones.**
     published, 0 unverified.** Roughly one request per claim, tens of minutes per run —
     the strongest claim this project makes should be the most expensive one to make.
 
-12. **Schema migrations.** A newly added column differs in every record, absent → present.
+12. **Money moving between columns.** After every control above, the top of the ledger was
+    still full of `amount_due: 45 → 0` beside `amount_paid: 40 → 85`. Somebody paid — forty
+    plus forty-five is eighty-five, and the total never moved. Each column passes the
+    progression test as a genuine replacement, and the values all differ so it isn't a
+    re-order. *Control:* conservation. If the numeric columns that changed hold the same
+    total afterwards, it's a transaction settling. A figure that genuinely changes breaks
+    the total and is still reported.
+
+13. **Schema migrations.** A newly added column differs in every record, absent → present.
    SF's parking citations showed 4,083 "revisions" in the sweep that added seven columns.
    *Control:* exclude added and removed columns from per-record deltas; the schema change
    is one finding.

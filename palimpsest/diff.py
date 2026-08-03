@@ -56,6 +56,9 @@ class ChangeKind:
     #: We called it deleted; the publisher still has it. Its key was reformatted,
     #: or its date moved it out of the window we watch. Set by confirm.py.
     LEFT_OBSERVATION_WINDOW = "left_observation_window"
+    #: Money moved between columns and the total held. A payment settling, not a
+    #: figure being rewritten.
+    BALANCE_TRANSFER = "balance_transfer"
 
 
 # How consequential is a change to this field? Altering what an event *was*, or
@@ -172,6 +175,56 @@ def _is_blank(v: Any) -> bool:
     return bool(_ZERO.match(str(v).strip()))
 
 
+_NUMERIC = _re.compile(r"^-?\d+(\.\d+)?$")
+
+
+def _as_number(v: Any) -> float | None:
+    if v is None:
+        return 0.0  # an absent amount is nothing, not unknown
+    s = str(v).strip().replace(",", "").replace("$", "")
+    if s == "":
+        return 0.0
+    return float(s) if _NUMERIC.match(s) else None
+
+
+def _is_balance_transfer(deltas: dict[str, list[Any]]) -> bool:
+    """Did money move between columns, or did a figure actually change?
+
+    A permit's fee being paid looks alarming field by field::
+
+        amount_due    45 -> 0
+        amount_paid   40 -> 85
+
+    Nothing was rewritten. Forty-five dollars moved from owed to paid, and the
+    total is exactly what it was. The same shape appears as
+    `other_fee_unpaid -> other_fee_paid` and `subtotal_unpaid -> subtotal_paid`.
+
+    Conservation is the test. If the numeric columns that changed hold the same
+    total afterwards, this is a transaction settling rather than a restatement,
+    and it should not sit at the top of a ledger of rewritten facts. A figure
+    that genuinely changes breaks the total and is reported.
+    """
+    numeric_before: list[float] = []
+    numeric_after: list[float] = []
+    other = 0
+
+    for _name, (before, after) in deltas.items():
+        nb, na = _as_number(before), _as_number(after)
+        if nb is None or na is None:
+            other += 1
+            continue
+        numeric_before.append(nb)
+        numeric_after.append(na)
+
+    if len(numeric_before) < 2:
+        return False
+    # A payment may carry a little companion detail — the method used, a
+    # receipt reference. It should not carry a rewritten address.
+    if other > 2:
+        return False
+    return abs(sum(numeric_before) - sum(numeric_after)) < 0.01
+
+
 def _is_lifecycle(deltas: dict[str, list[Any]]) -> bool:
     """Is this a case moving through its workflow, or a stated fact being rewritten?
 
@@ -252,6 +305,12 @@ def diff_snapshots(
 
     ignored_fields = volatility.recomputed_fields(archive, source_key)
     dependencies = volatility.dependent_fields(archive, source_key)
+
+    # Verdicts from a previous confirmation run, so re-analysing does not
+    # resurrect claims the publisher has already refuted.
+    from . import confirm as _confirm
+
+    verdicts = _confirm.load_verdicts(archive, source_key)
 
     # -- schema ------------------------------------------------------------
     cols_a = json.loads(snap_a["columns"] or "[]")
@@ -402,6 +461,25 @@ def diff_snapshots(
             ))
             continue
 
+        # Tested against every surviving field, not just the independent ones.
+        # A transfer is by nature a co-movement — `amount_paid` rises exactly as
+        # `amount_due` falls — so the dependency pass correctly marks one as
+        # following the other, and looking only at what remains leaves a single
+        # number with nothing to balance against.
+        if _is_balance_transfer(surviving):
+            changes.append(base(
+                ChangeKind.BALANCE_TRANSFER, row_uid=uid,
+                before_hash=ra["content_hash"], after_hash=rb["content_hash"],
+                field_deltas=surviving,
+                significance=0.2,
+                detail=(
+                    "amounts moved between columns and the total held ("
+                    + ", ".join(sorted(surviving))[:200]
+                    + "); a payment settling rather than a figure rewritten"
+                ),
+            ))
+            continue
+
         if _is_lifecycle(independent):
             changes.append(base(
                 ChangeKind.LIFECYCLE_PROGRESSION, row_uid=uid,
@@ -472,12 +550,28 @@ def diff_snapshots(
             ))
             continue
 
+        verdict = verdicts.get(uid)
+        if verdict and verdict["verdict"] != "confirmed_absent":
+            changes.append(base(
+                ChangeKind.LEFT_OBSERVATION_WINDOW, row_uid=uid,
+                before_hash=obs_a[uid]["content_hash"],
+                significance=0.1,
+                detail=(
+                    f"withdrawn: {verdict['reason']}"
+                    + (f" (found as {verdict['found_as']!r})"
+                       if verdict.get("found_as") else "")
+                ),
+            ))
+            continue
+
         changes.append(base(
             ChangeKind.DELETION, row_uid=uid, before_hash=obs_a[uid]["content_hash"],
             significance=1.0,
             detail=(
                 "record present in the previous observation is absent from this "
                 "one, and from every observation since"
+                + (", and confirmed absent at its source"
+                   if verdict else "; not yet confirmed against the source")
             ),
         ))
 

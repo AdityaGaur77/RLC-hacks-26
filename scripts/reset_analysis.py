@@ -22,6 +22,10 @@ for table in (
     # did nothing.
     "field_dependency",
 ):
+    # deletion_confirmations is deliberately NOT in this list. A verdict from
+    # the publisher is an observation about the world, not a classification we
+    # derived, and it costs an hour of requests to obtain. Clearing it here
+    # threw exactly that away once.
     try:
         n = conn.execute(f"SELECT COUNT(1) FROM {table}").fetchone()[0]
         conn.execute(f"DELETE FROM {table}")

@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from palimpsest.diff import (  # noqa: E402
     ChangeKind,
+    _is_balance_transfer,
     _is_lifecycle,
     _is_ordering_only,
     _mark_coordinated,
@@ -73,6 +74,29 @@ check("last_name is not a pointer field",
       not _is_lifecycle({"last_name": ["Dahl", "Kruger"]}))
 check("applicant_last_name is not a pointer field",
       not _is_lifecycle({"applicant_last_name": ["Dahl", "Kruger"]}))
+
+print("\n-- payments versus rewritten figures --")
+# A NYC electrical permit fee being settled: 40 + 45 = 85.
+check("a fee being paid is a transfer",
+      _is_balance_transfer({"amount_due": ["45", "0"], "amount_paid": ["40", "85"]}))
+check("...even carrying the payment method",
+      _is_balance_transfer({"amount_due": ["45", "0"], "amount_paid": ["40", "85"],
+                            "payment_method": ["Check", "Credit Card"]}))
+check("a Chicago permit settling across four columns",
+      _is_balance_transfer({"other_fee_paid": ["0", "100"],
+                            "other_fee_unpaid": ["100", "0"],
+                            "subtotal_paid": ["1197.63", "1297.63"],
+                            "subtotal_unpaid": ["100", "0"]}))
+# A figure that genuinely changes breaks the total and must survive.
+check("a fee rising is not a transfer",
+      not _is_balance_transfer({"amount_due": ["45", "90"], "amount_paid": ["40", "40"]}))
+check("a single amount changing is not a transfer",
+      not _is_balance_transfer({"total_new_add_sqft": ["463", "2551"]}))
+check("a transfer carrying a rewritten address is not exempt",
+      not _is_balance_transfer({
+          "amount_due": ["45", "0"], "amount_paid": ["40", "85"],
+          "address": ["1 Main St", "2 Oak Ave"], "city": ["Austin", "Dallas"],
+          "owner": ["A", "B"]}))
 
 print("\n-- ordering versus reclassification --")
 # San Francisco DA case resolutions: one cell, charges re-sorted.

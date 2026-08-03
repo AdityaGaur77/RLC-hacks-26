@@ -423,7 +423,38 @@ absent under both.
 price of not saying something false, and it is worth paying. Deletion is the strongest
 claim this project makes; it should be the most expensive one to make.
 
-### Confounder 12 — Schema migrations
+### Confounder 12 — Money moving between columns
+
+**Observed.** After every control above, the top of the ledger was still dominated by
+records like these:
+
+```
+New York, electrical permit          Chicago, building permit
+  amount_due     45 -> 0               other_fee_paid       0 -> 100
+  amount_paid    40 -> 85              other_fee_unpaid   100 -> 0
+  payment_method Check -> Credit Card  subtotal_paid  1197.63 -> 1297.63
+                                       subtotal_unpaid    100 -> 0
+```
+
+**Naive reading.** Fee figures on permits are being rewritten.
+
+**Actual cause.** Somebody paid. Forty dollars plus forty-five is eighty-five: the total
+is exactly what it was, and the money moved from owed to paid.
+
+**Why the earlier controls did not catch it.** Each column is a genuine replacement of a
+non-empty value with a different non-empty value, which passes the progression test. The
+values are all different, so it is not a re-ordering. And the amounts are not
+independently meaningful — but the dependency pass, correctly noting that `amount_paid`
+rises whenever `amount_due` falls, marked one as following the other, which then hid the
+pair from a conservation test that needs both halves. The check therefore runs against
+every surviving field rather than only the independent ones.
+
+**Control.** Conservation. If the numeric columns that changed hold the same total
+afterwards — allowing a couple of companion fields like the payment method — this is a
+transaction settling, not a restatement. A figure that genuinely changes breaks the total
+and is still reported.
+
+### Confounder 13 — Schema migrations
 
 **Observed.** San Francisco's parking citations showed 4,083 simultaneous revisions in
 the same snapshot pair that added the columns `analysis_neighborhood`, `data_as_of`,
