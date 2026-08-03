@@ -52,13 +52,14 @@ Or on the site, the **"What the controls remove"** ladder:
 
 | stage | count |
 |---|---:|
-| apparent changes, uncontrolled | 76,775 |
-| dissolved once mechanism was measured | 49,695 |
-| provenance churn | 15,335 |
-| identity churn | 3,754 |
-| ordering changes | 332 |
-| lifecycle progression | 299 |
-| **isolated revisions** | **1,862** |
+| apparent changes, uncontrolled | 79,388 |
+| dissolved once mechanism was measured | 47,329 |
+| provenance churn | 17,842 |
+| identity churn | 3,307 |
+| ordering changes | 370 |
+| transient absence | 166 |
+| lifecycle progression | 304 |
+| **isolated revisions** | **1,921** |
 
 ### 3. Show the one that caught us
 

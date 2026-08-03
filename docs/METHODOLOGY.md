@@ -283,7 +283,58 @@ are indistinguishable here. Since the alarming reading of an ambiguous signal is
 what this project exists to refuse, these are surfaced as their own low-significance kind
 rather than counted as facts being rewritten. **332 changes were reclassified this way.**
 
-### Confounder 8 — Schema migrations
+### Confounder 8 — Records that come back
+
+**Observed.** Chicago's *Violence Reduction — Victims of Homicides and Non-Fatal
+Shootings* produced 166 deletions, each reported at the maximum significance this
+project assigns to anything.
+
+**Naive reading.** A city removed 166 homicide and shooting victim records.
+
+**Actual cause.** They were all present again in a later observation. The publisher
+reloads its table, and a table sampled mid-reload is missing rows that were never
+removed.
+
+**Why the earlier controls did not catch it.** Confounder 2 reconciles departures
+against arrivals *within a single pair of observations*. These records depart and return
+several sweeps later, so no arrival is available to pair them with at the moment they
+vanish. Two adjacent snapshots simply cannot distinguish a removal from a gap.
+
+**Control.** Deletion is the strongest claim this project makes, so it must survive the
+rest of the archive rather than one comparison. A record is only reported as deleted if
+it is absent from **every** subsequent observation. Records that reappear are reported as
+transient absence.
+
+**Effect.** Reported deletions fell from 1,353 to 1,187 — and the 166 removed were
+concentrated almost entirely in a single dataset about homicide victims, which is exactly
+where a false claim would have done the most damage.
+
+### Confounder 9 — Zero as a placeholder, and pointers to "the latest"
+
+**Observed.** Two recurring shapes, both reported as replaced facts at maximum
+significance:
+
+```
+fee:             0 -> 149        invoice_amount: 0 -> 149
+last_doc:        CEQA – B -> Withdrawn
+last_doc_date:   2026-07-27 -> 2026-07-30
+```
+
+**Naive reading.** A fee was imposed retroactively; a filed document was rewritten.
+
+**Actual cause.** Zero is how these publishers spell "not set yet" on an amount column —
+both columns leaving zero together is an invoice being raised. And `last_doc` does not
+state a historical fact; it points at the most recent document, and advances by design
+when a new one is filed.
+
+**Control.** Zero is treated as blank in the *earlier* position only. The asymmetry is
+deliberate: `0 → 149` is an invoice being raised, but `149 → 0` is a waiver, and that is
+a real change to the record. Separately, fields named `last_*`, `latest_*`,
+`most_recent_*` and `current_*` are recognised as pointers rather than assertions — with
+a negative lookahead so that `last_name`, a person's surname, is not swallowed by that
+rule.
+
+### Confounder 10 — Schema migrations
 
 **Observed.** San Francisco's parking citations showed 4,083 simultaneous revisions in
 the same snapshot pair that added the columns `analysis_neighborhood`, `data_as_of`,

@@ -53,6 +53,27 @@ check("mixed progression and overwrite counts as revision",
       }))
 check("empty deltas are not progression", not _is_lifecycle({}))
 
+# An invoice being raised: both amount columns leave zero together.
+check("0 -> 149 on a fee is a blank being filled",
+      _is_lifecycle({"fee": ["0", "149"], "invoice_amount": ["0", "149"]}))
+check("0.00 counts as blank too", _is_lifecycle({"fee": ["0.00", "149"]}))
+# ...but a waiver is a real change, so the rule must not run both ways.
+check("149 -> 0 is a revision, not a blank",
+      not _is_lifecycle({"fee": ["149", "0"]}))
+check("149 -> 200 is a revision", not _is_lifecycle({"fee": ["149", "200"]}))
+
+# "last_doc" points at the newest document; it advances by design.
+check("a last_* pointer advancing is progression",
+      _is_lifecycle({"last_doc": ["CEQA - B", "Withdrawn"],
+                     "last_doc_date": ["2026-07-27T10:00:00", "2026-07-30T08:42:00"]}))
+check("current_* pointers likewise",
+      _is_lifecycle({"current_owner": ["A Corp", "B Corp"]}))
+# ...but a surname is not a pointer, and must not be swallowed by that rule.
+check("last_name is not a pointer field",
+      not _is_lifecycle({"last_name": ["Dahl", "Kruger"]}))
+check("applicant_last_name is not a pointer field",
+      not _is_lifecycle({"applicant_last_name": ["Dahl", "Kruger"]}))
+
 print("\n-- ordering versus reclassification --")
 # San Francisco DA case resolutions: one cell, charges re-sorted.
 check("a re-sorted list in one cell is ordering only",

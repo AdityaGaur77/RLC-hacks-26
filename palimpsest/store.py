@@ -374,6 +374,25 @@ class Archive:
         ).fetchall()
         return {r["row_uid"]: dict(r) for r in rows}
 
+    def record_seen_after(self, source_key: str, row_uid: str, snapshot_id: int) -> bool:
+        """Was this record observed again in any later snapshot of this source?
+
+        A record can be absent from one observation and present in the next.
+        Publishers reload tables, and a table sampled mid-reload is missing rows
+        that were never removed. Comparing two adjacent snapshots cannot tell a
+        removal from a gap; the rest of the archive can.
+        """
+        return (
+            self.conn.execute(
+                "SELECT 1 FROM observations o "
+                "JOIN snapshots s ON s.snapshot_id = o.snapshot_id "
+                "WHERE o.row_uid = ? AND s.source_key = ? AND s.snapshot_id > ? "
+                "LIMIT 1",
+                (row_uid, source_key, snapshot_id),
+            ).fetchone()
+            is not None
+        )
+
     def blob(self, content_hash: str) -> dict[str, Any] | None:
         r = self.conn.execute(
             "SELECT payload FROM blobs WHERE content_hash=?", (content_hash,)

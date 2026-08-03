@@ -59,8 +59,8 @@ publishing machinery, and telling machinery from editing is most of the engineer
 
 Over 39 sweeps and 592,608 record observations:
 
-> **A blind pass reports 76,775 changes. After controlling for publishing mechanism,
-> 6,734 remain. 91.2% of apparent change was machinery, not the record.**
+> **A blind pass reports 79,388 changes. After controlling for publishing mechanism,
+> 6,627 remain. 91.7% of apparent change was machinery, not the record.**
 
 **It reports what it cannot know.** Two datasets were caught with keys that don't
 identify stable entities. Rather than publish thousands of confident falsehoods about
@@ -116,7 +116,7 @@ for the proofs, a static HTML page for the evidence bundle. ~2,900 lines.
 
 ## Challenges we ran into
 
-Eight distinct mechanisms masquerade as editing. Each was found by investigating a result
+Ten distinct mechanisms masquerade as editing. Each was found by investigating a result
 that looked like a scandal, and — this is the part that mattered — **each defeated the
 controls built for the previous ones.**
 
@@ -177,7 +177,25 @@ controls built for the previous ones.**
    claim that a re-ranking occurred: whether `charge_1` encodes primacy is a question about
    a publisher's internal conventions that the data cannot answer.
 
-8. **Schema migrations.** A newly added column differs in every record, absent → present.
+8. **Records that come back.** Chicago's homicide and shooting victims dataset produced
+   166 deletions at maximum significance. All 166 were present again in a later
+   observation — the publisher reloads its table, and a table sampled mid-reload is
+   missing rows that were never removed. Confounder 2 can't see this: it pairs departures
+   against arrivals *within one comparison*, and these return several sweeps later.
+   *Control:* deletion must survive the whole archive, not one comparison. A record is
+   only reported deleted if absent from **every** subsequent observation. Reported
+   deletions fell 1,353 → 1,187, and the 166 removed were concentrated in the one dataset
+   where a false claim would have done the most damage.
+
+9. **Zero as a placeholder, and pointers to "the latest".** `fee: 0 → 149` alongside
+   `invoice_amount: 0 → 149` is an invoice being raised, not a fee imposed retroactively.
+   `last_doc: CEQA – B → Withdrawn` is a new document being filed — the field points at
+   the most recent one and advances by design. *Control:* zero counts as blank in the
+   *earlier* position only, because `149 → 0` is a waiver and that's real; and `last_*` /
+   `current_*` are recognised as pointers, with a negative lookahead so `last_name` isn't
+   swallowed.
+
+10. **Schema migrations.** A newly added column differs in every record, absent → present.
    SF's parking citations showed 4,083 "revisions" in the sweep that added seven columns.
    *Control:* exclude added and removed columns from per-record deltas; the schema change
    is one finding.

@@ -50,6 +50,9 @@ class ChangeKind:
     #: The same values in a different order. The record's content is unchanged;
     #: only its arrangement moved.
     ORDERING_CHANGE = "ordering_change"
+    #: The record was missing from one observation and present again later. A
+    #: gap in a reload, not a removal.
+    TRANSIENT_ABSENCE = "transient_absence"
 
 
 # How consequential is a change to this field? Altering what an event *was*, or
@@ -141,6 +144,31 @@ def _is_ordering_only(deltas: dict[str, list[Any]]) -> bool:
     return bool(before_all) and Counter(before_all) == Counter(after_all)
 
 
+# Fields that point at "the most recent thing" rather than stating a historical
+# fact. `last_doc` moving from "CEQA – B" to "Withdrawn" is a new document being
+# filed, not a past document being rewritten. The negative lookahead keeps
+# `last_name` — a person's surname — out of this class.
+_POINTER_FIELD = _re.compile(r"^(last|latest|most_recent|current)_(?!name$)", _re.I)
+
+# Zero is how these publishers spell "not set yet" on an amount column.
+_ZERO = _re.compile(r"^0+(\.0+)?$")
+
+
+def _is_blank(v: Any) -> bool:
+    """Is this value an absence rather than an assertion?
+
+    A fee of 0 alongside an invoice amount of 0 is an invoice that has not been
+    raised, not a fee of nothing. Treating 0 -> 149 as a stated value being
+    replaced reports the ordinary issuing of an invoice as a retroactive charge.
+
+    Deliberately asymmetric: this is only consulted for the *earlier* value.
+    A fee going 149 -> 0 is a waiver, and that is a real change to the record.
+    """
+    if v in (None, "", [], {}):
+        return True
+    return bool(_ZERO.match(str(v).strip()))
+
+
 def _is_lifecycle(deltas: dict[str, list[Any]]) -> bool:
     """Is this a case moving through its workflow, or a stated fact being rewritten?
 
@@ -160,11 +188,12 @@ def _is_lifecycle(deltas: dict[str, list[Any]]) -> bool:
     if not deltas:
         return False
     for name, (before, after) in deltas.items():
-        blank_before = before in (None, "", [])
-        if blank_before:
+        if _is_blank(before):
             continue  # information added where there was none
         if _STATUS_FIELD.search(name):
             continue  # a case advancing through its own workflow
+        if _POINTER_FIELD.match(name):
+            continue  # a "most recent X" pointer moving to a newer X
         return False  # a stated value was replaced by a different one
     return True
 
@@ -384,10 +413,29 @@ def diff_snapshots(
     arrived = sorted(keys_b - keys_a)
 
     for uid in gone:
+        # A deletion is the strongest claim this project makes, so it has to
+        # survive the rest of the archive. A record that reappears later was
+        # never removed — the publisher reloaded its table and we sampled it
+        # mid-flight. Chicago's homicide victims dataset produced 166 of these.
+        if archive.record_seen_after(source_key, uid, b_id):
+            changes.append(base(
+                ChangeKind.TRANSIENT_ABSENCE, row_uid=uid,
+                before_hash=obs_a[uid]["content_hash"],
+                significance=0.1,
+                detail=(
+                    "record was absent from this observation but present again "
+                    "later; a gap in the publisher's reload, not a removal"
+                ),
+            ))
+            continue
+
         changes.append(base(
             ChangeKind.DELETION, row_uid=uid, before_hash=obs_a[uid]["content_hash"],
             significance=1.0,
-            detail="record present in the previous observation is absent from this one",
+            detail=(
+                "record present in the previous observation is absent from this "
+                "one, and from every observation since"
+            ),
         ))
 
     for uid in arrived:

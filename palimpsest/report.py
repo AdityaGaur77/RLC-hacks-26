@@ -45,6 +45,7 @@ ARTIFACT_KINDS = {
     ChangeKind.IDENTITY_CHURN,
     ChangeKind.WITHDRAWN_UNSTABLE_KEY,
     ChangeKind.ORDERING_CHANGE,
+    ChangeKind.TRANSIENT_ABSENCE,
 }
 
 DISPLAY_KINDS = MATERIAL_KINDS | ARTIFACT_KINDS
@@ -261,6 +262,10 @@ def churn_summary(arc: Archive) -> dict[str, Any]:
         "SELECT COUNT(*) n FROM changes WHERE kind=?",
         (ChangeKind.ORDERING_CHANGE,),
     ).fetchone()["n"]
+    n_transient = arc.conn.execute(
+        "SELECT COUNT(*) n FROM changes WHERE kind=?",
+        (ChangeKind.TRANSIENT_ABSENCE,),
+    ).fetchone()["n"]
     total = arc.conn.execute("SELECT COUNT(*) n FROM changes").fetchone()["n"]
 
     # What a blind pass saw, before any control for publishing mechanism was
@@ -274,7 +279,7 @@ def churn_summary(arc: Archive) -> dict[str, Any]:
         stages = {}
     probe = stages.get("probe")
 
-    mechanism = n_churn + n_identity + n_withdrawn + n_ordering
+    mechanism = n_churn + n_identity + n_withdrawn + n_ordering + n_transient
 
     return {
         "apparent_changes_before_control": probe,
@@ -289,6 +294,9 @@ def churn_summary(arc: Archive) -> dict[str, Any]:
         # The same values rearranged. Counted as mechanism because the record
         # holds exactly what it held before — this is the one that caught us.
         "ordering_changes": n_ordering,
+        # Records that were missing once and came back. Deletion is the
+        # strongest claim made here, so it has to survive the whole archive.
+        "transient_absence": n_transient,
         "material_changes": n_material,
         "coordinated_revisions": n_coord,
         "isolated_revisions": n_isolated,
