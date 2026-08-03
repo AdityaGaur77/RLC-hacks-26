@@ -57,9 +57,12 @@ Or on the site, the **"What the controls remove"** ladder:
 | provenance churn | 17,842 |
 | identity churn | 3,307 |
 | ordering changes | 370 |
-| transient absence | 166 |
+| transient absence | 2,981 |
 | lifecycle progression | 304 |
 | **isolated revisions** | **1,921** |
+
+*Collection is continuous, so run `scripts/summary.py` for current values rather than
+quoting these.*
 
 ### 3. Show the one that caught us
 

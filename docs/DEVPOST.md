@@ -1,7 +1,8 @@
 # Palimpsest — Devpost submission copy
 
-Paste-ready. Figures are live as of the final collection run and are reproducible from
-the archive with `scripts/analyse.ps1`.
+Paste-ready. Collection is continuous, so figures below are a snapshot — run
+`scripts/publish.ps1` before submitting and take the current numbers from the site.
+Everything is reproducible from the archive with `scripts/analyse.ps1`.
 
 ---
 

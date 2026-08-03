@@ -83,7 +83,7 @@ The cumulative effect is the project's central claim. Over 36 sweeps of 112 data
 | provenance churn | 17,842 | the pipeline ran; no published value moved |
 | identity churn | 3,307 | keys moved, population unchanged |
 | ordering changes | 370 | the same values rearranged |
-| transient absence | 166 | missing once, present again later |
+| transient absence | 2,981 | missing from one observation, present again later |
 | lifecycle progression | 304 | a case advancing; not the past being rewritten |
 | **isolated revisions** | **1,921** | a stated value replaced, with nothing systematic explaining it |
 | coordinated revisions | 3,519 | mass migrations — real, but systematic and self-disclosing |
@@ -92,6 +92,9 @@ The cumulative effect is the project's central claim. Over 36 sweeps of 112 data
 Both counts are written into the archive by the analysis itself (`analysis_stages`) and
 read from there by the site, so the ratio can be checked rather than taken on trust.
 Re-run it with `scripts/analyse.ps1`; the two passes reproduce exactly.
+
+*Figures above are a snapshot; collection is continuous, so the live site and
+`web/data.json` are authoritative.*
 
 A tool that skipped this work would have reported 67,275.
 
