@@ -30,6 +30,11 @@ from .store import Archive
 
 log = logging.getLogger("palimpsest.collect")
 
+# No single source may hold a sweep longer than this. Generous next to a healthy
+# source (the slowest legitimate one observed takes ~9 minutes) and decisive
+# against one that has stopped responding properly.
+SOURCE_DEADLINE_S = 15 * 60.0
+
 _stop = False
 
 
@@ -108,7 +113,20 @@ def collect_source(
         first_headers: dict[str, str] = {}
         page_size = 2000
         offset = 0
+        # A per-source wall-clock deadline. One Austin endpoint once consumed
+        # 29 hours fetching 2,170 rows: a socket timeout is applied per read, so
+        # a server that trickles a response body without ever finishing it never
+        # trips one. That single source stalled an entire sweep, and a collector
+        # that can be halted indefinitely by one slow publisher gathers nothing.
+        # Abandoning the source costs one observation; hanging costs the sweep.
+        deadline = started + SOURCE_DEADLINE_S
         while True:
+            if time.time() > deadline:
+                raise SocrataError(
+                    f"exceeded {SOURCE_DEADLINE_S:.0f}s deadline after "
+                    f"{len(rows)} rows ({offset} offset); abandoning this source "
+                    f"for this sweep"
+                )
             resp = client.query(
                 domain, ff,
                 select=":*,*",
