@@ -86,10 +86,14 @@ def measure(archive) -> dict[str, Any]:
     archive.conn.executescript(SCHEMA)
     archive.conn.commit()
 
+    # Every per-record observation of a field moving, whatever it was later
+    # classified as. Filtering by kind here would be circular: a change already
+    # judged to be lifecycle progression or churn would become invisible to the
+    # measurement that is supposed to inform that judgement, and the second pass
+    # would find nothing because the first pass had already hidden it.
     rows = archive.conn.execute(
         "SELECT source_key, from_snapshot, to_snapshot, kind, field_deltas "
-        "FROM changes WHERE kind IN ('semantic_revision','coordinated_revision') "
-        "AND field_deltas IS NOT NULL"
+        "FROM changes WHERE field_deltas IS NOT NULL AND row_uid IS NOT NULL"
     ).fetchall()
 
     # (source, pair) -> {field: count}, plus the number of revisions in that pair

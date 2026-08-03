@@ -68,11 +68,12 @@ Number 5 initially appeared *refuted* by the obvious test — because number 4 w
 running simultaneously and masking it. They had to be removed in the right order for
 either to become visible.
 
-The cumulative effect is the project's central claim, and it is a large one:
+The cumulative effect is the project's central claim: the large majority of apparent
+change in municipal open data is publishing mechanism, not editing. The live split
+between the two — recomputed from the archive on every publish, never hand-written — is
+carried on the site and in `web/data.json` under `churn`.
 
-> **Of 67,275 apparent changes, 66,094 were mechanism. 1,181 were real.**
-
-A tool that skipped this work would have reported the first number.
+A tool that skipped this work would have reported the raw number.
 
 ---
 

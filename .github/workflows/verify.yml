@@ -27,6 +27,7 @@ jobs:
         run: |
           python tests/test_core.py
           python tests/test_store.py
+          python tests/test_diff.py
 
       - name: Check the published bundle verifies against itself
         run: |

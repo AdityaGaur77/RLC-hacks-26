@@ -28,6 +28,7 @@ log = logging.getLogger("palimpsest.report")
 MATERIAL_KINDS = {
     ChangeKind.SEMANTIC_REVISION,
     ChangeKind.COORDINATED_REVISION,
+    ChangeKind.LIFECYCLE_PROGRESSION,
     ChangeKind.DELETION,
     ChangeKind.RETROACTIVE_APPEND,
     ChangeKind.SCHEMA_DRIFT,
@@ -247,16 +248,36 @@ def churn_summary(arc: Archive) -> dict[str, Any]:
     n_deletion = arc.conn.execute(
         "SELECT COUNT(*) n FROM changes WHERE kind=?", (ChangeKind.DELETION,)
     ).fetchone()["n"]
+    n_lifecycle = arc.conn.execute(
+        "SELECT COUNT(*) n FROM changes WHERE kind=?",
+        (ChangeKind.LIFECYCLE_PROGRESSION,),
+    ).fetchone()["n"]
+    n_withdrawn = arc.conn.execute(
+        "SELECT COUNT(*) n FROM changes WHERE kind=?",
+        (ChangeKind.WITHDRAWN_UNSTABLE_KEY,),
+    ).fetchone()["n"]
+    total = arc.conn.execute("SELECT COUNT(*) n FROM changes").fetchone()["n"]
+
+    mechanism = n_churn + n_identity + n_withdrawn
+
     return {
+        "total_apparent_changes": total,
         "provenance_churn_events": n_churn,
         "identity_churn_events": n_identity,
+        "withdrawn_unstable_key": n_withdrawn,
         "material_changes": n_material,
         "coordinated_revisions": n_coord,
         "isolated_revisions": n_isolated,
         "deletions": n_deletion,
+        # Real movement, but a case advancing rather than the past being
+        # rewritten. Counted apart from both buckets: folding it into "rewriting"
+        # would inflate the finding with routine administrative progression,
+        # and folding it into "mechanism" would deny that anything happened.
+        "lifecycle_progression": n_lifecycle,
         # How much apparent change dissolved once publishing mechanics were
         # accounted for. This ratio is the project's central claim in one number.
-        "discarded_as_mechanism": n_churn + n_identity,
+        "discarded_as_mechanism": mechanism,
+        "rewriting_of_stated_facts": n_isolated + n_coord + n_deletion,
     }
 
 
