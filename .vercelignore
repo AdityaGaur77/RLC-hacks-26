@@ -1,0 +1,15 @@
+# The deployed site is the static evidence bundle in web/ and nothing else:
+# index.html plus data.json, no build step, no external assets. The collector,
+# analysis engine and archive run on the collection machine, not on Vercel.
+#
+# Excluding them keeps the deployment small and stops Vercel from mistaking a
+# Python source tree for something it needs to build.
+
+palimpsest/
+tests/
+scripts/
+docs/
+archive/
+.github/
+.claude/
+*.md

@@ -1,0 +1,72 @@
+name: Verify
+
+# Deployment is handled by Vercel, which serves web/ as configured in
+# vercel.json. This workflow does not deploy anything; it exists so that a
+# bundle which contradicts itself cannot reach the repository unnoticed.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # No third-party dependencies, so this is the entire test suite.
+      - name: Run test suite
+        run: |
+          python tests/test_core.py
+          python tests/test_store.py
+
+      - name: Check the published bundle verifies against itself
+        run: |
+          python - <<'PY'
+          import json, sys
+          sys.path.insert(0, ".")
+          from palimpsest.core import leaf_hash, verify_proof
+
+          bundle = json.load(open("web/data.json", encoding="utf-8"))
+          problems = []
+
+          # Every worked proof shipped to the site must actually verify. These
+          # are the site's own evidence that the archive is intact; publishing
+          # one that does not check out would be self-refuting.
+          proofs = bundle.get("integrity", {}).get("worked_proofs", [])
+          for p in proofs:
+              if p["merkle_root"] != p["recomputed_root"]:
+                  problems.append(f"root mismatch for {p['source_key']}")
+              leaf = leaf_hash(p["record_uid"], p["content_hash"])
+              if not verify_proof(leaf, p["proof"], p["merkle_root"]):
+                  problems.append(f"inclusion proof fails for {p['record_uid']}")
+
+          # A tampered leaf must be rejected by the same proof, or the proof
+          # proves nothing.
+          for p in proofs:
+              bad = leaf_hash(p["record_uid"], "0" * 64)
+              if verify_proof(bad, p["proof"], p["merkle_root"]):
+                  problems.append(f"tampered leaf accepted for {p['record_uid']}")
+
+          census = bundle.get("census") or {}
+          if census.get("characterised") and census.get("share_uninterpretable") is None:
+              problems.append("census characterised datasets but reports no share")
+
+          if problems:
+              print("BUNDLE FAILED VERIFICATION:")
+              for x in problems:
+                  print("  -", x)
+              raise SystemExit(1)
+
+          print(f"bundle ok: {len(proofs)} proofs verified, "
+                f"{len(bundle.get('findings', []))} findings, "
+                f"{census.get('characterised', 0)} datasets characterised")
+          PY
