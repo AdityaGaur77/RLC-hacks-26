@@ -47,6 +47,9 @@ class ChangeKind:
     #: A case advancing through its own workflow, or a blank being filled in.
     #: Real movement in the record, but not the rewriting of a stated fact.
     LIFECYCLE_PROGRESSION = "lifecycle_progression"
+    #: The same values in a different order. The record's content is unchanged;
+    #: only its arrangement moved.
+    ORDERING_CHANGE = "ordering_change"
 
 
 # How consequential is a change to this field? Altering what an event *was*, or
@@ -81,8 +84,61 @@ def _now() -> str:
 
 
 _STATUS_FIELD = _re.compile(
-    r"(status|stage|state|phase|disposition|current_?task|workflow)", _re.I
+    r"(status|stage|state|phase|disposition|milestone|current_?task|workflow)", _re.I
 )
+
+# Delimiters publishers use to pack several values into one cell.
+_LIST_DELIM = _re.compile(r"\s*[|;,]\s*")
+
+
+def _parts(v: Any) -> list[str]:
+    if v is None:
+        return []
+    return [p.strip() for p in _LIST_DELIM.split(str(v)) if p.strip()]
+
+
+def _is_ordering_only(deltas: dict[str, list[Any]]) -> bool:
+    """Are these the same values in a different order?
+
+    Two shapes of this occur, and both read as alarming reclassifications:
+
+    A **multi-valued cell re-sorted.** San Francisco's DA case resolutions list
+    filed charges in one column::
+
+        was: 245A1/M/0, 245A4/M/0, 242/M/0
+        now: 242/M/0, 245A1/M/0, 245A4/M/0
+
+    **Values permuted across parallel columns.** A Chicago arrest record carries
+    `charge_1_*` and `charge_2_*`; the publisher re-sorted them, so battery and
+    retail theft exchanged positions. Every field differs, yet the arrest is
+    charged with exactly what it was charged with before.
+
+    Whether position encodes primacy is a question about the publisher's
+    conventions that the data cannot answer. Since we cannot tell a deliberate
+    re-ranking from an arbitrary re-sort, we must not report the alarming
+    reading of an ambiguous signal. These are surfaced as their own kind, at low
+    significance, rather than counted as facts being rewritten.
+    """
+    if not deltas:
+        return False
+
+    before_all: list[str] = []
+    after_all: list[str] = []
+    every_field_reordered = True
+
+    for _name, (before, after) in deltas.items():
+        pb, pa = _parts(before), _parts(after)
+        before_all += pb
+        after_all += pa
+        if not (len(pb) > 1 and Counter(pb) == Counter(pa)):
+            every_field_reordered = False
+
+    if every_field_reordered:
+        return True
+
+    # Values traded places between fields: the record holds the same set of
+    # values, distributed differently.
+    return bool(before_all) and Counter(before_all) == Counter(after_all)
 
 
 def _is_lifecycle(deltas: dict[str, list[Any]]) -> bool:
@@ -266,6 +322,21 @@ def diff_snapshots(
                     "only recomputed columns moved ("
                     + ", ".join(sorted(deltas)[:6])
                     + "); no published value about this record changed"
+                ),
+            ))
+            continue
+
+        if _is_ordering_only(surviving):
+            changes.append(base(
+                ChangeKind.ORDERING_CHANGE, row_uid=uid,
+                before_hash=ra["content_hash"], after_hash=rb["content_hash"],
+                field_deltas=surviving,
+                significance=0.15,
+                detail=(
+                    "the same values in a different order ("
+                    + ", ".join(sorted(surviving))[:200]
+                    + "); the record holds exactly what it held before, so no claim "
+                    "is made that anything was reclassified"
                 ),
             ))
             continue

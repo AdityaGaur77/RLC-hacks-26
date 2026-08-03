@@ -57,10 +57,10 @@ date, and that proof can be checked by anyone against the published root.
 **It distinguishes.** This is the substance. Apparent change in open data is dominated by
 publishing machinery, and telling machinery from editing is most of the engineering.
 
-Over 36 sweeps and 547,233 record observations:
+Over 39 sweeps and 592,608 record observations:
 
-> **A blind pass reports 67,275 changes. After controlling for publishing mechanism,
-> 6,832 remain. 89.8% of apparent change was machinery, not the record.**
+> **A blind pass reports 76,775 changes. After controlling for publishing mechanism,
+> 6,734 remain. 91.2% of apparent change was machinery, not the record.**
 
 **It reports what it cannot know.** Two datasets were caught with keys that don't
 identify stable entities. Rather than publish thousands of confident falsehoods about
@@ -69,30 +69,23 @@ page.
 
 ### What it actually found
 
-**An arrest's lead charge was swapped.** Chicago arrest record `30477683`:
-
-```
-charge_1_description:  BATTERY - CAUSE BODILY HARM    →  RETAIL THEFT/DISP MERCH/<$300
-charge_1_statute:      720 ILCS 5.0/12-3-A-1          →  720 ILCS 5.0/16-25-A-1
-charge_2_description:  RETAIL THEFT/DISP MERCH/<$300  →  BATTERY - CAUSE BODILY HARM
-```
-
-The same two charges, in the opposite order. Position one is the lead charge — the one
-that characterises the arrest. A violent offence and a petty property offence traded
-places, silently, with no version history to record it.
-
-**A permit fee rose retroactively.** Chicago transportation permit `2681619323365`:
-`totalfees: 2955.13 → 3655.13`, +$700, with the application end date pushed a month.
-
-**A construction project's recorded size changed 5.5×.** Austin permit `2025-015600 EP`:
-`total_new_add_sqft: 463 → 2551`.
-
 **A column measuring police accountability disappeared.** Seattle's Crisis Data dataset
 dropped `cit_officer_requested` — whether a Crisis Intervention Team officer was
-requested — between two observations.
+requested at a mental health crisis call — between two observations. The column simply
+stopped existing, with no notice and no version history to record that it ever had.
+
+**A construction project's recorded size changed 5.5×.** Austin permit `2025-015600 EP`:
+`total_new_add_sqft: 463 → 2551`. One field, no status change, nothing systematic to
+explain it.
+
+**A permit's contractor of record was replaced.** Austin permit `2025-039073 PP`:
+`Dahl Plumbing Co.` → `MEK Homes, LLC`, and `Donald Dahl` → `Mathew Kruger`. A different
+company entirely, on the same permit.
 
 **Closed windows are shrinking.** Austin Code Complaint Cases lost records from an
-already-closed period across consecutive sweeps: 51,025 → 50,933 → 50,758 → 50,722.
+already-closed period across consecutive sweeps: 51,025 → 50,933 → 50,758 → 50,722. This
+one is an aggregate count over the whole closed past, which makes it immune to every
+identity problem below — counting doesn't require knowing which record is which.
 
 **And publishers admit to far more.** Across 39 datasets whose timestamps aren't
 saturated, publishers report rewriting **1,719,786 closed-period records in 30 days**,
@@ -123,7 +116,7 @@ for the proofs, a static HTML page for the evidence bundle. ~2,900 lines.
 
 ## Challenges we ran into
 
-Seven distinct mechanisms masquerade as editing. Each was found by investigating a result
+Eight distinct mechanisms masquerade as editing. Each was found by investigating a result
 that looked like a scandal, and — this is the part that mattered — **each defeated the
 controls built for the previous ones.**
 
@@ -166,7 +159,25 @@ controls built for the previous ones.**
    *Control:* the test is what *kind* of move occurred — filling a blank and advancing a
    status are progression; replacing one non-empty value with a different one is revision.
 
-7. **Schema migrations.** A newly added column differs in every record, absent → present.
+7. **The same values in a different order.** San Francisco's DA case resolutions showed
+   the charges filed against a defendant being rewritten:
+   `245A1/M/0, 245A4/M/0, 242/M/0` → `242/M/0, 245A1/M/0, 245A4/M/0`. And a Chicago arrest
+   record appeared to have its lead charge changed from battery to retail theft.
+
+   **We published that second one as our headline finding before catching it.** The
+   multiset of values before is identical to the multiset after. Six fields differ and the
+   arrest is charged with exactly what it was charged with before — the publisher re-sorted
+   `charge_1` and `charge_2`. Every one of these passes the confounder-6 test, because each
+   is a genuine replacement of a non-empty value by a different non-empty value. Nothing
+   about a single record examined on its own terms reveals it; it is visible only when the
+   record's values are compared *as a set*.
+
+   *Control:* parse on common delimiters and compare multisets, both within a field and
+   across all changed fields. **332 changes were reclassified this way.** We deliberately do not
+   claim that a re-ranking occurred: whether `charge_1` encodes primacy is a question about
+   a publisher's internal conventions that the data cannot answer.
+
+8. **Schema migrations.** A newly added column differs in every record, absent → present.
    SF's parking citations showed 4,083 "revisions" in the sweep that added seven columns.
    *Control:* exclude added and removed columns from per-record deltas; the schema change
    is one finding.
@@ -182,7 +193,14 @@ suddenly found *zero* recomputed columns where the previous run found twelve.
 
 ## Accomplishments we're proud of
 
-**We didn't publish the exciting number.** Four separate times a result looked like a
+**The tool caught its own authors.** The clearest evidence that this domain is as
+treacherous as we claim is that we wrote up the Chicago arrest "lead charge swap" as our
+headline finding — and it was a re-sort. We caught it, retracted it, built the eighth
+control, and re-ran everything. A project arguing that apparent change in open data is
+mostly illusion, which then fell for one, and then said so, is making its case in the
+strongest available way.
+
+**We didn't publish the exciting number.** Five separate times a result looked like a
 scandal and turned out to be plumbing. Each time the answer was to build a control rather
 than a headline.
 

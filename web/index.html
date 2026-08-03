@@ -533,6 +533,8 @@ function render(D) {
        "the publisher's pipeline ran; no published value moved", "cut"],
       ["identity churn", ch.identity_churn_events,
        "keys moved, population unchanged — nothing was removed", "cut"],
+      ["ordering changes", ch.ordering_changes,
+       "the same values rearranged; the record holds what it always held", "cut"],
       ["lifecycle progression", ch.lifecycle_progression,
        "a case advanced or a blank was filled; nothing asserted was contradicted", "soft"],
       ["coordinated revisions", ch.coordinated_revisions,

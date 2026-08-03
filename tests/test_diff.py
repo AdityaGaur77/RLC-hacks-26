@@ -13,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from palimpsest.diff import (  # noqa: E402
     ChangeKind,
     _is_lifecycle,
+    _is_ordering_only,
     _mark_coordinated,
     _resolve_identity_churn,
     _revision_significance,
@@ -51,6 +52,37 @@ check("mixed progression and overwrite counts as revision",
           "total_new_add_sqft": ["463", "2551"],
       }))
 check("empty deltas are not progression", not _is_lifecycle({}))
+
+print("\n-- ordering versus reclassification --")
+# San Francisco DA case resolutions: one cell, charges re-sorted.
+check("a re-sorted list in one cell is ordering only",
+      _is_ordering_only({"list_of_filed_charges": [
+          "245A1/M/0, 245A4/M/0, 242/M/0",
+          "242/M/0, 245A1/M/0, 245A4/M/0"]}))
+
+# Chicago arrest 30477683: values traded places across parallel columns.
+check("values swapping between parallel columns is ordering only",
+      _is_ordering_only({
+          "charge_1_description": ["BATTERY - CAUSE BODILY HARM",
+                                   "RETAIL THEFT/DISP MERCH/<$300"],
+          "charge_2_description": ["RETAIL THEFT/DISP MERCH/<$300",
+                                   "BATTERY - CAUSE BODILY HARM"],
+          "charge_1_statute": ["720 ILCS 5.0/12-3-A-1", "720 ILCS 5.0/16-25-A-1"],
+          "charge_2_statute": ["720 ILCS 5.0/16-25-A-1", "720 ILCS 5.0/12-3-A-1"],
+      }))
+
+# A charge genuinely added must survive.
+check("an added charge is a real change",
+      not _is_ordering_only({"list_of_filed_charges": [
+          "242/M/0, 245A1/M/0", "242/M/0, 245A1/M/0, 459/F/2"]}))
+check("a substituted charge is a real change",
+      not _is_ordering_only({"charge_1_description": ["BATTERY", "HOMICIDE"]}))
+check("a dropped charge is a real change",
+      not _is_ordering_only({"list_of_filed_charges": [
+          "242/M/0, 245A1/M/0, 459/F/2", "242/M/0, 245A1/M/0"]}))
+check("a single scalar edit is not ordering",
+      not _is_ordering_only({"total_new_add_sqft": ["463", "2551"]}))
+check("empty deltas are not ordering", not _is_ordering_only({}))
 
 print("\n-- identity churn --")
 

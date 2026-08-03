@@ -49,7 +49,7 @@ So Palimpsest is built around a distinction that most of the work goes into:
 Only the second is a finding. The first is the false positive this project exists to
 refuse — and on republish-style portals, it is 98% of the signal.
 
-Seven distinct mechanisms turned out to masquerade as editing. Each was found by
+Eight distinct mechanisms turned out to masquerade as editing. Each was found by
 investigating a result that looked like a scandal, and each is documented in
 [docs/METHODOLOGY.md](docs/METHODOLOGY.md) with the observation that exposed it:
 
@@ -59,7 +59,8 @@ investigating a result that looked like a scandal, and each is documented in
 4. **Recomputed columns no pattern can name** — `sr_age_days: 417 → 418`, a clock that advances for every record every day.
 5. **Keys that are unique but not stable** — an ordinal within a filing, re-binding to a different donor when rows are re-sorted.
 6. **Cases advancing through their workflow** — a permit becoming Final is not the past being rewritten.
-7. **Schema migrations** — a newly added column differs in every record, from absent to present.
+7. **The same values in a different order** — charges re-sorted within a cell, or traded between `charge_1` and `charge_2`.
+8. **Schema migrations** — a newly added column differs in every record, from absent to present.
 
 The later ones are the interesting ones, because they defeat the controls built for the
 earlier ones. Number 4 cannot be caught by naming rules at all, and forced the analysis
@@ -70,19 +71,20 @@ either to become visible.
 
 The cumulative effect is the project's central claim. Over 36 sweeps of 112 datasets:
 
-> **A blind pass sees 67,275 changes. After controlling for publishing mechanism,
-> 6,832 remain. 89.8% of apparent change was the machinery, not the record.**
+> **A blind pass sees 76,775 changes. After controlling for publishing mechanism,
+> 6,734 remain. 91.2% of apparent change was the machinery, not the record.**
 
 | | count | |
 |---|---:|---|
-| apparent changes, uncontrolled | 67,275 | what a naive tool reports |
-| dissolved once mechanism was accounted for | 41,821 | recomputed columns, withdrawn sources |
-| provenance churn | 15,325 | the pipeline ran; no published value moved |
-| identity churn | 2,760 | keys moved, population unchanged |
-| **isolated revisions** | **2,171** | a stated value replaced, with nothing systematic explaining it |
-| coordinated revisions | 3,592 | mass migrations — real, but systematic and self-disclosing |
-| deletions | 1,069 | records that left a closed window |
-| lifecycle progression | 115 | a case advancing; not the past being rewritten |
+| apparent changes, uncontrolled | 76,775 | what a naive tool reports |
+| dissolved once mechanism was accounted for | 49,695 | recomputed columns, withdrawn sources |
+| provenance churn | 15,335 | the pipeline ran; no published value moved |
+| identity churn | 3,754 | keys moved, population unchanged |
+| ordering changes | 332 | the same values rearranged |
+| lifecycle progression | 299 | a case advancing; not the past being rewritten |
+| **isolated revisions** | **1,862** | a stated value replaced, with nothing systematic explaining it |
+| coordinated revisions | 3,519 | mass migrations — real, but systematic and self-disclosing |
+| deletions | 1,353 | records that left a closed window |
 
 Both counts are written into the archive by the analysis itself (`analysis_stages`) and
 read from there by the site, so the ratio can be checked rather than taken on trust.

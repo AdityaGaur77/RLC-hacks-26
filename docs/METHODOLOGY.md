@@ -236,7 +236,54 @@ A construction project's recorded floor area changing five-fold is the finding. 
 permit becoming Final is not, and reporting both at equal weight would bury the first
 under the second.
 
-### Confounder 7 — Schema migrations
+### Confounder 7 — The same values in a different order
+
+**Observed.** San Francisco's District Attorney case resolutions produced revisions to
+the charges filed against a defendant:
+
+```
+list_of_filed_charges
+  was: 245A1/M/0, 245A4/M/0, 242/M/0
+  now: 242/M/0, 245A1/M/0, 245A4/M/0
+```
+
+And a Chicago arrest record, `30477683`, appeared to have its lead charge changed:
+
+```
+charge_1_description:  BATTERY - CAUSE BODILY HARM    ->  RETAIL THEFT/DISP MERCH/<$300
+charge_2_description:  RETAIL THEFT/DISP MERCH/<$300  ->  BATTERY - CAUSE BODILY HARM
+```
+
+**Naive reading.** A prosecutor reordered the charges against a defendant; a violent
+offence and a petty property offence exchanged rank on an arrest record.
+
+**This project published exactly that reading before catching it.** The Chicago record was
+written up as the headline finding — "the lead charge on an arrest was swapped" — and it
+was wrong. The multiset of values before the change is identical to the multiset after.
+Six fields differ and the arrest is charged with precisely what it was charged with
+before.
+
+**Actual cause.** Two shapes of the same thing. A multi-valued cell re-sorted, and values
+permuted across parallel columns (`charge_1_*`, `charge_2_*`).
+
+**Why the earlier controls did not catch it.** Every one of these is a genuine
+replacement of a non-empty value by a different non-empty value — which is the exact test
+Confounder 6 uses to separate revision from progression, and it passes. The content hash
+legitimately changed. Nothing about a single record, examined on its own terms, reveals
+the problem; it is only visible when the record's values are compared *as a set*.
+
+**Control.** Parse each changed value on common delimiters and compare multisets, both
+within a field and across all changed fields of the record. If the record holds the same
+values arranged differently, it is reported as an ordering change, not a revision.
+
+**What is deliberately not claimed.** Whether position encodes primacy — whether
+`charge_1` really is the lead charge — is a question about a publisher's internal
+conventions that the data cannot answer. A deliberate re-ranking and an arbitrary re-sort
+are indistinguishable here. Since the alarming reading of an ambiguous signal is exactly
+what this project exists to refuse, these are surfaced as their own low-significance kind
+rather than counted as facts being rewritten. **332 changes were reclassified this way.**
+
+### Confounder 8 — Schema migrations
 
 **Observed.** San Francisco's parking citations showed 4,083 simultaneous revisions in
 the same snapshot pair that added the columns `analysis_neighborhood`, `data_as_of`,

@@ -73,47 +73,58 @@ Two rules that matter more than polish:
 > **VISUAL** — The control ladder table, scrolling down row by row.
 
 **VO:**
-> A blind pass over this archive reports sixty-seven thousand changes.
-> After controlling for how publishers actually operate — six thousand eight hundred.
+> A blind pass over this archive reports seventy-six thousand changes.
+> After controlling for how publishers actually operate — six thousand seven hundred.
 >
-> Eighty-nine point eight percent of apparent change was machinery, not the record.
+> Ninety-one percent of apparent change was machinery, not the record.
 > That gap is the finding.
 
 ---
 
-## 1:30 – 2:20 · What survived
+## 1:30 – 2:00 · The one that caught us
 
-> **VISUAL** — Zoom into the ledger. The Chicago arrest record, field-level diff.
-> Let the two charge lines sit on screen for a beat.
-
-**VO:**
-> Here's what's left after all that filtering.
->
-> A Chicago arrest record. Two charges: battery causing bodily harm, and retail theft
-> under three hundred dollars.
->
-> Between two observations, they swapped places. Same charges — opposite order. Position
-> one is the lead charge: the one that characterises the arrest. A violent offence and a
-> petty property offence traded rank, and nothing recorded that it happened.
-
-> **VISUAL** — Cut through three more findings, ~5s each, field-level diffs visible.
+> **VISUAL** — A ledger card showing an ordering change: `was: 245A1, 245A4, 242` /
+> `now: 242, 245A1, 245A4`. Let it sit.
 
 **VO:**
-> A Chicago permit fee, raised seven hundred dollars after the fact.
+> Here's how easy this is to get wrong. I know, because I got it wrong.
+>
+> A Chicago arrest record showed its lead charge changing from battery to retail theft.
+> I wrote it up as the headline finding.
+>
+> It's a re-sort. The same two charges, in the opposite order. The arrest is charged with
+> exactly what it was charged with before — the city just reordered the columns.
+>
+> Three hundred and twenty-eight findings were that. They're now their own category, and
+> the tool doesn't claim a reclassification it can't prove.
+
+---
+
+## 2:00 – 2:25 · What actually survived
+
+> **VISUAL** — Seattle Crisis Data schema-drift entry. Then two more findings, ~5s each.
+
+**VO:**
+> So here's what's left after all of that.
+>
+> A column in Seattle's police crisis data — whether a crisis intervention officer was
+> requested at a mental health call — that simply stopped existing.
+>
 > An Austin construction project whose recorded floor area went from four hundred and
 > sixty-three square feet to two thousand five hundred and fifty-one.
-> And a column in Seattle's police crisis data — whether a crisis intervention officer was
-> requested — that simply stopped existing.
+>
+> And a closed complaint window in Austin that keeps shrinking: fifty-one thousand
+> twenty-five, then nine hundred thirty-three, then seven hundred fifty-eight.
 
 > **VISUAL** — The proof panel: record ID, content hash, Merkle root, sibling hashes.
 
 **VO:**
-> Each of these comes with a cryptographic proof that this archive saw that value, on that
-> date, and hasn't altered its own record of it since.
+> Each comes with a cryptographic proof that this archive saw that value, on that date,
+> and hasn't altered its own record of it since.
 
 ---
 
-## 2:20 – 2:42 · The part I'd score highest
+## 2:25 – 2:42 · The part I'd score highest
 
 > **VISUAL** — Scroll to a source card marked **withdrawn**. Rest on it.
 

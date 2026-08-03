@@ -52,35 +52,48 @@ Or on the site, the **"What the controls remove"** ladder:
 
 | stage | count |
 |---|---:|
-| apparent changes, uncontrolled | 67,275 |
-| dissolved once mechanism was measured | 41,821 |
-| provenance churn | 15,325 |
-| identity churn | 2,760 |
-| **isolated revisions** | **2,171** |
+| apparent changes, uncontrolled | 76,775 |
+| dissolved once mechanism was measured | 49,695 |
+| provenance churn | 15,335 |
+| identity churn | 3,754 |
+| ordering changes | 332 |
+| lifecycle progression | 299 |
+| **isolated revisions** | **1,862** |
 
-### 3. Show a finding
+### 3. Show the one that caught us
 
-The strongest one is Chicago arrest record **`30477683`**
-([source](https://data.cityofchicago.org/d/dpt3-jri9)):
+Do this *before* the real findings. It is the most persuasive thing in the demo, and
+skipping it looks like hiding it.
+
+An `ORDERING CHANGE` card — e.g. SF District Attorney case resolutions:
 
 ```
-charge_1_description:  BATTERY - CAUSE BODILY HARM    →  RETAIL THEFT/DISP MERCH/<$300
-charge_1_statute:      720 ILCS 5.0/12-3-A-1          →  720 ILCS 5.0/16-25-A-1
-charge_2_description:  RETAIL THEFT/DISP MERCH/<$300  →  BATTERY - CAUSE BODILY HARM
+list_of_filed_charges
+  was: 245A1/M/0, 245A4/M/0, 242/M/0
+  now: 242/M/0, 245A1/M/0, 245A4/M/0
 ```
 
-Same two charges, opposite order. Position one is the lead charge.
+**The line to say:** *"A Chicago arrest record showed its lead charge changing from
+battery to retail theft. I wrote that up as the headline finding. It's a re-sort — the
+same charges in the opposite order. 328 findings were that. They're now their own
+category, and the tool no longer claims a reclassification it can't prove."*
 
-Backups, in descending order of impact:
+### 4. Show the real findings
 
-- **Chicago permit `2681619323365`** — `totalfees: 2955.13 → 3655.13` (+$700), end date
-  pushed a month ([source](https://data.cityofchicago.org/d/pubx-yq2d))
-- **Austin permit `2025-015600 EP`** — `total_new_add_sqft: 463 → 2551`
-  ([source](https://data.austintexas.gov/d/3syk-w9eu))
-- **Seattle Crisis Data** — column `cit_officer_requested` removed entirely
+In descending order of how hard they are to argue with:
+
+- **Seattle Crisis Data** — column `cit_officer_requested` removed entirely. Whether a
+  Crisis Intervention Team officer was requested at a mental health call. Schema-level, so
+  no identity or ordering problem can touch it.
   ([source](https://data.seattle.gov/d/i2q9-thny))
 - **Austin Code Complaint Cases** — a closed window shrinking across consecutive sweeps:
-  51,025 → 50,933 → 50,758 → 50,722
+  51,025 → 50,933 → 50,758 → 50,722. An aggregate count, immune to every key problem,
+  because counting doesn't require knowing which record is which.
+- **Austin permit `2025-015600 EP`** — `total_new_add_sqft: 463 → 2551`. One scalar field,
+  no status change, nothing systematic to explain it.
+  ([source](https://data.austintexas.gov/d/3syk-w9eu))
+- **Austin permit `2025-039073 PP`** — contractor of record replaced:
+  `Dahl Plumbing Co.` → `MEK Homes, LLC`, `Donald Dahl` → `Mathew Kruger`.
 
 ### 4. Show the proof
 

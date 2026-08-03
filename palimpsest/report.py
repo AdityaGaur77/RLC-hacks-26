@@ -44,6 +44,7 @@ ARTIFACT_KINDS = {
     ChangeKind.PROVENANCE_CHURN,
     ChangeKind.IDENTITY_CHURN,
     ChangeKind.WITHDRAWN_UNSTABLE_KEY,
+    ChangeKind.ORDERING_CHANGE,
 }
 
 DISPLAY_KINDS = MATERIAL_KINDS | ARTIFACT_KINDS
@@ -256,6 +257,10 @@ def churn_summary(arc: Archive) -> dict[str, Any]:
         "SELECT COUNT(*) n FROM changes WHERE kind=?",
         (ChangeKind.WITHDRAWN_UNSTABLE_KEY,),
     ).fetchone()["n"]
+    n_ordering = arc.conn.execute(
+        "SELECT COUNT(*) n FROM changes WHERE kind=?",
+        (ChangeKind.ORDERING_CHANGE,),
+    ).fetchone()["n"]
     total = arc.conn.execute("SELECT COUNT(*) n FROM changes").fetchone()["n"]
 
     # What a blind pass saw, before any control for publishing mechanism was
@@ -269,7 +274,7 @@ def churn_summary(arc: Archive) -> dict[str, Any]:
         stages = {}
     probe = stages.get("probe")
 
-    mechanism = n_churn + n_identity + n_withdrawn
+    mechanism = n_churn + n_identity + n_withdrawn + n_ordering
 
     return {
         "apparent_changes_before_control": probe,
@@ -281,6 +286,9 @@ def churn_summary(arc: Archive) -> dict[str, Any]:
         "provenance_churn_events": n_churn,
         "identity_churn_events": n_identity,
         "withdrawn_unstable_key": n_withdrawn,
+        # The same values rearranged. Counted as mechanism because the record
+        # holds exactly what it held before — this is the one that caught us.
+        "ordering_changes": n_ordering,
         "material_changes": n_material,
         "coordinated_revisions": n_coord,
         "isolated_revisions": n_isolated,
