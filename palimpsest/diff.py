@@ -53,6 +53,9 @@ class ChangeKind:
     #: The record was missing from one observation and present again later. A
     #: gap in a reload, not a removal.
     TRANSIENT_ABSENCE = "transient_absence"
+    #: We called it deleted; the publisher still has it. Its key was reformatted,
+    #: or its date moved it out of the window we watch. Set by confirm.py.
+    LEFT_OBSERVATION_WINDOW = "left_observation_window"
 
 
 # How consequential is a change to this field? Altering what an event *was*, or

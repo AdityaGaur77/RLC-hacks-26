@@ -47,4 +47,15 @@ Invoke-Step "`n==> pass 2: reclassify with that knowledge applied" {
 Invoke-Step "" { python -m palimpsest.diff --db archive\palimpsest.db --min-significance 2.0 }
 Invoke-Step "" { python scripts\record_stage.py archive\palimpsest.db controlled }
 
+# Deletion is the strongest claim made here, and the archive cannot settle it
+# alone: a record leaves our window when its key is reformatted or its date is
+# edited, and in both cases it is still published. Of 1,187 claimed deletions,
+# 676 were San Francisco removing a stray leading quote from citation numbers.
+#
+# This costs about one request per claimed deletion and takes tens of minutes.
+# That is the price of not publishing something false, and it is worth paying.
+Invoke-Step "`n==> confirming every claimed deletion against its source" {
+    python -m palimpsest.confirm --db archive\palimpsest.db
+}
+
 Write-Output "`n==> done"

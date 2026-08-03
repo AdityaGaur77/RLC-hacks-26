@@ -379,7 +379,51 @@ explanation for whatever moved with it.
 **Detection has to be measured, not named.** Nothing about `crime_type` marks it as
 derived. Only the archive's own record of what moves with what reveals it.
 
-### Confounder 11 — Schema migrations
+### Confounder 11 — A key that was reformatted
+
+**Observed.** San Francisco's parking citations produced 676 deletions — more than half
+of every deletion in the archive.
+
+**Naive reading.** A city removed 676 parking citations from the public record.
+
+**Actual cause.** The citation numbers had been published with a leading quote —
+`"1006622610`, the residue of a spreadsheet forcing a value to text — and the publisher
+cleaned them. The record's *key* changed, so the old identity vanished and a new one
+appeared. Every one of those citations is still published:
+
+```
+stored key    "1006622610
+live portal    1006622610     citation_issued_datetime 2025-06-02T14:26   (inside our window)
+```
+
+**Why the earlier controls did not catch it.** Confounder 8 requires the record to
+reappear under *the same* identity, and this identity no longer exists. Confounder 2
+pairs departures against arrivals within one comparison, and these did not balance.
+
+There was a corroborating signal available and unused: SFMTA's stratum lost 675 records
+while its frozen past *grew* by 65,340. Records do not leave a closed window while that
+window grows. The signal was computed and not acted on, which is its own lesson.
+
+**Control.** The archive cannot settle this alone — it sees one window of one dataset, and
+a record that leaves that window is simply not there any more, whatever the reason. So the
+publisher is asked. Before any deletion is reported, the source is queried for the record
+under both its exact key and its normalised key. The claim survives only if the record is
+absent under both.
+
+**Result over the whole archive.** Of 1,187 claimed deletions:
+
+| verdict | count | |
+|---|---:|---|
+| confirmed absent | **498** | the claim stands, and now says it was checked |
+| key was reformatted | 676 | still published under a cleaned key |
+| still published | 13 | left the observation window, not the dataset |
+| could not be verified | 0 | every claim was checked |
+
+**Cost.** Roughly one request per claimed deletion, tens of minutes per run. That is the
+price of not saying something false, and it is worth paying. Deletion is the strongest
+claim this project makes; it should be the most expensive one to make.
+
+### Confounder 12 — Schema migrations
 
 **Observed.** San Francisco's parking citations showed 4,083 simultaneous revisions in
 the same snapshot pair that added the columns `analysis_neighborhood`, `data_as_of`,

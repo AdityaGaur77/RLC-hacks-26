@@ -46,6 +46,7 @@ ARTIFACT_KINDS = {
     ChangeKind.WITHDRAWN_UNSTABLE_KEY,
     ChangeKind.ORDERING_CHANGE,
     ChangeKind.TRANSIENT_ABSENCE,
+    ChangeKind.LEFT_OBSERVATION_WINDOW,
 }
 
 DISPLAY_KINDS = MATERIAL_KINDS | ARTIFACT_KINDS
@@ -182,21 +183,34 @@ def publishing_census(arc: Archive) -> dict[str, Any]:
     }
 
 
-def findings(arc: Archive, limit: int = 400) -> list[dict[str, Any]]:
-    """Changes, most consequential first, each carrying its evidence."""
+def findings(arc: Archive, limit: int = 420, per_kind: int = 30) -> list[dict[str, Any]]:
+    """Changes, most consequential first, each carrying its evidence.
+
+    Sampled per kind rather than taken straight off the top. Deletions all score
+    1.0, so a flat "highest significance first" cut filled 398 of 400 slots with
+    deletions and left two revisions — making the most interesting category, an
+    edit with nothing to explain it, effectively unbrowsable. Each kind gets its
+    own allowance and they are merged afterwards.
+    """
     placeholders = ",".join("?" for _ in DISPLAY_KINDS)
     rows = arc.conn.execute(
-        f"SELECT c.*, s.title, s.city, s.domain, s.fourfour, s.pipeline_class, "
-        f"s.date_field, s.stratum_start, s.stratum_end "
-        f"FROM changes c JOIN sources s ON s.source_key = c.source_key "
-        f"WHERE c.kind IN ({placeholders}) "
-        f"ORDER BY c.significance DESC, c.change_id DESC LIMIT ?",
-        (*DISPLAY_KINDS, limit),
+        f"SELECT * FROM ("
+        f"  SELECT c.*, s.title, s.city, s.domain, s.fourfour, s.pipeline_class, "
+        f"         s.date_field, s.stratum_start, s.stratum_end, "
+        f"         ROW_NUMBER() OVER ("
+        f"           PARTITION BY c.kind ORDER BY c.significance DESC, c.change_id DESC"
+        f"         ) AS rank_in_kind "
+        f"  FROM changes c JOIN sources s ON s.source_key = c.source_key "
+        f"  WHERE c.kind IN ({placeholders})"
+        f") WHERE rank_in_kind <= ? "
+        f"ORDER BY significance DESC, change_id DESC LIMIT ?",
+        (*DISPLAY_KINDS, per_kind, limit),
     ).fetchall()
 
     out = []
     for r in rows:
         d = dict(r)
+        d.pop("rank_in_kind", None)
         d["field_deltas"] = json.loads(d["field_deltas"]) if d["field_deltas"] else None
 
         snap = arc.conn.execute(
@@ -385,7 +399,7 @@ def publisher_assertions(db_dir: Path) -> dict[str, Any] | None:
     }
 
 
-def build(db: str, out_path: str, findings_limit: int = 400) -> dict[str, Any]:
+def build(db: str, out_path: str, findings_limit: int = 420) -> dict[str, Any]:
     arc = Archive(db)
     bundle = {
         "overview": overview(arc),

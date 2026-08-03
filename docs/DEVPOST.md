@@ -117,7 +117,7 @@ for the proofs, a static HTML page for the evidence bundle. ~2,900 lines.
 
 ## Challenges we ran into
 
-Eleven distinct mechanisms masquerade as editing. Each was found by investigating a result
+Twelve distinct mechanisms masquerade as editing. Each was found by investigating a result
 that looked like a scandal, and — this is the part that mattered — **each defeated the
 controls built for the previous ones.**
 
@@ -209,7 +209,20 @@ controls built for the previous ones.**
     `crime_type` marks it as derived; only the archive's record of what moves with what
     reveals it.
 
-11. **Schema migrations.** A newly added column differs in every record, absent → present.
+11. **A key that was reformatted.** San Francisco's parking citations produced 676
+    deletions — more than half of every deletion in the archive. The citation numbers had
+    been published with a leading quote (`"1006622610`, a spreadsheet forcing text) and the
+    publisher cleaned them. The *key* changed, so the old identity vanished. Every one of
+    those citations is still published. Confounder 8 can't catch it — that requires the
+    record to reappear under the *same* identity, and this identity no longer exists.
+    *Control:* the archive can't settle a deletion alone, so the publisher is asked. Before
+    any deletion is reported, the source is queried for the record under both its exact and
+    its normalised key; the claim survives only if it's absent under both.
+    **Of 1,187 claimed deletions: 498 confirmed absent, 676 key-reformatted, 13 still
+    published, 0 unverified.** Roughly one request per claim, tens of minutes per run —
+    the strongest claim this project makes should be the most expensive one to make.
+
+12. **Schema migrations.** A newly added column differs in every record, absent → present.
    SF's parking citations showed 4,083 "revisions" in the sweep that added seven columns.
    *Control:* exclude added and removed columns from per-record deltas; the schema change
    is one finding.

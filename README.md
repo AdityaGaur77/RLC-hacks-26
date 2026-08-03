@@ -49,7 +49,7 @@ So Palimpsest is built around a distinction that most of the work goes into:
 Only the second is a finding. The first is the false positive this project exists to
 refuse — and on republish-style portals, it is 98% of the signal.
 
-Eleven distinct mechanisms turned out to masquerade as editing. Each was found by
+Twelve distinct mechanisms turned out to masquerade as editing. Each was found by
 investigating a result that looked like a scandal, and each is documented in
 [docs/METHODOLOGY.md](docs/METHODOLOGY.md) with the observation that exposed it:
 
@@ -63,7 +63,12 @@ investigating a result that looked like a scandal, and each is documented in
 8. **Records that come back** — 166 "deleted" homicide victim records were present again a few sweeps later.
 9. **Zero as a placeholder, and pointers to "the latest"** — `fee: 0 → 149` is an invoice being raised; `last_doc` advances by design.
 10. **Fields that are other fields' arithmetic** — `submit_to_complete_cal` is a date subtracted; `crime_type` names whichever charge sits first in a re-sorted list.
-11. **Schema migrations** — a newly added column differs in every record, from absent to present.
+11. **A key that was reformatted** — 676 "deleted" parking citations were still published, under a key with a stray quote removed.
+12. **Schema migrations** — a newly added column differs in every record, from absent to present.
+
+Every deletion that survives is **confirmed against the live portal before publication** —
+queried under both its exact and normalised key, and reported only if absent under both.
+Of 1,187 claimed deletions, 498 survived that check and 0 went unverified.
 
 The later ones are the interesting ones, because they defeat the controls built for the
 earlier ones. Number 4 cannot be caught by naming rules at all, and forced the analysis
