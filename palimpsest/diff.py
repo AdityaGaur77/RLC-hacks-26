@@ -284,14 +284,28 @@ def diff_snapshots(
             ))
             continue
 
+        sig = _revision_significance(surviving)
+        note = ""
+        # A status transition explains the changes that travel with it: when a
+        # permit becomes Final, its expiry is truncated to the completion date.
+        # These are still replacements of stated values and are not hidden — but
+        # a revision with no such explanation is the more interesting one, and
+        # should not be buried beneath dozens of routine completions.
+        if any(_STATUS_FIELD.search(f) for f in surviving) and len(surviving) > 1:
+            sig = round(sig * 0.4, 3)
+            note = (
+                " | accompanies a status transition, so the remaining changes may "
+                "be consequences of it"
+            )
+
         changes.append(base(
             ChangeKind.SEMANTIC_REVISION, row_uid=uid,
             before_hash=ra["content_hash"], after_hash=rb["content_hash"],
             field_deltas=surviving,
-            significance=_revision_significance(surviving),
+            significance=sig,
             detail=(
                 f"{len(surviving)} previously stated value(s) replaced: "
-                f"{', '.join(sorted(surviving))[:300]}"
+                f"{', '.join(sorted(surviving))[:300]}{note}"
             ),
         ))
 

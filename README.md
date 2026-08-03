@@ -68,12 +68,27 @@ Number 5 initially appeared *refuted* by the obvious test — because number 4 w
 running simultaneously and masking it. They had to be removed in the right order for
 either to become visible.
 
-The cumulative effect is the project's central claim: the large majority of apparent
-change in municipal open data is publishing mechanism, not editing. The live split
-between the two — recomputed from the archive on every publish, never hand-written — is
-carried on the site and in `web/data.json` under `churn`.
+The cumulative effect is the project's central claim. Over 36 sweeps of 112 datasets:
 
-A tool that skipped this work would have reported the raw number.
+> **A blind pass sees 67,275 changes. After controlling for publishing mechanism,
+> 6,832 remain. 89.8% of apparent change was the machinery, not the record.**
+
+| | count | |
+|---|---:|---|
+| apparent changes, uncontrolled | 67,275 | what a naive tool reports |
+| dissolved once mechanism was accounted for | 41,821 | recomputed columns, withdrawn sources |
+| provenance churn | 15,325 | the pipeline ran; no published value moved |
+| identity churn | 2,760 | keys moved, population unchanged |
+| **isolated revisions** | **2,171** | a stated value replaced, with nothing systematic explaining it |
+| coordinated revisions | 3,592 | mass migrations — real, but systematic and self-disclosing |
+| deletions | 1,069 | records that left a closed window |
+| lifecycle progression | 115 | a case advancing; not the past being rewritten |
+
+Both counts are written into the archive by the analysis itself (`analysis_stages`) and
+read from there by the site, so the ratio can be checked rather than taken on trust.
+Re-run it with `scripts/analyse.ps1`; the two passes reproduce exactly.
+
+A tool that skipped this work would have reported 67,275.
 
 ---
 

@@ -258,9 +258,25 @@ def churn_summary(arc: Archive) -> dict[str, Any]:
     ).fetchone()["n"]
     total = arc.conn.execute("SELECT COUNT(*) n FROM changes").fetchone()["n"]
 
+    # What a blind pass saw, before any control for publishing mechanism was
+    # applied. Recorded by the analysis itself so the headline ratio can be
+    # checked against the archive rather than taken on trust.
+    try:
+        stages = dict(
+            arc.conn.execute("SELECT stage, change_count FROM analysis_stages")
+        )
+    except Exception:
+        stages = {}
+    probe = stages.get("probe")
+
     mechanism = n_churn + n_identity + n_withdrawn
 
     return {
+        "apparent_changes_before_control": probe,
+        "dissolved_by_control": (probe - total) if probe else None,
+        "share_that_was_mechanism": (
+            round(1 - (n_isolated + n_coord + n_deletion) / probe, 4) if probe else None
+        ),
         "total_apparent_changes": total,
         "provenance_churn_events": n_churn,
         "identity_churn_events": n_identity,

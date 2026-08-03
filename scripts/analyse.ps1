@@ -18,6 +18,7 @@ Write-Output "==> pass 1: probe (classify changes without volatility knowledge)"
 # to observe, and the re-measurement then finds nothing at all.
 python scripts\reset_analysis.py
 python -m palimpsest.diff --db archive\palimpsest.db --min-significance 2.0 | Select-Object -First 2
+python scripts\record_stage.py archive\palimpsest.db probe
 
 Write-Output "`n==> measuring which columns are recomputed, and which keys are stable"
 python -m palimpsest.volatility --db archive\palimpsest.db
@@ -27,5 +28,6 @@ Write-Output "`n==> pass 2: reclassify with volatility applied"
 # taken is what pass 2 is for.
 python -c "import sqlite3;c=sqlite3.connect('archive/palimpsest.db');c.execute('DELETE FROM changes');c.execute('DELETE FROM diff_runs');c.commit()"
 python -m palimpsest.diff --db archive\palimpsest.db --min-significance 2.0 | Select-Object -First 2
+python scripts\record_stage.py archive\palimpsest.db controlled
 
 Write-Output "`n==> done"

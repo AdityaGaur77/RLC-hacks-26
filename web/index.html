@@ -288,6 +288,21 @@ button.filter[aria-pressed="true"] { background: var(--ink); color: var(--vellum
     <div id="ledger"></div>
   </section>
 
+  <section id="control-section">
+    <h2>What the controls remove</h2>
+    <p class="lede" id="control-lede">Most apparent change is machinery.</p>
+    <div class="body-copy">
+      <p>
+        Every figure below is produced twice. The first pass classifies changes blind.
+        Its output is then used to measure how each publisher behaves — which columns it
+        recomputes wholesale, whether its keys identify stable entities — and the second
+        pass reclassifies with that knowledge. Only the second is reported.
+      </p>
+      <p id="control-summary"></p>
+    </div>
+    <div id="control"></div>
+  </section>
+
   <section id="admit-section">
     <h2>Finding two</h2>
     <p class="lede" id="admit-lede">What publishers admit.</p>
@@ -354,7 +369,12 @@ function render(D) {
     [N(o.city_count), "jurisdictions"],
     [N(o.sweeps), "sweeps"],
     [N(o.observations), "record observations"],
-    [N(ch.material_changes), "material changes"],
+    // The project's central claim belongs in the standing figures, not buried
+    // in prose: what a blind pass would have reported, against what survives.
+    [ch.share_that_was_mechanism != null
+      ? (ch.share_that_was_mechanism * 100).toFixed(1) + "%"
+      : "—", "of apparent change was mechanism"],
+    [N(ch.rewriting_of_stated_facts), "stated facts rewritten"],
     [ig.all_ok ? "intact" : "BROKEN", "chain integrity", ig.all_ok],
   ];
   const sEl = document.getElementById("standing");
@@ -489,6 +509,61 @@ function render(D) {
     body.append(p);
     card.append(body);
     return card;
+  }
+
+  /* ---- what the controls remove ---- */
+  const cel = document.getElementById("control");
+  if (ch.apparent_changes_before_control) {
+    const pct = (ch.share_that_was_mechanism * 100).toFixed(1);
+    document.getElementById("control-lede").textContent =
+      `${pct}% of apparent change was machinery.`;
+    document.getElementById("control-summary").innerHTML =
+      `A blind pass over this archive reports <b>${N(ch.apparent_changes_before_control)}</b> ` +
+      `changes. After controlling for how publishers actually operate, ` +
+      `<b>${N(ch.rewriting_of_stated_facts)}</b> remain. The difference is not a rounding ` +
+      `error — it is the finding. A tool that skipped this step would have published the ` +
+      `first number.`;
+
+    const ladder = [
+      ["apparent changes, uncontrolled", ch.apparent_changes_before_control,
+       "what a naive reading reports", "raw"],
+      ["dissolved once mechanism was measured", ch.dissolved_by_control,
+       "recomputed columns; sources whose keys do not identify stable entities", "cut"],
+      ["provenance churn", ch.provenance_churn_events,
+       "the publisher's pipeline ran; no published value moved", "cut"],
+      ["identity churn", ch.identity_churn_events,
+       "keys moved, population unchanged — nothing was removed", "cut"],
+      ["lifecycle progression", ch.lifecycle_progression,
+       "a case advanced or a blank was filled; nothing asserted was contradicted", "soft"],
+      ["coordinated revisions", ch.coordinated_revisions,
+       "mass migrations — real, but systematic and self-disclosing", "soft"],
+      ["deletions", ch.deletions,
+       "records that left a window which had already closed", "keep"],
+      ["isolated revisions", ch.isolated_revisions,
+       "a stated value replaced, with nothing systematic to explain it", "keep"],
+    ];
+
+    const scroll = el("div", "table-scroll");
+    const t = el("table");
+    t.innerHTML = "<thead><tr><th>stage</th><th>count</th><th>what it is</th></tr></thead>";
+    const tb = el("tbody");
+    ladder.forEach(([label, n, why, tone]) => {
+      if (n === null || n === undefined) return;
+      const tr = el("tr");
+      const td0 = el("td", "wrap-cell");
+      td0.append(el("span", "kind kind-" + (
+        tone === "keep" ? "semantic_revision"
+        : tone === "raw" ? "deletion"
+        : "identity_churn"), label));
+      tr.append(td0);
+      tr.append(el("td", null, N(n)));
+      tr.append(el("td", "wrap-cell", why));
+      tb.append(tr);
+    });
+    t.append(tb); scroll.append(t); cel.append(scroll);
+  } else {
+    cel.append(el("div", "empty",
+      "Run scripts/analyse.ps1 to record the uncontrolled baseline."));
   }
 
   /* ---- what publishers admit ---- */
