@@ -202,7 +202,41 @@ has re-bound. For such sources, **all per-record claims are withdrawn** and stat
 withdrawn. Aggregate findings survive, because counts over a closed window do not
 depend on knowing which record is which.
 
-### Confounder 6 — Schema migrations
+### Confounder 6 — Cases advancing through their own workflow
+
+**Observed.** Austin's construction permits produced revisions such as
+`status_current: Active -> Final` with `completed_date: (empty) -> 2026-07-27`, and
+`status_current: Active -> Expired`.
+
+**Naive reading.** Permit records are being rewritten.
+
+**Actual cause.** An open case legitimately changes. A permit becomes Final, and the
+completion date it never had is filled in. Nothing previously asserted has been
+contradicted.
+
+**Control.** The distinction is not *which* field moved but *what kind of move* it was.
+Filling a blank, and advancing a status field, are progression. Replacing one non-empty
+value with a different non-empty value is revision — the record's earlier account of
+the world has been withdrawn and replaced, and unless somebody kept a copy, silently.
+
+In the same dataset and the same sweep, this separates
+
+```
+status_current:      Active -> Final          progression
+completed_date:     (empty) -> 2026-07-27     progression
+```
+
+from
+
+```
+total_new_add_sqft:      463 -> 2551          revision
+```
+
+A construction project's recorded floor area changing five-fold is the finding. The
+permit becoming Final is not, and reporting both at equal weight would bury the first
+under the second.
+
+### Confounder 7 — Schema migrations
 
 **Observed.** San Francisco's parking citations showed 4,083 simultaneous revisions in
 the same snapshot pair that added the columns `analysis_neighborhood`, `data_as_of`,

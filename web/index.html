@@ -160,6 +160,12 @@ h2 {
 .kind-coordinated_revision, .kind-tally_shift { color: var(--ink-faint); }
 .kind-schema_drift { color: var(--alarm); }
 .kind-retroactive_append { color: var(--seal); }
+/* Movement that is real but not a rewriting of the past — muted, so it cannot
+   be mistaken at a glance for a stated fact being replaced. */
+.kind-lifecycle_progression,
+.kind-identity_churn,
+.kind-provenance_churn,
+.kind-withdrawn_unstable_key { color: var(--ink-faint); font-style: italic; }
 .finding-title { font-weight: 600; flex: 1 1 340px; min-width: 0; }
 .finding-city { color: var(--ink-faint); font-size: 14px; }
 .sig { font-family: var(--mono); font-size: 13px; color: var(--ink-faint); }

@@ -44,6 +44,9 @@ class ChangeKind:
     #: The source's key does not identify a stable entity, so no per-record
     #: revision claim about it can be honest. Reported once, in place of them.
     WITHDRAWN_UNSTABLE_KEY = "withdrawn_unstable_key"
+    #: A case advancing through its own workflow, or a blank being filled in.
+    #: Real movement in the record, but not the rewriting of a stated fact.
+    LIFECYCLE_PROGRESSION = "lifecycle_progression"
 
 
 # How consequential is a change to this field? Altering what an event *was*, or
@@ -75,6 +78,39 @@ def field_weight(name: str) -> float:
 
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+_STATUS_FIELD = _re.compile(
+    r"(status|stage|state|phase|disposition|current_?task|workflow)", _re.I
+)
+
+
+def _is_lifecycle(deltas: dict[str, list[Any]]) -> bool:
+    """Is this a case moving through its workflow, or a stated fact being rewritten?
+
+    An open case legitimately changes: a permit goes Active then Final, and the
+    completion date it did not have gets filled in. Nothing that was previously
+    asserted has been contradicted.
+
+    Overwriting a value that was already stated is a different act. When a
+    permit's recorded floor area goes from 463 to 2,551, the record's earlier
+    account of the world has been replaced — and unless someone kept a copy,
+    silently.
+
+    So the test is not which field moved but *what kind of move it was*: filling
+    a blank and advancing a status are progression; replacing one non-empty
+    value with a different non-empty value is revision.
+    """
+    if not deltas:
+        return False
+    for name, (before, after) in deltas.items():
+        blank_before = before in (None, "", [])
+        if blank_before:
+            continue  # information added where there was none
+        if _STATUS_FIELD.search(name):
+            continue  # a case advancing through its own workflow
+        return False  # a stated value was replaced by a different one
+    return True
 
 
 def _field_deltas(before: dict[str, Any], after: dict[str, Any]) -> dict[str, list[Any]]:
@@ -234,12 +270,29 @@ def diff_snapshots(
             ))
             continue
 
+        if _is_lifecycle(surviving):
+            changes.append(base(
+                ChangeKind.LIFECYCLE_PROGRESSION, row_uid=uid,
+                before_hash=ra["content_hash"], after_hash=rb["content_hash"],
+                field_deltas=surviving,
+                significance=0.2,
+                detail=(
+                    "case advanced through its workflow or a blank was filled ("
+                    + ", ".join(sorted(surviving))[:200]
+                    + "); no previously stated value was replaced"
+                ),
+            ))
+            continue
+
         changes.append(base(
             ChangeKind.SEMANTIC_REVISION, row_uid=uid,
             before_hash=ra["content_hash"], after_hash=rb["content_hash"],
             field_deltas=surviving,
             significance=_revision_significance(surviving),
-            detail=f"{len(surviving)} field(s) changed: {', '.join(sorted(surviving))[:300]}",
+            detail=(
+                f"{len(surviving)} previously stated value(s) replaced: "
+                f"{', '.join(sorted(surviving))[:300]}"
+            ),
         ))
 
     gone = sorted(keys_a - keys_b)
@@ -364,7 +417,7 @@ def _resolve_identity_churn(
     # Partial overlap: discount the matched portion, keep the excess as a finding.
     for c in dels:
         c["significance"] = round(c["significance"] * (1 - balance), 3)
-        c["detail"] += (
+        c["detail"] = (c.get("detail") or "") + (
             f" | {paired} of {gone} departures are matched by arrivals in the same "
             f"sweep and may be re-identification rather than removal"
         )
@@ -419,7 +472,9 @@ def _mark_coordinated(changes: list[dict[str, Any]]) -> list[dict[str, Any]]:
         # available: nothing systematic explains it.
         if shape[touched] <= 3:
             c["significance"] = round(min(1.0, c["significance"] + 0.2), 3)
-            c["detail"] += " | isolated edit — no comparable change in this sweep"
+            c["detail"] = (c.get("detail") or "") + (
+                " | isolated edit — no comparable change in this sweep"
+            )
 
     return changes
 

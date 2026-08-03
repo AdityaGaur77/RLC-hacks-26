@@ -49,7 +49,7 @@ So Palimpsest is built around a distinction that most of the work goes into:
 Only the second is a finding. The first is the false positive this project exists to
 refuse — and on republish-style portals, it is 98% of the signal.
 
-Six distinct mechanisms turned out to masquerade as editing. Each was found by
+Seven distinct mechanisms turned out to masquerade as editing. Each was found by
 investigating a result that looked like a scandal, and each is documented in
 [docs/METHODOLOGY.md](docs/METHODOLOGY.md) with the observation that exposed it:
 
@@ -58,14 +58,21 @@ investigating a result that looked like a scandal, and each is documented in
 3. **Bookkeeping columns** — `refresh_time` published as though it were a fact.
 4. **Recomputed columns no pattern can name** — `sr_age_days: 417 → 418`, a clock that advances for every record every day.
 5. **Keys that are unique but not stable** — an ordinal within a filing, re-binding to a different donor when rows are re-sorted.
-6. **Schema migrations** — a newly added column differs in every record, from absent to present.
+6. **Cases advancing through their workflow** — a permit becoming Final is not the past being rewritten.
+7. **Schema migrations** — a newly added column differs in every record, from absent to present.
 
-The last three are the interesting ones, because they defeat the controls built for the
-first three. Number 4 cannot be caught by naming rules at all, and forced the analysis
+The later ones are the interesting ones, because they defeat the controls built for the
+earlier ones. Number 4 cannot be caught by naming rules at all, and forced the analysis
 to measure publisher behaviour empirically instead of guessing from column names.
 Number 5 initially appeared *refuted* by the obvious test — because number 4 was
 running simultaneously and masking it. They had to be removed in the right order for
 either to become visible.
+
+The cumulative effect is the project's central claim, and it is a large one:
+
+> **Of 67,275 apparent changes, 66,094 were mechanism. 1,181 were real.**
+
+A tool that skipped this work would have reported the first number.
 
 ---
 
