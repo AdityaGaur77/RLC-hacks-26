@@ -248,6 +248,7 @@ def diff_snapshots(
     from . import volatility
 
     ignored_fields = volatility.recomputed_fields(archive, source_key)
+    dependencies = volatility.dependent_fields(archive, source_key)
 
     # -- schema ------------------------------------------------------------
     cols_a = json.loads(snap_a["columns"] or "[]")
@@ -340,6 +341,25 @@ def diff_snapshots(
         # Set aside movement the publisher makes in every record regardless of
         # content. What remains is the part that says something about this record.
         surviving = {k: v for k, v in deltas.items() if k not in ignored_fields}
+
+        # A field that only ever moves when another field moves is that field's
+        # arithmetic, not a second fact. `submit_to_complete_cal` is the interval
+        # a completion date implies; `crime_type` names whichever charge sits
+        # first in a list. Counting them separately turns one change into three
+        # and — worse — lets a re-sorted charge list read as a prosecutor
+        # downgrading an attempted homicide. They are only discounted when the
+        # field they follow actually moved in this same delta.
+        consequences = {
+            f: drv for f, drv in dependencies.items()
+            if f in surviving and drv in surviving
+        }
+        independent = {k: v for k, v in surviving.items() if k not in consequences}
+        if not independent:
+            # Every field explained as another's consequence leaves nothing to
+            # judge. Cycles are broken when dependencies are recorded, so this
+            # should not arise — but discounting an entire change to nothing
+            # would silently drop it, so fall back to judging it whole.
+            independent, consequences = surviving, {}
         if not surviving:
             # The record's hash moved, but only through columns the publisher
             # rewrites wholesale. Nothing was revised.
@@ -355,7 +375,16 @@ def diff_snapshots(
             ))
             continue
 
-        if _is_ordering_only(surviving):
+        # Classification and scoring run on the independent fields only; the
+        # consequences are still shown, labelled as what they are.
+        followed = (
+            " | " + "; ".join(
+                f"{f} follows {drv}" for f, drv in sorted(consequences.items())
+            )
+            if consequences else ""
+        )
+
+        if _is_ordering_only(independent):
             changes.append(base(
                 ChangeKind.ORDERING_CHANGE, row_uid=uid,
                 before_hash=ra["content_hash"], after_hash=rb["content_hash"],
@@ -363,14 +392,14 @@ def diff_snapshots(
                 significance=0.15,
                 detail=(
                     "the same values in a different order ("
-                    + ", ".join(sorted(surviving))[:200]
+                    + ", ".join(sorted(independent))[:200]
                     + "); the record holds exactly what it held before, so no claim "
-                    "is made that anything was reclassified"
+                    "is made that anything was reclassified" + followed
                 ),
             ))
             continue
 
-        if _is_lifecycle(surviving):
+        if _is_lifecycle(independent):
             changes.append(base(
                 ChangeKind.LIFECYCLE_PROGRESSION, row_uid=uid,
                 before_hash=ra["content_hash"], after_hash=rb["content_hash"],
@@ -378,24 +407,35 @@ def diff_snapshots(
                 significance=0.2,
                 detail=(
                     "case advanced through its workflow or a blank was filled ("
-                    + ", ".join(sorted(surviving))[:200]
-                    + "); no previously stated value was replaced"
+                    + ", ".join(sorted(independent))[:200]
+                    + "); no previously stated value was replaced" + followed
                 ),
             ))
             continue
 
-        sig = _revision_significance(surviving)
-        note = ""
+        sig = _revision_significance(independent)
+        note = followed
         # A status transition explains the changes that travel with it: when a
         # permit becomes Final, its expiry is truncated to the completion date.
         # These are still replacements of stated values and are not hidden — but
         # a revision with no such explanation is the more interesting one, and
         # should not be buried beneath dozens of routine completions.
-        if any(_STATUS_FIELD.search(f) for f in surviving) and len(surviving) > 1:
+        if any(_STATUS_FIELD.search(f) for f in independent) and len(independent) > 1:
             sig = round(sig * 0.4, 3)
-            note = (
+            note += (
                 " | accompanies a status transition, so the remaining changes may "
                 "be consequences of it"
+            )
+        # A re-sort inside the same record is a mechanical explanation for
+        # whatever else moved with it, so the alarming reading is not asserted.
+        if any(
+            len(_parts(b)) > 1 and Counter(_parts(b)) == Counter(_parts(a))
+            for b, a in independent.values()
+        ):
+            sig = round(sig * 0.3, 3)
+            note += (
+                " | a multi-valued field was re-sorted in the same change, which "
+                "may account for the rest"
             )
 
         changes.append(base(
@@ -404,8 +444,8 @@ def diff_snapshots(
             field_deltas=surviving,
             significance=sig,
             detail=(
-                f"{len(surviving)} previously stated value(s) replaced: "
-                f"{', '.join(sorted(surviving))[:300]}{note}"
+                f"{len(independent)} previously stated value(s) replaced: "
+                f"{', '.join(sorted(independent))[:300]}{note}"
             ),
         ))
 
@@ -623,6 +663,12 @@ def run_source(archive, source_key: str, force: bool = False) -> int:
             continue
         try:
             changes = diff_snapshots(archive, source_key, a, b)
+        except (NameError, AttributeError, ImportError, TypeError) as e:
+            # A programming fault is not a difficult dataset. Swallowing it
+            # per-pair turns a broken build into an empty result that still
+            # reports success -- which happened, and cost a run to notice.
+            log.error("diff is broken, not the data: %s", e)
+            raise
         except Exception as e:
             log.warning("diff failed for %s (%s->%s): %s",
                         source_key, a["snapshot_id"], b["snapshot_id"], e)

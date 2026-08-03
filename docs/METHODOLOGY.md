@@ -334,7 +334,52 @@ a real change to the record. Separately, fields named `last_*`, `latest_*`,
 a negative lookahead so that `last_name`, a person's surname, is not swallowed by that
 rule.
 
-### Confounder 10 — Schema migrations
+### Confounder 10 — Fields that are other fields' arithmetic
+
+**Observed.** A San Francisco permit reported three values replaced at once:
+
+```
+completed_date          2026-06-30T12:13:25 -> 2026-07-29T09:57:19
+submit_to_complete_biz                   83 -> 103
+submit_to_complete_cal                  119 -> 148
+```
+
+And a District Attorney record appeared to show a charge being downgraded:
+
+```
+crime_type              Willful Homicide (Att.) -> Assault
+list_of_booked_charges  664/187A,205,245A1 -> 205,245A1,664/187A
+```
+
+**Naive reading.** Three facts about a permit were rewritten. A prosecutor
+reclassified an attempted homicide as an assault.
+
+**Actual cause.** `submit_to_complete_biz` and `submit_to_complete_cal` are the interval
+between submission and completion in business and calendar days. They are not additional
+facts; they are that date, subtracted. One change was reported as three.
+
+The second is worse. The charge list was re-sorted — the same three charges — and
+`crime_type` names whichever charge sits in first position. Read as an independent field
+it alleges a prosecutorial decision that never happened.
+
+**Why the ordering control did not catch it.** Confounder 7 requires the record to hold
+the same values arranged differently. Here `crime_type` genuinely holds a *different*
+value afterwards, so the multiset does not match and the record fails that test. The
+re-sort is real but only explains one of the two fields.
+
+**Control.** A field that has essentially never moved on its own is not independent
+evidence. For each source, the conditional P(driver moved | field moved) is measured
+across the archive; at ≥97% over at least 8 movements, the field is recorded as following
+its driver. Such fields are discounted from the change count and the significance score —
+but only when the field they follow actually moved in the same delta — and they remain
+visible, labelled with what they follow. Separately, a re-sorted multi-valued field
+anywhere in a change now discounts the whole change, because a re-sort is a mechanical
+explanation for whatever moved with it.
+
+**Detection has to be measured, not named.** Nothing about `crime_type` marks it as
+derived. Only the archive's own record of what moves with what reveals it.
+
+### Confounder 11 — Schema migrations
 
 **Observed.** San Francisco's parking citations showed 4,083 simultaneous revisions in
 the same snapshot pair that added the columns `analysis_neighborhood`, `data_as_of`,

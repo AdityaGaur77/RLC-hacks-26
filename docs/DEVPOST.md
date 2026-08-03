@@ -117,7 +117,7 @@ for the proofs, a static HTML page for the evidence bundle. ~2,900 lines.
 
 ## Challenges we ran into
 
-Ten distinct mechanisms masquerade as editing. Each was found by investigating a result
+Eleven distinct mechanisms masquerade as editing. Each was found by investigating a result
 that looked like a scandal, and — this is the part that mattered — **each defeated the
 controls built for the previous ones.**
 
@@ -196,7 +196,20 @@ controls built for the previous ones.**
    `current_*` are recognised as pointers, with a negative lookahead so `last_name` isn't
    swallowed.
 
-10. **Schema migrations.** A newly added column differs in every record, absent → present.
+10. **Fields that are other fields' arithmetic.** A permit reported three values replaced
+    at once — but `submit_to_complete_biz` and `submit_to_complete_cal` are the interval
+    between submission and completion, so one date change was counted as three. Worse, a
+    DA record appeared to show `crime_type` downgraded from *Willful Homicide (Att.)* to
+    *Assault* — while its charge list was merely re-sorted, and `crime_type` names
+    whichever charge sits first. Confounder 7 can't catch that: `crime_type` genuinely
+    holds a different value afterwards, so the multiset doesn't match.
+    *Control:* measure P(driver moved | field moved) across the archive; at ≥97% over ≥8
+    movements, the field follows its driver and is discounted from the count and score —
+    but only when that driver actually moved in the same change. Nothing in the name
+    `crime_type` marks it as derived; only the archive's record of what moves with what
+    reveals it.
+
+11. **Schema migrations.** A newly added column differs in every record, absent → present.
    SF's parking citations showed 4,083 "revisions" in the sweep that added seven columns.
    *Control:* exclude added and removed columns from per-record deltas; the schema change
    is one finding.

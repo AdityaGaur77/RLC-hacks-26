@@ -31,7 +31,8 @@ from __future__ import annotations
 
 import json
 import logging
-from collections import defaultdict
+import re
+from collections import Counter, defaultdict
 from typing import Any
 
 log = logging.getLogger("palimpsest.volatility")
@@ -53,6 +54,14 @@ UNSTABLE_KEY_SHARE = 0.5
 #: must not be allowed to explain it away one column at a time.
 MANY_FIELDS_RECOMPUTED = 4
 
+#: A field that essentially never moves unless another specific field moves is
+#: not independent evidence — it is that field's arithmetic.
+DEPENDENCY_CONFIDENCE = 0.97
+
+#: ...measured over at least this many movements, so a handful of coincidences
+#: cannot manufacture a dependency.
+MIN_DEPENDENCY_OBS = 8
+
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS field_volatility (
     source_key   TEXT NOT NULL,
@@ -60,6 +69,16 @@ CREATE TABLE IF NOT EXISTS field_volatility (
     pairs_seen   INTEGER NOT NULL,
     mean_share   REAL NOT NULL,
     verdict      TEXT NOT NULL,   -- recomputed | ordinary
+    measured_at  TEXT NOT NULL,
+    PRIMARY KEY (source_key, field)
+) WITHOUT ROWID;
+
+CREATE TABLE IF NOT EXISTS field_dependency (
+    source_key   TEXT NOT NULL,
+    field        TEXT NOT NULL,   -- the dependent field
+    driver       TEXT NOT NULL,   -- the field it follows
+    observations INTEGER NOT NULL,
+    conditional  REAL NOT NULL,   -- P(driver moved | field moved)
     measured_at  TEXT NOT NULL,
     PRIMARY KEY (source_key, field)
 ) WITHOUT ROWID;
@@ -141,13 +160,149 @@ def measure(archive) -> dict[str, Any]:
     archive.conn.commit()
 
     stability = _measure_stability(archive, per_pair, pair_totals, recomputed)
+    dependency = _measure_dependency(archive, rows, recomputed)
 
     return {
         "fields_measured": written,
         "sources_with_recomputed_fields": len(recomputed),
         "recomputed_fields": {k: sorted(v) for k, v in recomputed.items() if v},
         "stability": stability,
+        "dependency": dependency,
     }
+
+
+#: Names of quantities that are computed from something else. Used only to
+#: orient a dependency whose direction the movement counts cannot settle —
+#: never to create one.
+_DERIVED_SHAPE = re.compile(
+    r"(_to_|days?$|_days|duration|elapsed|age|count|total|subtotal|sum|avg|"
+    r"percent|pct|rate|_calc|coordinate|latitude|longitude)",
+    re.I,
+)
+
+
+def _derived_shape(name: str) -> bool:
+    return bool(_DERIVED_SHAPE.search(name))
+
+
+def _measure_dependency(archive, rows, recomputed: dict[str, set[str]]) -> dict[str, Any]:
+    """Find fields that only ever move when some other field moves.
+
+    Two shapes of this were reported as separate edits, inflating one change
+    into three:
+
+        completed_date          2026-06-30 -> 2026-07-29
+        submit_to_complete_biz          83 -> 103
+        submit_to_complete_cal         119 -> 148
+
+    The two counters are the interval between submission and completion. They
+    are not additional facts about the permit; they are that date, subtracted.
+
+        list_of_booked_charges  664/187A,205,245A1 -> 205,245A1,664/187A
+        crime_type              Willful Homicide (Att.) -> Assault
+
+    The charge list was re-sorted, and `crime_type` names whatever is in first
+    position. Read as an independent field this says a prosecutor downgraded an
+    attempted homicide to assault, which is a serious claim to get wrong.
+
+    Neither is caught by measuring volatility: these fields are quiet most of the
+    time, and move only when their driver moves. So measure the conditional
+    instead — if a field has essentially never moved on its own, it is not
+    independent evidence of anything.
+    """
+    from datetime import datetime, timezone
+
+    # source -> field -> count of movements, and co-movement counts
+    moves: dict[str, Counter] = defaultdict(Counter)
+    co: dict[str, dict[str, Counter]] = defaultdict(lambda: defaultdict(Counter))
+
+    for r in rows:
+        try:
+            fields = list(json.loads(r["field_deltas"]))
+        except (TypeError, json.JSONDecodeError):
+            continue
+        if len(fields) < 1:
+            continue
+        src = r["source_key"]
+        for f in fields:
+            moves[src][f] += 1
+            for g in fields:
+                if g != f:
+                    co[src][f][g] += 1
+
+    now = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    found: dict[str, dict[str, str]] = defaultdict(dict)
+
+    for src, counts in moves.items():
+        drop = recomputed.get(src, set())
+        candidates: dict[str, tuple[str, int, float]] = {}
+
+        for field, n in counts.items():
+            if n < MIN_DEPENDENCY_OBS or field in drop:
+                continue
+            partners = co[src].get(field) or Counter()
+            # A recomputed column moves in nearly every record, so everything
+            # co-occurs with it. It explains nothing and cannot be a driver:
+            # without this, `location` is found to "follow" `sr_age_days`, a
+            # clock that advances for every record every day.
+            partners = Counter({
+                g: c for g, c in partners.items()
+                if g not in drop and counts.get(g, 0) >= n
+            })
+            if not partners:
+                continue
+            driver, together = partners.most_common(1)[0]
+            confidence = together / n
+            if confidence >= DEPENDENCY_CONFIDENCE:
+                candidates[field] = (driver, n, round(confidence, 4))
+
+        # Two fields that always move together each look like the other's
+        # consequence. Left as a cycle, both would be discounted and the change
+        # would report zero independent fields. Keep one direction only: the
+        # field that moves no more often than its driver is the dependent.
+        #
+        # When they move equally often the counts cannot decide it, and the
+        # answer still matters for how the finding reads: a duration is derived
+        # from a date, never the reverse. Reporting "completed_date follows
+        # submit_to_complete_biz" is backwards even though it discounts the
+        # right number of fields.
+        for field, (driver, n, conf) in list(candidates.items()):
+            back = candidates.get(driver)
+            if back and back[0] == field:
+                if n != back[1]:
+                    if n > back[1]:
+                        continue  # the more active field is not the dependent
+                elif _derived_shape(field) != _derived_shape(driver):
+                    if not _derived_shape(field):
+                        continue  # the other one looks like the computed quantity
+                elif field > driver:
+                    continue  # nothing to choose between them; be deterministic
+            archive.conn.execute(
+                "INSERT OR REPLACE INTO field_dependency VALUES (?,?,?,?,?,?)",
+                (src, field, driver, n, conf, now),
+            )
+            found[src][field] = driver
+
+    archive.conn.commit()
+    return {
+        "sources_with_dependencies": len(found),
+        "dependent_fields": sum(len(v) for v in found.values()),
+        "by_source": {k: dict(v) for k, v in found.items()},
+    }
+
+
+def dependent_fields(archive, source_key: str) -> dict[str, str]:
+    """Map of dependent field -> the field it follows, for one source."""
+    try:
+        return {
+            r["field"]: r["driver"]
+            for r in archive.conn.execute(
+                "SELECT field, driver FROM field_dependency WHERE source_key=?",
+                (source_key,),
+            )
+        }
+    except Exception:
+        return {}
 
 
 def _measure_stability(
@@ -281,6 +436,21 @@ if __name__ == "__main__":
         ).fetchone()
         log.info("  %s", (title["title"] if title else src)[:64])
         log.info("      %s", ", ".join(fields[:10]))
+
+    dep = res["dependency"]
+    log.info("")
+    log.info("=== fields that are other fields' arithmetic ===")
+    log.info(
+        "  %d dependent fields across %d sources",
+        dep["dependent_fields"], dep["sources_with_dependencies"],
+    )
+    for src, fields in sorted(dep["by_source"].items())[:12]:
+        title = arc.conn.execute(
+            "SELECT title FROM sources WHERE source_key=?", (src,)
+        ).fetchone()
+        log.info("  %s", (title["title"] if title else src)[:60])
+        for f, drv in sorted(fields.items())[:6]:
+            log.info("      %-30s follows %s", f, drv)
 
     st = res["stability"]
     log.info("")

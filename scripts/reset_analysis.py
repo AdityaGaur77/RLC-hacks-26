@@ -11,7 +11,17 @@ import sys
 db = sys.argv[1] if len(sys.argv) > 1 else "archive/palimpsest.db"
 conn = sqlite3.connect(db)
 
-for table in ("changes", "diff_runs", "field_volatility", "source_stability"):
+for table in (
+    "changes",
+    "diff_runs",
+    "field_volatility",
+    "source_stability",
+    # Omitting this one left 71 rows from a previous run in place, including
+    # both directions of dependencies whose cycles a later fix was meant to
+    # break. The stale pairs cancelled each other out and the control silently
+    # did nothing.
+    "field_dependency",
+):
     try:
         n = conn.execute(f"SELECT COUNT(1) FROM {table}").fetchone()[0]
         conn.execute(f"DELETE FROM {table}")
