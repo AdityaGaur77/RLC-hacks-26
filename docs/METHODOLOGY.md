@@ -119,6 +119,102 @@ rule would silently stop watching. Over-exclusion hides genuine revisions and le
 trace that it did so, which makes it the more dangerous error of the two. Every pattern
 is anchored end-to-end and matches only whole column names.
 
+### Confounder 4 — Recomputed columns that no pattern can name
+
+**Observed.** Austin's 311 dataset reported all 2,507 records in the stratum revised, on
+every sweep, indefinitely. The delta was always the same:
+
+```
+sr_age_days: 417 -> 418
+```
+
+San Francisco's parking citations reported 4,083 records revised at once, with
+`date_added` moving in 100% of them and `the_geom`, `supervisor_districts`,
+`analysis_neighborhood`, `latitude` and `longitude` moving in 98.2%.
+
+**Naive reading.** Two cities are editing their entire published record continuously.
+
+**Actual cause.** `sr_age_days` is the age of a service request in days, computed at
+export time. It is not a fact about a request; it is a clock, and it advances for every
+record every day forever. `date_added` is when a row entered the current export.
+`the_geom` and `supervisor_districts` are spatial joins recomputed on publication —
+the same class as Socrata's `:@computed_region_*`, but without the prefix that makes
+that class recognisable.
+
+**Why Confounder 3's control was insufficient.** Nothing in the names `sr_age_days` or
+`date_added` marks them as bookkeeping. A pattern set is a hypothesis about naming
+conventions, and these publishers simply do not share it. Extending the patterns to
+catch them would require guessing every future publisher's vocabulary, and each guess
+that overreaches silently stops watching a real field.
+
+**Control.** Stop guessing from names; measure behaviour. A column that changes in
+≥90% of revised records across ≥3 separate sweeps is not carrying information about
+individual records — it is being recomputed wholesale. This is a property of what the
+archive *observed*, and the archive is precisely the instrument for observing it.
+Such columns are excluded from revision claims, and a record whose entire delta
+consists of them is reclassified as mechanism rather than revision.
+
+This inverts the usual dependency: the analysis must run twice. The first pass exists
+only to reveal how each publisher behaves; the second pass is the one that is reported.
+
+### Confounder 5 — Keys that are unique but not stable
+
+**Observed.** Austin's campaign finance contributions showed revisions in which the
+donor name, amount, date, employer, occupation and address all changed at once:
+
+```
+record R20250101100720473-A00070
+  donor:               Krumme, Gregg  ->  Burns, David
+  contribution_amount: 450            ->  52.95
+record R20250101100720473-A00165
+  donor:               Mosser, Christopher -> Russell, James
+  contribution_amount: 52.95          ->  450
+```
+
+Seattle's permit review data changed `permitnum` itself in 99.5% of apparent revisions.
+
+**Naive reading.** Austin altered thousands of campaign contribution records — donors,
+amounts and dates — and Seattle rewrote its permit history.
+
+**Actual cause.** The key `...-A00070` is an *ordinal within a filing*, not an
+identifier of a contribution. When the publisher re-sorts rows, sequence numbers
+re-bind to different donors. Note the amounts trading places between the two records
+above: nothing was edited, the labels moved. A permit number that changes is likewise
+not identifying a permit.
+
+**Why the existing identity controls did not catch it.** These keys are unique and
+non-null, so they pass every structural test. Confounder 2's control compares
+departures against arrivals, but no record departs — the same key set is present
+throughout, pointing at different things.
+
+**Why it initially looked refuted.** The obvious test is whether the multiset of
+record contents is preserved: under pure re-labelling the population is unchanged.
+That test returned 0% preservation, appearing to confirm genuine editing. It was
+wrong because Confounder 4 was operating simultaneously — recomputed columns meant no
+record's content hash matched anything, permutation or not. **The two confounders had
+to be removed in the right order for either to be visible.**
+
+**Control.** Once recomputed columns are set aside, a source where most records still
+differ on a typical sweep is not tracking stable entities. Separately, when four or
+more distinct columns all behave as "recomputed", that breadth is itself the signal:
+recomputation touches a column or two, whereas an entire record changing means the key
+has re-bound. For such sources, **all per-record claims are withdrawn** and stated as
+withdrawn. Aggregate findings survive, because counts over a closed window do not
+depend on knowing which record is which.
+
+### Confounder 6 — Schema migrations
+
+**Observed.** San Francisco's parking citations showed 4,083 simultaneous revisions in
+the same snapshot pair that added the columns `analysis_neighborhood`, `data_as_of`,
+`data_loaded_at` and `latitude`.
+
+**Actual cause.** A column that did not previously exist differs in *every* record, from
+absent to present.
+
+**Control.** Columns added or removed between two observations are excluded from
+per-record deltas. The schema change is a finding, reported once, rather than a
+revision of every record simultaneously.
+
 ---
 
 ## What is actually measured

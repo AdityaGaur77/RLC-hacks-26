@@ -41,6 +41,9 @@ class ChangeKind:
     #: Records left under one identity and arrived under another, with no net
     #: change in population. Nothing was removed; the keys moved.
     IDENTITY_CHURN = "identity_churn"
+    #: The source's key does not identify a stable entity, so no per-record
+    #: revision claim about it can be honest. Reported once, in place of them.
+    WITHDRAWN_UNSTABLE_KEY = "withdrawn_unstable_key"
 
 
 # How consequential is a change to this field? Altering what an event *was*, or
@@ -118,12 +121,26 @@ def diff_snapshots(
 
     changes: list[dict[str, Any]] = []
 
+    # Columns the publisher recomputes on every run, learned from this archive's
+    # own observations rather than guessed from their names. See volatility.py:
+    # `sr_age_days` counts up daily for every record and is a clock, not a fact.
+    from . import volatility
+
+    ignored_fields = volatility.recomputed_fields(archive, source_key)
+
     # -- schema ------------------------------------------------------------
     cols_a = json.loads(snap_a["columns"] or "[]")
     cols_b = json.loads(snap_b["columns"] or "[]")
+    added = sorted(set(cols_b) - set(cols_a))
+    removed = sorted(set(cols_a) - set(cols_b))
+
+    # A column appearing makes every record differ on it. That is one schema
+    # change, reported once below -- not a revision of every record. Excluding
+    # these from per-record deltas is what stops a dataset migration from
+    # presenting as thousands of simultaneous edits.
+    ignored_fields = ignored_fields | set(added) | set(removed)
+
     if cols_a != cols_b:
-        added = sorted(set(cols_b) - set(cols_a))
-        removed = sorted(set(cols_a) - set(cols_b))
         if added or removed:
             changes.append(base(
                 ChangeKind.SCHEMA_DRIFT,
@@ -198,12 +215,31 @@ def diff_snapshots(
         before = archive.blob(ra["content_hash"]) or {}
         after = archive.blob(rb["content_hash"]) or {}
         deltas = _field_deltas(before, after)
+
+        # Set aside movement the publisher makes in every record regardless of
+        # content. What remains is the part that says something about this record.
+        surviving = {k: v for k, v in deltas.items() if k not in ignored_fields}
+        if not surviving:
+            # The record's hash moved, but only through columns the publisher
+            # rewrites wholesale. Nothing was revised.
+            changes.append(base(
+                ChangeKind.PROVENANCE_CHURN, row_uid=uid,
+                before_hash=ra["content_hash"], after_hash=rb["content_hash"],
+                significance=0.0,
+                detail=(
+                    "only recomputed columns moved ("
+                    + ", ".join(sorted(deltas)[:6])
+                    + "); no published value about this record changed"
+                ),
+            ))
+            continue
+
         changes.append(base(
             ChangeKind.SEMANTIC_REVISION, row_uid=uid,
             before_hash=ra["content_hash"], after_hash=rb["content_hash"],
-            field_deltas=deltas,
-            significance=_revision_significance(deltas),
-            detail=f"{len(deltas)} field(s) changed: {', '.join(sorted(deltas))[:300]}",
+            field_deltas=surviving,
+            significance=_revision_significance(surviving),
+            detail=f"{len(surviving)} field(s) changed: {', '.join(sorted(surviving))[:300]}",
         ))
 
     gone = sorted(keys_a - keys_b)
@@ -227,7 +263,50 @@ def diff_snapshots(
     identity_mode = (agg_b.get("identity_mode") or agg_a.get("identity_mode")
                      or "business_key")
     changes = _resolve_identity_churn(changes, len(gone), len(arrived), identity_mode)
+    changes = _withdraw_if_key_unstable(archive, source_key, changes, base)
     return _mark_coordinated(changes)
+
+
+def _withdraw_if_key_unstable(
+    archive, source_key: str, changes: list[dict[str, Any]], base
+) -> list[dict[str, Any]]:
+    """Drop per-record claims for sources whose key re-binds between publications.
+
+    Seattle's permit review data changes `permitnum` in 99.5% of apparent
+    revisions. A permit number that changes is not identifying a permit, so
+    "this record was revised" is a claim about nothing. The honest report is that
+    the source cannot support per-record claims at all — stated once, rather than
+    thousands of confident falsehoods.
+
+    Aggregate findings survive: counts over a closed window do not depend on
+    knowing which record is which.
+    """
+    from . import volatility
+
+    if not volatility.is_key_unstable(archive, source_key):
+        return changes
+
+    per_record = {
+        ChangeKind.SEMANTIC_REVISION,
+        ChangeKind.COORDINATED_REVISION,
+        ChangeKind.DELETION,
+        ChangeKind.RETROACTIVE_APPEND,
+        ChangeKind.IDENTITY_CHURN,
+        ChangeKind.PROVENANCE_CHURN,
+    }
+    dropped = sum(1 for c in changes if c["kind"] in per_record)
+    kept = [c for c in changes if c["kind"] not in per_record]
+
+    if dropped:
+        detail = volatility.unstable_sources(archive).get(source_key, "")
+        kept.append(base(
+            ChangeKind.WITHDRAWN_UNSTABLE_KEY,
+            significance=0.0,
+            detail=(
+                f"{dropped:,} apparent per-record changes withdrawn. {detail}"
+            ),
+        ))
+    return kept
 
 
 def _resolve_identity_churn(

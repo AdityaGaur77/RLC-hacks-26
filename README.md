@@ -49,6 +49,24 @@ So Palimpsest is built around a distinction that most of the work goes into:
 Only the second is a finding. The first is the false positive this project exists to
 refuse — and on republish-style portals, it is 98% of the signal.
 
+Six distinct mechanisms turned out to masquerade as editing. Each was found by
+investigating a result that looked like a scandal, and each is documented in
+[docs/METHODOLOGY.md](docs/METHODOLOGY.md) with the observation that exposed it:
+
+1. **Provenance churn** — the table is reloaded, so every row is "modified".
+2. **Identity churn** — 1,417 deletions arriving with 1,417 insertions and no change in population.
+3. **Bookkeeping columns** — `refresh_time` published as though it were a fact.
+4. **Recomputed columns no pattern can name** — `sr_age_days: 417 → 418`, a clock that advances for every record every day.
+5. **Keys that are unique but not stable** — an ordinal within a filing, re-binding to a different donor when rows are re-sorted.
+6. **Schema migrations** — a newly added column differs in every record, from absent to present.
+
+The last three are the interesting ones, because they defeat the controls built for the
+first three. Number 4 cannot be caught by naming rules at all, and forced the analysis
+to measure publisher behaviour empirically instead of guessing from column names.
+Number 5 initially appeared *refuted* by the obvious test — because number 4 was
+running simultaneously and masking it. They had to be removed in the right order for
+either to become visible.
+
 ---
 
 ## How it works
